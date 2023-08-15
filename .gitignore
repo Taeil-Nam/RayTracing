@@ -1,0 +1,10 @@
+/obj
+*.o
+*.a
+*.out
+*.dylib
+.DS_Store/
+.vs_code/
+
+miniRT
+
