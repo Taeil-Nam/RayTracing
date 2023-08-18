@@ -74,9 +74,18 @@ int print_image()
 	return (0);
 }
 
+#include "bvh.h"
+#include "object.h"
+#include "material.h"
+#include "texture.h"
+
 // main function!
 int main()
 {
+	t_hittable *hit;
+	t_sphere *s;
+	t_material *m;
+	t_texture *t;
 	print_image();
 	return (0);
 }
