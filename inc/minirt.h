@@ -1,8 +1,11 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include <stdbool.h>
 # include "vec3.h"
-# include "material.h"
+# include "ray.h"
+
+typedef struct s_material	t_material;
 
 typedef struct s_hit_record
 {
@@ -14,6 +17,6 @@ typedef struct s_hit_record
 	double		v;
 	bool		front_face;
 	int			depth;
-}	t_hit_record;
+}	t_hit_rec;
 
 #endif

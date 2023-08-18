@@ -1,7 +1,9 @@
 #ifndef TEXTURE_H
 # define TEXTURE_H
 
-# include "bvh.h"
+# include "minirt.h"
+
+typedef t_color	(*t_value)(t_hit_rec *, void *, void *, t_color);
 
 enum e_texture_type
 {
@@ -16,11 +18,11 @@ typedef struct s_texture
 	t_color				rgb;
 	void				*img;
 	void				*bmp_img;
-	t_color				(*value)(t_hit_record *, void *, void *, t_color);
+	t_value				value;
 }	t_texture;
 
-t_color	*solid_value(t_hit_record *rec, void *img, void *bum_img, t_color rgb);
-t_color	*checker_value(t_hit_record *rec, void *img, void *bum_img, t_color rgb);
-t_color	*img_value(t_hit_record *rec, void *img, void *bum_img, t_color rgb);
+t_color	*solid_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
+t_color	*checker_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
+t_color	*img_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
 
 #endif
