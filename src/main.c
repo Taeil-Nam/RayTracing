@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <mlx.h>
 #include <stdlib.h>
+#include "minirt.h"
+#include "vec3.h"
 
 // mlx 구조체
 typedef struct	s_vars {
@@ -74,18 +76,40 @@ int print_image()
 	return (0);
 }
 
-#include "bvh.h"
-#include "object.h"
-#include "material.h"
-#include "texture.h"
-
 // main function!
 int main()
 {
-	t_hittable *hit;
-	t_sphere *s;
-	t_material *m;
-	t_texture *t;
+	/* vec3 test START */
+	t_vec3	v, v1, v2;
+
+	v.x = 0;
+	v.y = 0;
+	v.z = 0;
+	v1.x = 1;
+	v1.y = 1;
+	v1.z = 1;
+	v2.x = 2;
+	v2.y = 2;
+	v2.z = 2;
+
+	// 1. Add
+	v = vec3_add(&v, &v1);
+	vec3_print(&v);
+
+	// 2. Sub
+	v = vec3_sub(&v2, &v1);
+	vec3_print(&v);
+
+	// 3. mul with vecter
+	v = vec3_mul_vec3(&v, &v2);
+	vec3_print(&v);
+
+	// 4. mul with scalar
+	v = vec3_mul_scalar(&v, 5.0);
+	vec3_print(&v);
+
+	/* vec3 test END */
+
 	print_image();
 	return (0);
 }

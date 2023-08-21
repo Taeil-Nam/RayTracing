@@ -12,7 +12,11 @@ CFLAGS=-Wall -Werror -Wextra
 CLIB=-Llibft -lft -Lmlx -lmlx -framework OpenGL -framework Appkit
 INC=-Ilibft -Imlx -Iinc
 
-FILE=main.c \
+FILE=	main.c		\
+		vec3_1.c	\
+		vec3_2.c	\
+		vec3_3.c	\
+		vec3_4.c	\
 
 all : $(NAME)
 
