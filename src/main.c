@@ -79,7 +79,21 @@ int print_image()
 /* vec3 test function */
 void	vec3_test(void)
 {
+	t_vec3	v1, v2, v3;
 
+	v1.x = v1.y = v1.z = 1;
+	v2.x = v2.y = v2.z = 2;
+	v3.x = v3.y = v3.z = 3;
+
+	/* vec3_1 */
+	v1 = vec3_add(v2, v3);
+	vec3_print(v1);
+	v1 = vec3_sub(v3, v2);
+	vec3_print(v1);
+	v1 = vec3_mul_vec3(v3, v2);
+	vec3_print(v1);
+	v1 = vec3_mul_scalar(v2, 5);
+	vec3_print(v1);
 }
 
 // main function!

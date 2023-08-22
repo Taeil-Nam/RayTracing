@@ -12,11 +12,11 @@ CFLAGS=-Wall -Werror -Wextra
 CLIB=-Llibft -lft -Lmlx -lmlx -framework OpenGL -framework Appkit
 INC=-Ilibft -Imlx -Iinc
 
-FILE=	main.c		\
-		vec3_1.c	\
-		vec3_2.c	\
-		vec3_3.c	\
-		vec3_4.c	\
+FILE=	main.c				\
+		vec3/vec3_1.c		\
+		vec3/vec3_2.c		\
+		vec3/vec3_3.c		\
+		vec3/vec3_4.c		\
 
 all : $(NAME)
 
@@ -24,6 +24,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(MAKE) -C ./mlx
 	$(MAKE) -C ./libft
 	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/vec3
 	$(CC) $(CFLAG) -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)

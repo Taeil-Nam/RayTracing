@@ -36,6 +36,6 @@ t_vec3	vec3_refract(t_vec3 *uv, t_vec3 *n, double etai_over_etat);
 
 /* vec3_4.c */
 bool	vec3_near_zero(t_vec3 *v); //vec3가 0vector인지
-void	vec3_print(t_vec3 *v); //print vec3
+void	vec3_print(t_vec3 v); //print vec3
 
 #endif
