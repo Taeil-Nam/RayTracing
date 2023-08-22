@@ -13,6 +13,4 @@ typedef struct s_hittable
 	struct s_hittable	*right;
 }	t_hittable;
 
-void	set_face_normal(t_ray *r, t_vec3 *o_n, t_hit_rec *rec);
-
 #endif

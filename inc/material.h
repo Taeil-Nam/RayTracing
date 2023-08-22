@@ -19,7 +19,7 @@ typedef struct s_material
 	enum e_mat_type	mat_type;
 	double			fuzz;
 	int				ir;
-	t_texture		*t;
+	t_texture		t;
 	t_emit			emit;
 	t_scatter		scatter;
 }	t_material;

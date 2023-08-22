@@ -2,8 +2,22 @@
 # define MINIRT_H
 
 # include <stdbool.h>
+# include "libft.h"
 # include "vec3.h"
 # include "ray.h"
+
+# define DEFAULT_IMAGE_WID 1600
+# define DEFAULT_IMAGE_HGT 900
+# define PI 3.1415926535897932385
+
+# define AMBIENT "A"
+# define CAMERA "C"
+# define LIGHT "L"
+# define SPHERE "sp"
+# define PLANE "pl"
+# define CYLINDER "cy"
+
+# define ERR_ARGV_MSG "miniRT : Argument Error : filename with .rt"
 
 typedef struct s_material	t_material;
 
@@ -19,4 +33,28 @@ typedef struct s_hit_record
 	int			depth;
 }	t_hit_rec;
 
+typedef struct s_camera
+{
+	t_point3	center;
+    t_point3	lower_left_corner;
+    t_vec3		horizontal;
+    t_vec3		vertical;
+    t_vec3		u;
+	t_vec3		v;
+	t_vec3		w;
+	t_color		a_background;
+	double		a_ratio;
+}	t_camera;
+
+void	set_face_normal(t_ray *r, t_vec3 *o_n, t_hit_rec *rec);
+
+/* parser_utils.c 관련함수 */
+int		data_to_rgb(char *str, t_color *rgb);
+int		data_to_point(char *str, t_point3 *point);
+int		count_element_2pt_arr(char **data);
+
+/* camera.c 관련 함수 */
+double	degrees_to_radians(double degrees);
+void	set_camera_pos(t_point3 look_from, t_vec3 dir, double hfov, t_camera *cam);
+void	set_camera_image(t_color background, double ratio, t_camera *cam);
 #endif
