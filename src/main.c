@@ -76,40 +76,19 @@ int print_image()
 	return (0);
 }
 
-// main function!
-int main()
+/* vec3 test function */
+void	vec3_test(void)
 {
-	/* vec3 test START */
-	t_vec3	v, v1, v2;
 
-	v.x = 0;
-	v.y = 0;
-	v.z = 0;
-	v1.x = 1;
-	v1.y = 1;
-	v1.z = 1;
-	v2.x = 2;
-	v2.y = 2;
-	v2.z = 2;
+}
 
-	// 1. Add
-	v = vec3_add(&v, &v1);
-	vec3_print(&v);
+// main function!
+int	main()
+{
+	/* vec3 test */
+	vec3_test();
 
-	// 2. Sub
-	v = vec3_sub(&v2, &v1);
-	vec3_print(&v);
-
-	// 3. mul with vecter
-	v = vec3_mul_vec3(&v, &v2);
-	vec3_print(&v);
-
-	// 4. mul with scalar
-	v = vec3_mul_scalar(&v, 5.0);
-	vec3_print(&v);
-
-	/* vec3 test END */
-
+	/* main logic */
 	print_image();
 	return (0);
 }

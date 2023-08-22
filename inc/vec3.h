@@ -15,10 +15,10 @@ typedef t_vec3	t_point3;
 typedef t_vec3	t_color;
 
 /* vec3_1.c */
-t_vec3	vec3_add(t_vec3 *left, t_vec3 *right); //left + right의 대한 값 반환
-t_vec3	vec3_sub(t_vec3 *left, t_vec3 *right); //left - right의 대한 값 반환
-t_vec3	vec3_mul_vec3(t_vec3 *left, t_vec3 *right); //left * right의 대한 값 반환
-t_vec3	vec3_mul_scalar(t_vec3 *left, double right); //left * scalar의 대한 값 반환
+t_vec3	vec3_add(t_vec3 left, t_vec3 right); //left + right의 대한 값 반환
+t_vec3	vec3_sub(t_vec3 left, t_vec3 right); //left - right의 대한 값 반환
+t_vec3	vec3_mul_vec3(t_vec3 left, t_vec3 right); //left * right의 대한 값 반환
+t_vec3	vec3_mul_scalar(t_vec3 left, double right); //left * scalar의 대한 값 반환
 
 /* vec3_2.c */
 double	vec3_length(t_vec3 *v); //벡터의 길이 구하는 함수
