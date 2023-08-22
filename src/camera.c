@@ -1,7 +1,8 @@
 #include "minirt.h"
 
-double	degrees_to_radians(double degrees) {
-    return degrees * PI / 180.0;
+double	degrees_to_radians(double degrees)
+{
+	return (degrees * PI / 180.0);
 }
 
 t_vec3	get_lower_left_corner(t_camera *cam)
@@ -26,7 +27,8 @@ void	set_camera_image(t_color background, double ratio, t_camera *cam)
 	cam->a_ratio = ratio;
 }
 
-void	set_camera_pos(t_point3 look_from, t_vec3 dir, double hfov, t_camera *cam)
+void	set_camera_pos(t_point3 look_from, t_vec3 dir,
+						double hfov, t_camera *cam)
 {
 	t_vec3	vup;
 	double	viewport_h;
@@ -36,7 +38,7 @@ void	set_camera_pos(t_point3 look_from, t_vec3 dir, double hfov, t_camera *cam)
 	vup.y = 1.0;
 	vup.z = 0;
 	viewport_w = tan(degrees_to_radians(hfov) / 2) * 2.0;
-	viewport_h = viewport_w * (DEFAULT_IMAGE_HGT / DEFAULT_IMAGE_WID);
+	viewport_h = viewport_w * ((double)DEFAULT_IMAGE_HGT / DEFAULT_IMAGE_WID);
 	cam->w = vec3_unit(dir);
 	cam->u = vec3_unit(vec3_cross(vup, cam->w));
 	cam->v = vec3_cross(cam->w, cam->u);

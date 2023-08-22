@@ -18,6 +18,12 @@ FILE=	main.c				\
 		vec3/vec3_2.c		\
 		vec3/vec3_3.c		\
 		vec3/vec3_4.c		\
+		parser/parser_1.c	\
+		parser/parser_2.c	\
+		parser/parser_3.c	\
+		parser/parser_util.c\
+		parser/constructor.c\
+		camera.c			\
 
 all : $(NAME)
 
@@ -27,10 +33,11 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/utils
 	mkdir -p $(OBJ_DIR)/vec3
-	$(CC) $(CFLAG) -c $< -o $@ $(INC)
+	mkdir -p $(OBJ_DIR)/parser
+	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(CLIB) $(SRC) -o $(NAME) $(INC)
+	$(CC) $(CFLAGS) -g $(CLIB) $(SRC) -o $(NAME) $(INC)
 	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 clean :

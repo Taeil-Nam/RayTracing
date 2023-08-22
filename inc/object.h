@@ -4,6 +4,8 @@
 # include "minirt.h"
 # include "material.h"
 
+# define DEFAULT_LIGHT_SIZE 3
+
 typedef struct s_sphere
 {
 	t_vec3		center;
@@ -11,9 +13,12 @@ typedef struct s_sphere
 	t_material	mat;
 }	t_sphere;
 
-bool	sphere_hit(t_ray *r, double min_t, double max_t,
+bool		sphere_hit(t_ray *r, double min_t, double max_t,
 			t_hit_rec *rec, void *object);
-bool	aabb_hit(t_ray *r, double min_t, double max_t,
+bool		aabb_hit(t_ray *r, double min_t, double max_t,
 			t_hit_rec *rec, void *object);
+
+t_sphere	*sphere_constructor(t_point3 center, double radius, t_color rgb);
+t_sphere	*light_constructor(t_point3 center, double ratio, t_color rgb);
 
 #endif

@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "minirt.h"
+#include "bvh.h"
+#include "object.h"
 #include "vec3.h"
 
 // mlx 구조체
@@ -141,12 +143,23 @@ void	vec3_test(void)
 }
 
 // main function!
-int	main()
+int	main(int argc, char *argv[])
 {
 	/* vec3 test */
-	vec3_test();
+	//vec3_test();
 
 	/* main logic */
-	print_image();
+	//print_image();
+	t_list		*list;
+	t_camera	cam;
+
+	list = NULL;
+	if (argc != 2)
+		return (0);
+	minirt_parser(argv[1], &list, &cam);
+	t_sphere *light = (t_sphere *)(((t_hittable *)(list->content))->object);
+	t_sphere *sphere= (t_sphere *)(((t_hittable *)(list->next->content))->object);
+	light = NULL;
+	sphere = NULL;
 	return (0);
 }

@@ -3,7 +3,7 @@
 
 # include "minirt.h"
 
-typedef t_color	(*t_value)(t_hit_rec *, void *, void *, t_color);
+typedef t_color	*(*t_value)(t_hit_rec *, void *, void *, t_color);
 
 enum e_texture_type
 {
