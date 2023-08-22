@@ -21,11 +21,11 @@ t_vec3	vec3_mul_vec3(t_vec3 left, t_vec3 right); //left * right의 대한 값 �
 t_vec3	vec3_mul_scalar(t_vec3 left, double right); //left * scalar의 대한 값 반환
 
 /* vec3_2.c */
-double	vec3_length(t_vec3 *v); //벡터의 길이 구하는 함수
-double	vec3_squared(t_vec3 *v); //벡터 거리 제곱
-double	vec3_dot(t_vec3 *left, t_vec3 *right); // dot product
-t_vec3	vec3_cross(t_vec3 *left, t_vec3 *right); // cross product
-t_vec3	vec3_unit(t_vec3 *v); //make unit vector from v
+double	vec3_length(t_vec3 v); //벡터의 길이 구하는 함수
+double	vec3_squared(t_vec3 v); //벡터 거리 제곱
+double	vec3_dot(t_vec3 left, t_vec3 right); // dot product
+t_vec3	vec3_cross(t_vec3 left, t_vec3 right); // cross product
+t_vec3	vec3_unit(t_vec3 v); //make unit vector from v
 
 /* vec3_3.c */
 t_vec3	vec3_random(void); //random vec3

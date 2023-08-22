@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <mlx.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "minirt.h"
 #include "vec3.h"
 
@@ -86,6 +87,7 @@ void	vec3_test(void)
 	v3.x = v3.y = v3.z = 3;
 
 	/* vec3_1 */
+	printf("=== vec3_1 ===\n");
 	v1 = vec3_add(v2, v3);
 	vec3_print(v1);
 	v1 = vec3_sub(v3, v2);
@@ -94,6 +96,22 @@ void	vec3_test(void)
 	vec3_print(v1);
 	v1 = vec3_mul_scalar(v2, 5);
 	vec3_print(v1);
+
+	/* vec3_2 */
+	printf("=== vec3_2 ===\n");
+	v2.x = 2;
+	v2.y = 5;
+	v2.z = 3;
+
+	v3.x = 3;
+	v3.y = 19;
+	v3.z = 45;
+
+	printf("v3 length = %.3f\n", vec3_length(v3));
+	printf("v3 length_squared = %.3f\n", vec3_squared(v3));
+	printf("v2, v3 dot = %.3f\n", vec3_dot(v2, v3));
+	printf("v2, v3 cross = "); vec3_print(vec3_cross(v2, v3));
+	printf("v3_unit = "); vec3_print(vec3_unit(v3));
 }
 
 // main function!
