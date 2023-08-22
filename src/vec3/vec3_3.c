@@ -1,8 +1,9 @@
-/* random, random_in_unit_sphere, random_unit, reflect, refract */
+/* vec3_random, vec3_random_mm, random_in_unit_sphere, random_unit */
 
 #include "vec3.h"
 
 double	random_double(void);
+double	random_double_mm(double min, double max);
 
 t_vec3	vec3_random(void)
 {
@@ -14,22 +15,31 @@ t_vec3	vec3_random(void)
 	return (v);
 }
 
-//t_vec3	vec3_random_in_unit_sphere(void)
-//{
+t_vec3	vec3_random_mm(double min, double max)
+{
+	t_vec3	v;
 
-//}
+	v.x = random_double_mm(min, max);
+	v.y = random_double_mm(min, max);
+	v.z = random_double_mm(min, max);
+	return (v);
+}
 
-//t_vec3	vec3_random_unit(void)
-//{
+t_vec3	vec3_random_in_unit_sphere(void)
+{
+	t_vec3	point;
 
-//}
+	while (true)
+	{
+		point = vec3_random_mm(-1, 1);
+		if (vec3_squared(point) >= 1)
+			continue ;
+		return (point);
+	}
+}
 
-//t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
-//{
+t_vec3	vec3_random_unit(void)
+{
+	return (vec3_unit(vec3_random_in_unit_sphere()));
+}
 
-//}
-
-//t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat)
-//{
-
-//}

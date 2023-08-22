@@ -116,6 +116,28 @@ void	vec3_test(void)
 	/* vec3_3 */
 	printf("=== vec3_3 ===\n");
 	printf("random vecter = "); vec3_print(vec3_random());
+	printf("random vecter = "); vec3_print(vec3_random());
+	printf("random vecter = "); vec3_print(vec3_random());
+	printf("random vecter = "); vec3_print(vec3_random());
+	printf("random vecter = "); vec3_print(vec3_random());
+
+	printf("random_mm vecter = "); vec3_print(vec3_random_mm(-1, 1));
+	printf("random_mm vecter = "); vec3_print(vec3_random_mm(-1, 1));
+	printf("random_mm vecter = "); vec3_print(vec3_random_mm(-1, 1));
+	printf("random_mm vecter = "); vec3_print(vec3_random_mm(-1, 1));
+	printf("random_mm vecter = "); vec3_print(vec3_random_mm(-1, 1));
+
+	printf("random_in unit sphere = "); vec3_print(vec3_random_in_unit_sphere());
+	printf("random_in unit sphere = "); vec3_print(vec3_random_in_unit_sphere());
+	printf("random_in unit sphere = "); vec3_print(vec3_random_in_unit_sphere());
+	printf("random_in unit sphere = "); vec3_print(vec3_random_in_unit_sphere());
+	printf("random_in unit sphere = "); vec3_print(vec3_random_in_unit_sphere());
+
+	printf("random_unit = "); vec3_print(vec3_random_unit());
+	printf("random_unit = "); vec3_print(vec3_random_unit());
+	printf("random_unit = "); vec3_print(vec3_random_unit());
+	printf("random_unit = "); vec3_print(vec3_random_unit());
+	printf("random_unit = "); vec3_print(vec3_random_unit());
 }
 
 // main function!
