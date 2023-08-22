@@ -31,11 +31,11 @@ t_vec3	vec3_unit(t_vec3 v); //make unit vector from v
 t_vec3	vec3_random(void); //random vec3
 t_vec3	vec3_random_in_unit_sphere(void); //return vector in unitsphere
 t_vec3	vec3_random_unit(void); //return random unit vector
-t_vec3	vec3_reflect(t_vec3 *v, t_vec3 *n); //return reflect vector
-t_vec3	vec3_refract(t_vec3 *uv, t_vec3 *n, double etai_over_etat);
+t_vec3	vec3_reflect(t_vec3 v, t_vec3 n); //return reflect vector
+t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 
 /* vec3_4.c */
-bool	vec3_near_zero(t_vec3 *v); //vec3가 0vector인지
+bool	vec3_near_zero(t_vec3 v); //vec3가 0vector인지
 void	vec3_print(t_vec3 v); //print vec3
 
 #endif

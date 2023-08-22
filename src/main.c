@@ -112,6 +112,10 @@ void	vec3_test(void)
 	printf("v2, v3 dot = %.3f\n", vec3_dot(v2, v3));
 	printf("v2, v3 cross = "); vec3_print(vec3_cross(v2, v3));
 	printf("v3_unit = "); vec3_print(vec3_unit(v3));
+
+	/* vec3_3 */
+	printf("=== vec3_3 ===\n");
+	printf("random vecter = "); vec3_print(vec3_random());
 }
 
 // main function!

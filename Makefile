@@ -13,6 +13,7 @@ CLIB=-Llibft -lft -Lmlx -lmlx -framework OpenGL -framework Appkit
 INC=-Ilibft -Imlx -Iinc
 
 FILE=	main.c				\
+		utils/utils_1.c		\
 		vec3/vec3_1.c		\
 		vec3/vec3_2.c		\
 		vec3/vec3_3.c		\
@@ -24,6 +25,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	$(MAKE) -C ./mlx
 	$(MAKE) -C ./libft
 	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+	mkdir -p $(OBJ_DIR)/utils
 	mkdir -p $(OBJ_DIR)/vec3
 	$(CC) $(CFLAG) -c $< -o $@ $(INC)
 
