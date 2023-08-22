@@ -11,7 +11,8 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c ft_isascii.c\
 	   ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c get_next_line.c get_next_line_utils.c \
 	   ft_printf_recur.c ft_printf_utils.c ft_printf.c \
 	   ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_abs.c \
-	   ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_swap.c ft_double_free.c ft_split_white.c
+	   ft_lstiter.c ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstsize.c ft_swap.c ft_double_free.c ft_split_white.c \
+	   ft_strequal.c ft_atod.c
 
 OBJS = $(SRCS:.c=.o)
 

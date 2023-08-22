@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:38:37 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:16:59 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/08/21 18:17:35 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+
+# define ATOD_FORMAT_ERR 1
 
 typedef struct s_list
 {
@@ -71,5 +73,8 @@ void	ft_swap(int *a, int *b);
 void	ft_double_free(char **argv);
 char	**ft_split_white(char const *s);
 int		ft_abs(int num);
+
+int		ft_strequal(char *s1, char *s2);
+double	ft_atod(char *str, int *atod_err);
 
 #endif
