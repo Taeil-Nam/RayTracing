@@ -22,6 +22,7 @@ int	sphere_data(char **data, t_list **list)
 		return (-1);
 	new_object = (t_hittable *)malloc(sizeof(t_hittable));
 	new_object->object = sphere_constructor(center, radius, rgb);
+	new_object->center = ((t_sphere *)new_object->object)->center;
 	//new_object->hit = sphere_hit;
 	ft_lstadd_back(list, ft_lstnew(new_object));
 	return (1);

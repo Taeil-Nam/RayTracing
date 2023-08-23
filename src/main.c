@@ -152,8 +152,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (0);
 	minirt_parser(argv[1], &list, &cam);
-	t_sphere *light = (t_sphere *)(((t_hittable *)(list->content))->object);
-	t_sphere *sphere= (t_sphere *)(((t_hittable *)(list->next->content))->object);
+	t_hittable *light = ((t_hittable *)(list->content));
+	t_hittable *sphere= (t_hittable *)(list->next->content);
 	light = NULL;
 	sphere = NULL;
 	return (0);
