@@ -5,6 +5,6 @@
 *.dylib
 .DS_Store/
 .vscode/
-
+.normignore
 miniRT
 

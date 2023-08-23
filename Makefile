@@ -23,23 +23,25 @@ FILE=	main.c				\
 		parser/parser_3.c	\
 		parser/parser_util.c\
 		parser/constructor.c\
+		bvh/bvh.c			\
+		bvh/comparator.c	\
 		bvh/bvh_utils.c		\
 		camera.c			\
 
 all : $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	$(MAKE) -C ./mlx
-	$(MAKE) -C ./libft
 	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/utils
-	mkdir -p $(OBJ_DIR)/vec3
-	mkdir -p $(OBJ_DIR)/parser
-	mkdir -p $(OBJ_DIR)/bvh
+	@test -d $(OBJ_DIR)utils || mkdir -p $(OBJ_DIR)utils
+	@test -d $(OBJ_DIR)vec3 || mkdir -p $(OBJ_DIR)vec3
+	@test -d $(OBJ_DIR)parser || mkdir -p $(OBJ_DIR)parser
+	@test -d $(OBJ_DIR)bvh || mkdir -p $(OBJ_DIR)bvh
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) -g $(CLIB) $(SRC) -o $(NAME) $(INC)
+	$(MAKE) -C ./mlx
+	$(MAKE) -C ./libft
+	$(CC) $(CFLAGS) $(CLIB) $(OBJ) -o $(NAME) $(INC)
 	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 clean :

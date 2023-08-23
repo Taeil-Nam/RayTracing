@@ -6,7 +6,6 @@
 
 typedef bool	(*t_hit)(t_ray *, double, double, t_hit_rec *, void *);
 typedef t_aabb	(*t_b_box)(void *);
-typedef int		(*t_comparator)(t_hittable *, t_hittable *);
 
 typedef struct s_hittable
 {
@@ -18,7 +17,13 @@ typedef struct s_hittable
 	struct s_hittable	*right;
 }	t_hittable;
 
+typedef int		(*t_comparator)(t_hittable *, t_hittable *);
+
+/* bvh.c */
+t_hittable	*make_bvh(t_hittable **hittables, int i, int j);
+
 /* bvh_utils.c */
+void		dummy(void *object);
 t_hittable	**list_to_hittable_arr(t_list *list);
 void		quick_sort(t_hittable **arr, int left, int right,
 					t_comparator comparator);

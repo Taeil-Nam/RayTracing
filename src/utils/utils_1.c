@@ -20,3 +20,13 @@ double	random_double_mm(double min, double max)
 {
 	return (min + ((max - min) * random_double()));
 }
+
+int	random_int(void)
+{
+	return ((int)random_double());
+}
+
+int	random_int_mm(int min, int max)
+{
+	return ((int)random_double_mm(min, max + 1));
+}

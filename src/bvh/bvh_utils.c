@@ -11,10 +11,8 @@ t_hittable	**list_to_hittable_arr(t_list *list)
 	int			size;
 	int			index;
 	t_hittable	**arr;
-	t_list		*tmp;
 
 	index = 0;
-	tmp = list;
 	if (list == NULL)
 		return (NULL);
 	size = ft_lstsize(list);
@@ -25,7 +23,6 @@ t_hittable	**list_to_hittable_arr(t_list *list)
 		list = list->next;
 		index++;
 	}
-	ft_lstclear(&tmp, dummy);
 	return (arr);
 }
 
@@ -36,6 +33,7 @@ void	quick_sort(t_hittable **arr, int left, int right,
 	int			j;
 	t_hittable	*key;
 
+	printf("%d, %d, %p\n", left, right,  comparator); //
 	i = left;
 	j = right;
 	key = arr[left];
