@@ -2,13 +2,13 @@
 
 unsigned int	custom_rand(void)
 {
-	static unsigned long long int	seed = 1;
-	const unsigned long long int	a = 6364136223846793005ULL;
-	const unsigned long long int	c = 1ULL << 30;
-	const unsigned long long int	m = 1ULL << 62;
+	static unsigned long	seed = 1UL;
+	const unsigned long		a = 1103515245UL;
+	const unsigned long		c = 12345UL;
+	const unsigned long		m = 1UL << 31;
 
 	seed = (a * seed + c) % m;
-	return ((unsigned int)(seed >> 31));
+	return (seed);
 }
 
 double	random_double(void)
