@@ -24,7 +24,6 @@ int	is_value_btw_255(int value, int *rgb_errno)
 int	data_to_rgb(char *str, t_color *rgb)
 {
 	char	**rgb_data;
-	int		value;
 	int		rgb_errno;
 
 	rgb_errno = 0;
@@ -37,7 +36,6 @@ int	data_to_rgb(char *str, t_color *rgb)
 	rgb->x = is_value_btw_255(ft_atoi(rgb_data[0]), &rgb_errno);
 	rgb->y = is_value_btw_255(ft_atoi(rgb_data[1]), &rgb_errno);
 	rgb->z = is_value_btw_255(ft_atoi(rgb_data[2]), &rgb_errno);
-	value = ft_atoi(rgb_data[1]);
 	ft_double_free(rgb_data);
 	if (rgb_errno == 1)
 		return (-1);
