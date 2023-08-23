@@ -26,6 +26,8 @@ FILE=	main.c				\
 		bvh/bvh.c			\
 		bvh/comparator.c	\
 		bvh/bvh_utils.c		\
+		object/aabb.c		\
+		object/sphere.c		\
 		camera.c			\
 
 all : $(NAME)
@@ -36,6 +38,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR)vec3 || mkdir -p $(OBJ_DIR)vec3
 	@test -d $(OBJ_DIR)parser || mkdir -p $(OBJ_DIR)parser
 	@test -d $(OBJ_DIR)bvh || mkdir -p $(OBJ_DIR)bvh
+	@test -d $(OBJ_DIR)object || mkdir -p $(OBJ_DIR)object
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)

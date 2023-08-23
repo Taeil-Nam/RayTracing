@@ -33,7 +33,6 @@ void	quick_sort(t_hittable **arr, int left, int right,
 	int			j;
 	t_hittable	*key;
 
-	printf("%d, %d, %p\n", left, right,  comparator); //
 	i = left;
 	j = right;
 	key = arr[left];

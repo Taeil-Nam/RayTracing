@@ -24,6 +24,7 @@ int	sphere_data(char **data, t_list **list)
 	new_object->object = sphere_constructor(center, radius, rgb);
 	new_object->center = ((t_sphere *)new_object->object)->center;
 	//new_object->hit = sphere_hit;
+	new_object->b_box = sphere_b_box;
 	ft_lstadd_back(list, ft_lstnew(new_object));
 	return (1);
 }

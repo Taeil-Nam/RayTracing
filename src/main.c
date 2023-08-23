@@ -153,7 +153,11 @@ int	main(int argc, char *argv[])
 	list = NULL;
 	if (argc != 2)
 		return (0);
-	minirt_parser(argv[1], &list, &cam);
+	if (minirt_parser(argv[1], &list, &cam) == -1)
+	{
+		perror("map Error!\n");
+		return (0);
+	}
 	hittables = list_to_hittable_arr(list);
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
