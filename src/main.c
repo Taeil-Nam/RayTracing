@@ -152,9 +152,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return (0);
 	minirt_parser(argv[1], &list, &cam);
-	t_hittable *light = ((t_hittable *)(list->content));
-	t_hittable *sphere= (t_hittable *)(list->next->content);
-	light = NULL;
-	sphere = NULL;
+	t_hittable **arr = list_to_hittable_arr(list);
+	arr = NULL;
 	return (0);
 }

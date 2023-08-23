@@ -23,6 +23,7 @@ FILE=	main.c				\
 		parser/parser_3.c	\
 		parser/parser_util.c\
 		parser/constructor.c\
+		bvh/bvh_utils.c		\
 		camera.c			\
 
 all : $(NAME)
@@ -34,6 +35,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	mkdir -p $(OBJ_DIR)/utils
 	mkdir -p $(OBJ_DIR)/vec3
 	mkdir -p $(OBJ_DIR)/parser
+	mkdir -p $(OBJ_DIR)/bvh
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)
