@@ -6,6 +6,7 @@
 #include "bvh.h"
 #include "object.h"
 #include "vec3.h"
+#include "ray.h"
 
 // mlx 구조체
 typedef struct	s_vars {
@@ -68,6 +69,18 @@ int print_image()
 			double r = (double)(img_width - j) / (img_width - 1);
 			double g = (double)(i) / (img_height - 1);
 			double b = 1;
+			// 1. ray 생성 (ray 생성 전용 함수로 따로 처리해야 할 듯)
+			//  1-1. ray의 orig, dir 계산 후 지정 필요. (orig = 카메라, dir = i, j 비율에 맞는 viewport의 좌표) 
+			// 2. ray hit 유무에 따른 픽셀 color 계산
+			//  2-1. 샘플링 할 경우, max_sample 만큼 반복
+			//  2-2. 샘플링 안할 경우, 한번만 수행
+			//  2-3. depth 만큼 ray 반사. (no hit시, 배경색으로 바로 return)
+			// 3. color에 계산한 색상 넣어주기
+			//  3-1. 샘플링 한 경우, color를 max_sample로 나눠줌
+			//	3-2. 샘플링 안한 경우 color값 그대로 사용
+			//  3-3. 감마 보정 및 rgb 범위를 0-255로 변환
+			// 4. mlx로 전달해서 픽셀 완성
+
 			color = ((int)(255.999 * r) << 16) + ((int)(255.999 * g) << 8) + ((int)(255.999 * b));
 			my_mlx_pixel_put(&image, j, i, color);
 		}
@@ -161,5 +174,22 @@ int	main(int argc, char *argv[])
 	hittables = list_to_hittable_arr(list);
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
+
+	/* ray test START */
+	t_ray ray;
+	t_point3 ray_hit_point;
+	ray.orig.x = 0;
+	ray.orig.y = 0;
+	ray.orig.z = 0;
+	ray.dir.x = 1;
+	ray.dir.y = 1;
+	ray.dir.z = 1;
+
+	ray_hit_point = ray_at(ray, 3);
+	printf("x = %.2f, y = %.2f, z = %.2f\n", ray_hit_point.x, ray_hit_point.y, ray_hit_point.z);
+	ray_hit_point = ray_at(ray, 0.5);
+	printf("x = %.2f, y = %.2f, z = %.2f\n", ray_hit_point.x, ray_hit_point.y, ray_hit_point.z);
+	/* ray test END */
+
 	return (0);
 }

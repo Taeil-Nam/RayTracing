@@ -29,6 +29,7 @@ FILE=	main.c				\
 		object/aabb.c		\
 		object/sphere.c		\
 		camera.c			\
+		ray.c				\
 
 all : $(NAME)
 

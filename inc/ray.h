@@ -9,6 +9,6 @@ typedef struct s_ray
 	t_vec3		dir;
 }	t_ray;
 
-t_point3	ray_at(double t); //orig으로부터 t * dir 지점의 포인트
+t_point3	ray_at(t_ray ray, double t); //orig으로부터 t * dir 지점의 포인트
 
 #endif

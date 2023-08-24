@@ -7,4 +7,4 @@
 .vscode/
 .normignore
 miniRT
-
+mlx/*.swiftsourceinfo
