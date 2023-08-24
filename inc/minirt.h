@@ -8,8 +8,8 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define DEFAULT_IMAGE_WID 1920
-# define DEFAULT_IMAGE_HGT 1080
+# define DEFAULT_IMAGE_WID 1600
+# define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
 
 # define AMBIENT "A"

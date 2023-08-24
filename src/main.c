@@ -66,8 +66,8 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 	rec.depth = depth;
 	if (depth <= 0)
         return (basic);
-	if (!hit_bvh(&rec, 0.001, INFINITY, &r, bvh))
-		return (cam->a_background);
+	if (!hit_bvh(&rec, 0.01, INFINITY, &r, bvh))
+		return (vec3_mul_scalar(cam->a_background, cam->a_ratio));
 	emit = rec.mat->emit(&rec, &dum, &rec.mat->t);
 	if (!rec.mat->scatter(&r, &rec, &attenuation, &scattered))
 		return (emit);
@@ -85,7 +85,7 @@ int print_image(t_hittable *bvh, t_camera *cam)
 	int img_width = DEFAULT_IMAGE_WID;
 	int img_height = DEFAULT_IMAGE_HGT;
 
-	sample_per_pixel = 10;
+	sample_per_pixel = 50;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, img_width, img_height, "miniRT");
 	image.img = mlx_new_image(vars.mlx, img_width, img_height); // 이미지 객체 생성
@@ -111,7 +111,7 @@ int print_image(t_hittable *bvh, t_camera *cam)
 			color.y /= sample_per_pixel;
 			color.z /= sample_per_pixel;
 			pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8) + ((int)(255.999 * color.z));
-			my_mlx_pixel_put(&image, j, i, pixel);
+			my_mlx_pixel_put(&image, i, j, pixel);
 		}
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
