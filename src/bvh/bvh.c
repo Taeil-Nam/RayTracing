@@ -65,6 +65,8 @@ bool	hit_bvh(t_hit_rec *rec, double min_t, double max_t, t_ray *r, t_hittable *t
 	if (is_hit && tree->left == NULL)
 		return (true);
 	left_hit = hit_bvh(rec, min_t, max_t, r, tree->left);
+	if (left_hit)
+		max_t = rec->t;
 	right_hit = hit_bvh(rec, min_t, max_t, r, tree->right);
 	return (left_hit || right_hit);
 }

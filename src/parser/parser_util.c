@@ -15,9 +15,12 @@ int	count_element_2pt_arr(char **data)
 
 int	is_value_btw_255(int value, int *rgb_errno)
 {
+	double	ret;
+
 	if (value < 0 || value > 255)
 		*rgb_errno = 1;
-	return (value);
+	ret = value / 255.0f;
+	return (ret);
 }
 
 // ft_atoi로 넘길 str 검사를 해봐야함
