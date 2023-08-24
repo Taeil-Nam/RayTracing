@@ -58,7 +58,7 @@ int	light_data(char **data, t_list **list)
 	new_object = (t_hittable *)malloc(sizeof(t_hittable));
 	new_object->object = light_constructor(center, ratio, rgb);
 	new_object->center = ((t_sphere *)new_object->object)->center;
-	//new_object->hit = sphere_hit;
+	new_object->hit = sphere_hit;
 	new_object->b_box = sphere_b_box;
 	ft_lstadd_back(list, ft_lstnew(new_object));
 	return (1);

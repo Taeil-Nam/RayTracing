@@ -3,7 +3,7 @@
 
 # include "minirt.h"
 
-typedef t_color	*(*t_value)(t_hit_rec *, void *, void *, t_color);
+typedef t_color	(*t_value)(t_hit_rec *, void *, void *, t_color);
 
 enum e_texture_type
 {
@@ -21,8 +21,8 @@ typedef struct s_texture
 	t_value				value;
 }	t_texture;
 
-t_color	*solid_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
-t_color	*checker_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
-t_color	*img_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
+t_color	solid_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
+//t_color	checker_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
+//t_color	img_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
 
 #endif

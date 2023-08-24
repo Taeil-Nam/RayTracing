@@ -14,6 +14,7 @@ INC=-Ilibft -Imlx -Iinc
 
 FILE=	main.c				\
 		utils/utils_1.c		\
+		utils/utils_2.c		\
 		vec3/vec3_1.c		\
 		vec3/vec3_2.c		\
 		vec3/vec3_3.c		\
@@ -28,6 +29,9 @@ FILE=	main.c				\
 		bvh/bvh_utils.c		\
 		object/aabb.c		\
 		object/sphere.c		\
+		texture/color.c		\
+		material/emit.c		\
+		material/scatter.c	\
 		camera.c			\
 		ray.c				\
 
@@ -40,6 +44,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR)parser || mkdir -p $(OBJ_DIR)parser
 	@test -d $(OBJ_DIR)bvh || mkdir -p $(OBJ_DIR)bvh
 	@test -d $(OBJ_DIR)object || mkdir -p $(OBJ_DIR)object
+	@test -d $(OBJ_DIR)material || mkdir -p $(OBJ_DIR)material
+	@test -d $(OBJ_DIR)texture || mkdir -p $(OBJ_DIR)texture
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)

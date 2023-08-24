@@ -8,6 +8,8 @@
 #include "vec3.h"
 #include "ray.h"
 
+double random_double(void);
+
 // mlx 구조체
 typedef struct	s_vars {
 	void	*mlx;
@@ -49,40 +51,63 @@ int	key_hook(int keycode, t_vars *vars)
 	return (0);
 }
 
-int print_image()
+t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 {
-	int		color;
+	t_hit_rec	rec;
+	t_color		basic;
+	t_ray		scattered;
+	t_color		attenuation;
+	t_color		emit;
+	t_point3	dum;
+
+	basic.x = 0;
+	basic.y = 0;
+	basic.z = 0;
+	rec.depth = depth;
+	if (depth <= 0)
+        return (basic);
+	if (!hit_bvh(&rec, 0.001, INFINITY, &r, bvh))
+		return (cam->a_background);
+	emit = rec.mat.emit(&rec, &dum, &rec.mat.t);
+	if (!rec.mat.scatter(&r, &rec, &attenuation, &scattered))
+		return (emit);
+	return vec3_add(emit, vec3_mul_vec3(attenuation, ray_color(scattered,  cam, bvh, depth - 1)));
+}
+
+int print_image(t_hittable *bvh, t_camera *cam)
+{
+	int		pixel;
+	int		sample_per_pixel;
 	t_vars	vars;
 	t_data	image;
+	t_color	color;
 
-	int img_width = 1920;
-	int img_height = 1080;
+	int img_width = DEFAULT_IMAGE_WID;
+	int img_height = DEFAULT_IMAGE_HGT;
 
+	sample_per_pixel = 10;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, img_width, img_height, "Hellow World!");
 	image.img = mlx_new_image(vars.mlx, img_width, img_height); // 이미지 객체 생성
 	image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian); // 이미지 주소 할당
+
 	for (int i = 0 ; i < img_height - 1 ; ++i)
 	{
+		printf("\rScanlines remaining: %d \n", i);
 		for (int j = 0 ; j < img_width - 1; ++j)
 		{
-			double r = (double)(img_width - j) / (img_width - 1);
-			double g = (double)(i) / (img_height - 1);
-			double b = 1;
-			// 1. ray 생성 (ray 생성 전용 함수로 따로 처리해야 할 듯)
-			//  1-1. ray의 orig, dir 계산 후 지정 필요. (orig = 카메라, dir = i, j 비율에 맞는 viewport의 좌표) 
-			// 2. ray hit 유무에 따른 픽셀 color 계산
-			//  2-1. 샘플링 할 경우, max_sample 만큼 반복
-			//  2-2. 샘플링 안할 경우, 한번만 수행
-			//  2-3. depth 만큼 ray 반사. (no hit시, 배경색으로 바로 return)
-			// 3. color에 계산한 색상 넣어주기
-			//  3-1. 샘플링 한 경우, color를 max_sample로 나눠줌
-			//	3-2. 샘플링 안한 경우 color값 그대로 사용
-			//  3-3. 감마 보정 및 rgb 범위를 0-255로 변환
-			// 4. mlx로 전달해서 픽셀 완성
-
-			color = ((int)(255.999 * r) << 16) + ((int)(255.999 * g) << 8) + ((int)(255.999 * b));
-			my_mlx_pixel_put(&image, j, i, color);
+			color.x = 0;
+			color.y = 0;
+			color.z = 0;
+			for (int s = 0; s < sample_per_pixel; s++)
+			{
+				double u = (i + random_double()) / (img_width - 1);
+                double v = (j + random_double()) / (img_height - 1);
+				t_ray r = get_ray(cam, u, v);
+				color = vec3_add(color, ray_color(r, cam, bvh, 50));
+			}
+			pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8) + ((int)(255.999 * color.z));
+			my_mlx_pixel_put(&image, j, i, pixel);
 		}
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
@@ -174,22 +199,6 @@ int	main(int argc, char *argv[])
 	hittables = list_to_hittable_arr(list);
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
-
-	/* ray test START */
-	t_ray ray;
-	t_point3 ray_hit_point;
-	ray.orig.x = 0;
-	ray.orig.y = 0;
-	ray.orig.z = 0;
-	ray.dir.x = 1;
-	ray.dir.y = 1;
-	ray.dir.z = 1;
-
-	ray_hit_point = ray_at(ray, 3);
-	printf("x = %.2f, y = %.2f, z = %.2f\n", ray_hit_point.x, ray_hit_point.y, ray_hit_point.z);
-	ray_hit_point = ray_at(ray, 0.5);
-	printf("x = %.2f, y = %.2f, z = %.2f\n", ray_hit_point.x, ray_hit_point.y, ray_hit_point.z);
-	/* ray test END */
-
+	print_image(bvh, &cam);
 	return (0);
 }

@@ -21,6 +21,7 @@ typedef int		(*t_comparator)(t_hittable *, t_hittable *);
 
 /* bvh.c */
 t_hittable	*make_bvh(t_hittable **hittables, int i, int j);
+bool		hit_bvh(t_hit_rec *rec, double min_t, double max_t, t_ray *r, t_hittable *tree);
 
 /* bvh_utils.c */
 void		dummy(void *object);

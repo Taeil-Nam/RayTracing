@@ -35,7 +35,11 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 	int				mid;
 
 	if (start == end)
+	{
+		hittables[start]->left = NULL;
+		hittables[start]->right = NULL;
 		return (hittables[start]);
+	}
 	node = (t_hittable *)malloc(sizeof(t_hittable));
 	comparator = set_comparator();
 	quick_sort(hittables, start, end, comparator);
@@ -47,4 +51,20 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 	node->object = surrounding_box(node->left->b_box(node->left->object),
 			node->right->b_box(node->right->object));
 	return (node);
+}
+
+bool	hit_bvh(t_hit_rec *rec, double min_t, double max_t, t_ray *r, t_hittable *tree)
+{
+	bool	left_hit;
+	bool	right_hit;
+	bool	is_hit;
+
+	is_hit = tree->hit(r, min_t, max_t, rec, tree->object);
+	if (!is_hit)
+		return (false);
+	if (is_hit && tree->left == NULL)
+		return (true);
+	left_hit = hit_bvh(rec, min_t, max_t, r, tree->left);
+	right_hit = hit_bvh(rec, min_t, max_t, r, tree->right);
+	return (left_hit || right_hit);
 }
