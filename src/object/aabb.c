@@ -39,7 +39,7 @@ bool		aabb_hit(t_ray *r, double min_t, double max_t,
 	i = 0;
 	while (i < 3)
 	{
-        invD = find_dimention(r->dir, i);
+        invD = find_inverse(r->dir, i);
 		t0 =  sub_p_orig(aabb->p_min, r->orig, i) * invD;
 		t1 = sub_p_orig(aabb->p_max, r->orig, i) * invD;
 		if (invD < 0.0f)

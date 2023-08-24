@@ -44,7 +44,7 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 	comparator = set_comparator();
 	quick_sort(hittables, start, end, comparator);
 	mid = (start + end) / 2;
-	// node->hit = aabb_hit;
+	node->hit = aabb_hit;
 	node->b_box = aabb_b_box;
 	node->left = make_bvh(hittables, start, mid);
 	node->right = make_bvh(hittables, mid + 1, end);

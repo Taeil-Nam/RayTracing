@@ -27,7 +27,7 @@ typedef struct s_hit_record
 {
 	t_point3	p;
 	t_vec3		normal;
-	t_material	mat;
+	t_material	*mat;
 	double		t;
 	double		u;
 	double		v;

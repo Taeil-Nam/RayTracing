@@ -61,6 +61,6 @@ bool	sphere_hit(t_ray *r, double min_t, double max_t,
     t_vec3 outward_normal = vec3_mul_scalar(vec3_sub(rec->p, sp->center), 1 / sp->radius);
     set_face_normal(r, outward_normal, rec);
     get_sphere_uv(outward_normal, rec);
-    rec->mat = sp->mat;
+    rec->mat = &sp->mat;
     return (true);
 }
