@@ -3,6 +3,7 @@
 
 # include <stdbool.h>
 # include <math.h>
+# include <stdio.h>
 
 # include "libft.h"
 # include "vec3.h"

@@ -13,7 +13,7 @@ int	count_element_2pt_arr(char **data)
 	return (count);
 }
 
-int	is_value_btw_255(int value, int *rgb_errno)
+double is_value_btw_255(int value, int *rgb_errno)
 {
 	double	ret;
 
@@ -42,6 +42,7 @@ int	data_to_rgb(char *str, t_color *rgb)
 	ft_double_free(rgb_data);
 	if (rgb_errno == 1)
 		return (-1);
+	printf("%f | %f | %f\n", rgb->x, rgb->y, rgb->z);
 	return (1);
 }
 
