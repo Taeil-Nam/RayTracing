@@ -49,8 +49,10 @@ typedef struct s_camera
 	double		a_ratio;
 }	t_camera;
 
+/* miniRT utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
 void	swap_d(double *left, double *right);
+double	clamp(double x, double min, double max);
 
 int		minirt_parser(const char *filename, t_list **list, t_camera *camera);
 

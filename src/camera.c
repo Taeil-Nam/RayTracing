@@ -15,7 +15,7 @@ t_vec3	get_lower_left_corner(t_camera *cam)
 	half_v = vec3_mul_scalar(cam->vertical, 0.5);
 	ret = vec3_sub(cam->center, half_h);
 	ret = vec3_sub(ret, half_v);
-	ret = vec3_sub(ret, cam->w);
+	ret = vec3_add(ret, cam->w);
 	return (ret);
 }
 
@@ -39,7 +39,7 @@ void	set_camera_pos(t_point3 look_from, t_vec3 dir,
 	vup.z = 0;
 	viewport_w = tan(degrees_to_radians(hfov) / 2) * 2.0;
 	viewport_h = viewport_w * ((double)DEFAULT_IMAGE_HGT / DEFAULT_IMAGE_WID);
-	cam->w = vec3_mul_scalar(vec3_unit(dir), -1);
+	cam->w = vec3_unit(dir);
 	cam->u = vec3_unit(vec3_cross(vup, cam->w));
 	cam->v = vec3_cross(cam->w, cam->u);
 	cam->center = look_from;

@@ -74,14 +74,6 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 	return vec3_add(emit, vec3_mul_vec3(attenuation, ray_color(scattered,  cam, bvh, depth - 1)));
 }
 
-double	clamp(double x, double min, double max) {
-    if (x < min)
-		return min;
-    if (x > max)
-		return max;
-    return x;
-}
-
 int print_image(t_hittable *bvh, t_camera *cam)
 {
 	int		pixel;
@@ -93,7 +85,7 @@ int print_image(t_hittable *bvh, t_camera *cam)
 	int img_width = DEFAULT_IMAGE_WID;
 	int img_height = DEFAULT_IMAGE_HGT;
 
-	sample_per_pixel = 300;
+	sample_per_pixel = 50;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, img_width, img_height, "miniRT");
 	image.img = mlx_new_image(vars.mlx, img_width, img_height); // 이미지 객체 생성
@@ -101,10 +93,9 @@ int print_image(t_hittable *bvh, t_camera *cam)
 
 	for (int j = img_height-1; j >= 0; --j)
 	{
-		printf("\rScanlines remaining 1: %d\n", j);
+		printf("\rScanlines remaining : %d\n", j);
 		for (int i = 0; i < img_width; ++i)
 		{
-			//printf("\rScanlines remaining 2: %d\n", i);
 			color.x = 0;
 			color.y = 0;
 			color.z = 0;
@@ -120,7 +111,7 @@ int print_image(t_hittable *bvh, t_camera *cam)
 			color.y = clamp(sqrt(scale * color.y), 0.0, 0.999);
 			color.z = clamp(sqrt(scale * color.z), 0.0, 0.999);
 			pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8) + ((int)(255.999 * color.z));
-			my_mlx_pixel_put(&image, i, j, pixel);
+			my_mlx_pixel_put(&image, i, img_height - j - 1, pixel);
 		}
 	}
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
