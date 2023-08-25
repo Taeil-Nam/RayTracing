@@ -4,7 +4,7 @@
 # include "minirt.h"
 # include "material.h"
 
-# define DEFAULT_LIGHT_SIZE 20
+# define DEFAULT_LIGHT_SIZE 5
 
 typedef struct s_sphere
 {

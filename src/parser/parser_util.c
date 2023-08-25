@@ -13,14 +13,20 @@ int	count_element_2pt_arr(char **data)
 	return (count);
 }
 
-double is_value_btw_255(int value, int *rgb_errno)
+void	normalize_color(t_color *color)
+{
+	color->x = color->x / 255.999f;
+	color->y = color->y / 255.999f;
+	color->z = color->z / 255.999f;
+}
+
+int	is_value_btw_255(int value, int *rgb_errno)
 {
 	double	ret;
 
 	if (value < 0 || value > 255)
 		*rgb_errno = 1;
-	ret = value / 255.0f;
-	return (ret);
+	return (value);
 }
 
 // ft_atoi로 넘길 str 검사를 해봐야함
@@ -42,7 +48,7 @@ int	data_to_rgb(char *str, t_color *rgb)
 	ft_double_free(rgb_data);
 	if (rgb_errno == 1)
 		return (-1);
-	printf("%f | %f | %f\n", rgb->x, rgb->y, rgb->z);
+	normalize_color(rgb);
 	return (1);
 }
 

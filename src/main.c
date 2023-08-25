@@ -134,8 +134,8 @@ int	main(int argc, char *argv[])
 		return (0);
 	if (minirt_parser(argv[1], &list, &cam) == -1)
 	{
-		perror("map Error!\n");
-		return (0);
+		printf("Error\nminiRT: map Error!\n");
+		return (-1);
 	}
 	hittables = list_to_hittable_arr(list);
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
