@@ -29,6 +29,7 @@ FILE=	main.c				\
 		bvh/bvh_utils.c		\
 		object/aabb.c		\
 		object/sphere.c		\
+		object/plane.c		\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\

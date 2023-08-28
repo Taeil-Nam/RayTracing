@@ -36,3 +36,21 @@ t_sphere	*light_constructor(t_point3 center, double ratio, t_color rgb)
 	new_sp->mat.t.value = solid_value;
 	return (new_sp);
 }
+
+t_plane	*plane_constructor(t_point3 p, t_point3 normal, t_color rgb)
+{
+	t_plane	*new_p;
+
+	new_p = (t_plane *)malloc(sizeof(t_plane));
+	new_p->p = p;
+	new_p->n = normal;
+	new_p->mat.mat_type = diffuse;
+	new_p->mat.emit = emit_general;
+	new_p->mat.scatter = scatter_diffuse;
+	new_p->mat.t.bmp_img = NULL;
+	new_p->mat.t.img = NULL;
+	new_p->mat.t.rgb = rgb;
+	new_p->mat.t.tex_type = solid;
+	new_p->mat.t.value = solid_value;
+	return (new_p);
+}

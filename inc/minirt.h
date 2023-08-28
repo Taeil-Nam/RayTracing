@@ -64,6 +64,7 @@ int		ambient_data(char **data, t_camera *cam);
 int		camera_data(char **data, t_camera *cam);
 int		light_data(char **data, t_list **list);
 int		sphere_data(char **data, t_list **list);
+int		plane_data(char **data, t_list **list);
 
 
 /* camera.c 관련 함수 */

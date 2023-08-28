@@ -1,19 +1,19 @@
 #include "object.h"
 
-//t_aabb	plane_b_box(void *object)
-//{
-//	t_plane	*pl;
-//	t_aabb	pl_box;
+t_aabb	plane_b_box(void *object)
+{
+	t_plane	*pl;
+	t_aabb	pl_box;
 
-//	pl = (t_plane *)object;
-//	p_min = ??; // 평면의 범위를 정해주어야 할 듯
-//	p_max = ??; // 평면의 범위를 정해주어야 할 듯
-//}
-
-//void	get_plane_uv(t_vec3 o_n, t_hit_rec *rec)
-//{
-
-//}
+	pl = (t_plane *)object;
+	pl_box.p_min.x = -INFINITY;
+	pl_box.p_min.y = -INFINITY;
+	pl_box.p_min.z = -INFINITY;
+	pl_box.p_max.x = INFINITY;
+	pl_box.p_max.y = INFINITY;
+	pl_box.p_max.z = INFINITY;
+	return (pl_box);
+}
 
 bool	plane_hit(t_ray *r, double min_t, double max_t,
 		t_hit_rec *rec, void *object)

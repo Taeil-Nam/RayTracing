@@ -29,5 +29,29 @@ int	sphere_data(char **data, t_list **list)
 	return (1);
 }
 
-// int	plane_data(char **data, t_list **list);
+int	plane_data(char **data, t_list **list)
+{
+	t_hittable	*new_object;
+	t_point3	p;
+	t_point3	normal;
+	t_color		rgb;
+	int			atod_errno;
+
+	atod_errno = 0;
+	if (count_element_2pt_arr(data) != 4)
+		return (-1);
+	if (data_to_point(data[1], &p) == -1)
+		return (-1);
+	if (data_to_point(data[2], &normal) == -1)
+		return (-1);
+	if (data_to_rgb(data[3], &rgb) == -1)
+		return (-1);
+	new_object = (t_hittable *)malloc(sizeof(t_hittable));
+	new_object->object = plane_constructor(p, normal, rgb);
+	new_object->center = ((t_plane *)new_object->object)->p;
+	new_object->hit = plane_hit;
+	new_object->b_box = plane_b_box;
+	ft_lstadd_back(list, ft_lstnew(new_object));
+	return (1);
+}
 // int	cylinder_data(char **data, t_list **list);
