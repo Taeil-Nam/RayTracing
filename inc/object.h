@@ -52,5 +52,6 @@ t_aabb		aabb_b_box(void *object);
 t_sphere	*sphere_constructor(t_point3 center, double radius, t_color rgb);
 t_sphere	*light_constructor(t_point3 center, double ratio, t_color rgb);
 t_plane		*plane_constructor(t_point3 p, t_point3 normal, t_color rgb);
+t_cylinder	*cylinder_constructor(t_point3 center, t_vec3 axis, double diameter, double height, t_color rgb);
 
 #endif
