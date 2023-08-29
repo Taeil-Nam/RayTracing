@@ -9,8 +9,8 @@ typedef t_aabb	(*t_b_box)(void *);
 
 typedef struct s_hittable
 {
-	t_vec3				center;
 	void				*object;
+	t_vec3				center;
 	t_hit				hit;
 	t_b_box				b_box;
 	struct s_hittable	*left;

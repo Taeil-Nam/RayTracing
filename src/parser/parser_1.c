@@ -54,8 +54,8 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 		ret = sphere_data(data, list);
 	else if (ft_strequal(PLANE, data[0]))
 		ret = plane_data(data, list);
-	// else if (ft_strequal(CYLINDER, data[0]))
-	// 	ret = cylinder_data(data, list);
+	else if (ft_strequal(CYLINDER, data[0]))
+		ret = cylinder_data(data, list);
 	else
 		ret = -1;
 	ft_double_free(data);

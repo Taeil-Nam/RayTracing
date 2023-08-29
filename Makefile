@@ -30,6 +30,7 @@ FILE=	main.c				\
 		object/aabb.c		\
 		object/sphere.c		\
 		object/plane.c		\
+		object/cylinder.c	\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\
