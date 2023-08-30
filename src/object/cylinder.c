@@ -52,7 +52,7 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
 		return (false);
 	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
-	t_vec3 outward_normal = vec3_sub(vec3_sub(rec->p, object->center), vec3_mul_scalar(object->axis, p_height));
+	t_vec3 outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, object->center), vec3_mul_scalar(object->axis, p_height)));
 	set_face_normal(r, outward_normal, rec);
 	rec->mat = &object->mat;
 	return (true);
