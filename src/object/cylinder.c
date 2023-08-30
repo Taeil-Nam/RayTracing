@@ -8,14 +8,14 @@ t_aabb	cylinder_b_box(void *object)
 	t_point3	c_bottom;
 
 	cy = (t_cylinder *)object;
-	c_top = vec3_add(cy->center, vec3_mul_scalar(cy->axis, (cy->height * 0.5)));
-	c_bottom = vec3_mul_scalar(c_top, -1);
-	cy_box.p_max.x = c_top.x + cy->diameter / 2;
-	cy_box.p_max.y = c_top.y + cy->diameter / 2;
-	cy_box.p_max.z = c_top.z + cy->diameter / 2;
-	cy_box.p_min.x = c_bottom.x + cy->diameter / 2;
-	cy_box.p_min.y = c_bottom.y + cy->diameter / 2;
-	cy_box.p_min.z = c_bottom.z + cy->diameter / 2;
+	c_bottom = cy->center;
+	c_top = vec3_add(c_bottom, vec3_mul_scalar(cy->axis, cy->height));
+	cy_box.p_max.x = c_top.x + cy->diameter * 0.5;
+	cy_box.p_max.y = c_top.y + cy->diameter * 0.5;
+	cy_box.p_max.z = c_top.z + cy->diameter * 0.5;
+	cy_box.p_min.x = c_bottom.x + cy->diameter * 0.5;
+	cy_box.p_min.y = c_bottom.y + cy->diameter * 0.5;
+	cy_box.p_min.z = c_bottom.z + cy->diameter * 0.5;
 	return (cy_box);
 }
 
