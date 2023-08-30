@@ -13,9 +13,9 @@ t_aabb	cylinder_b_box(void *object)
 	cy_box.p_max.x = c_top.x + cy->diameter * 0.5;
 	cy_box.p_max.y = c_top.y + cy->diameter * 0.5;
 	cy_box.p_max.z = c_top.z + cy->diameter * 0.5;
-	cy_box.p_min.x = c_bottom.x + cy->diameter * 0.5;
-	cy_box.p_min.y = c_bottom.y + cy->diameter * 0.5;
-	cy_box.p_min.z = c_bottom.z + cy->diameter * 0.5;
+	cy_box.p_min.x = c_bottom.x - cy->diameter * 0.5;
+	cy_box.p_min.y = c_bottom.y - cy->diameter * 0.5;
+	cy_box.p_min.z = c_bottom.z - cy->diameter * 0.5;
 	return (cy_box);
 }
 
@@ -123,16 +123,19 @@ bool	cylinder_hit(t_ray *r, double min_t, double max_t,
 	bool		bottom;
 
 	cy = (t_cylinder *)object;
-	side = cylinder_side_hit(r, min_t, max_t, rec, cy);
-	if (side == true)
-		top = cylinder_cap_top_hit(r, min_t, rec->t, rec, cy);
-	else
-		top = cylinder_cap_top_hit(r, min_t, max_t, rec, cy);
-	if (top == true)
-		bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);
-	else
-		bottom = cylinder_cap_bottom_hit(r, min_t, max_t, rec, cy);
-	////printf("%d | %d\n", top, bottom);
+	rec->t = max_t;
+	//side = cylinder_side_hit(r, min_t, max_t, rec, cy);
+	//if (side == true)
+	//	top = cylinder_cap_top_hit(r, min_t, rec->t, rec, cy);
+	//else
+	//	top = cylinder_cap_top_hit(r, min_t, max_t, rec, cy);
+	//if (side == true || top == true)
+	//	bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);
+	//else
+	//	bottom = cylinder_cap_bottom_hit(r, min_t, max_t, rec, cy);
+	//return (side || top || bottom);
+	side = cylinder_side_hit(r, min_t, rec->t, rec, cy);
+	top = cylinder_cap_top_hit(r, min_t, rec->t, rec, cy);
+	bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);
 	return (side || top || bottom);
-	// return (side);
 }
