@@ -48,7 +48,7 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
             return (false);
     }
 	double	p_height = vec3_dot(vec3_sub(ray_at(*r, root), object->center), object->axis);
-	if (p_height > object->height)
+	if (p_height > object->height || p_height < 0)
 		return (false);
 	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
@@ -61,19 +61,19 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
 bool	cylinder_cap_bottom_hit(t_ray *r, double min_t, double max_t,
 		t_hit_rec *rec, t_cylinder *object)
 {
-	double	numer;
-	double	denomi;
-	double	root;
-	t_vec3	outward_normal;
+	double		numer;
+	double		denomi;
+	double		root;
+	t_vec3		outward_normal;
+	t_point3	p;
 
-	numer = vec3_dot(object->axis, vec3_sub(object->center, r->orig)); // 분자
-	denomi = vec3_dot(object->axis, r->dir); // 분모
+	numer = vec3_dot(object->axis, vec3_sub(object->center, r->orig));
+	denomi = vec3_dot(object->axis, r->dir);
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
 	if (root < min_t || max_t < root)
 		return (false);
-	t_point3	p;
 	p = ray_at(*r, root);
 	if (vec3_length(vec3_sub(p, object->center)) > object->diameter * 0.5)
 		return (false);
@@ -81,7 +81,6 @@ bool	cylinder_cap_bottom_hit(t_ray *r, double min_t, double max_t,
 	rec->p = ray_at(*r, rec->t);
 	outward_normal = object->axis;
 	set_face_normal(r, outward_normal, rec);
-	// get_plane_uv(??); // 평면의 u, v를 구할 수 있는지
 	rec->mat = &object->mat;
 	return (true);
 }
@@ -89,21 +88,21 @@ bool	cylinder_cap_bottom_hit(t_ray *r, double min_t, double max_t,
 bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 		t_hit_rec *rec, t_cylinder *object)
 {
-	double	numer;
-	double	denomi;
-	double	root;
-	t_vec3	outward_normal;
+	double		numer;
+	double		denomi;
+	double		root;
+	t_vec3		outward_normal;
 	t_point3	top;
+	t_point3	p;
 
 	top = vec3_add(object->center, vec3_mul_scalar(object->axis, object->height));
-	numer = vec3_dot(object->axis, vec3_sub(top, r->orig)); // 분자
-	denomi = vec3_dot(object->axis, r->dir); // 분모
+	numer = vec3_dot(object->axis, vec3_sub(top, r->orig));
+	denomi = vec3_dot(object->axis, r->dir);
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
 	if (root < min_t || max_t < root)
 		return (false);
-	t_point3	p;
 	p = ray_at(*r, root);
 	if (vec3_length(vec3_sub(p, top)) > object->diameter * 0.5)
 		return (false);
@@ -111,7 +110,6 @@ bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 	rec->p = ray_at(*r, rec->t);
 	outward_normal = object->axis;
 	set_face_normal(r, outward_normal, rec);
-	// get_plane_uv(??); // 평면의 u, v를 구할 수 있는지
 	rec->mat = &object->mat;
 	return (true);
 }
@@ -119,9 +117,6 @@ bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 bool	cylinder_hit(t_ray *r, double min_t, double max_t,
         t_hit_rec *rec, void *object)
 {
-	// Todo: 원기둥에 ray가 맞았는지 판별.
-	// if(no hit) : return false;
-	// else : rec에 정보 기록 후 return true;
 	t_cylinder	*cy;
 	bool		side;
 	bool		top;
@@ -137,7 +132,7 @@ bool	cylinder_hit(t_ray *r, double min_t, double max_t,
 		bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);
 	else
 		bottom = cylinder_cap_bottom_hit(r, min_t, max_t, rec, cy);
-	//printf("%d | %d\n", top, bottom);
+	////printf("%d | %d\n", top, bottom);
 	return (side || top || bottom);
 	// return (side);
 }
