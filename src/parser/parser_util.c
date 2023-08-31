@@ -37,6 +37,11 @@ int	data_to_rgb(char *str, t_color *rgb)
 
 	rgb_errno = 0;
 	rgb_data = ft_split(str, ',');
+	if (rgb_data == NULL)
+	{
+		perror("data_to_rgb");
+		exit(-1);
+	}
 	if (count_element_2pt_arr(rgb_data) != 3)
 	{
 		ft_double_free(rgb_data);
@@ -59,6 +64,11 @@ int	data_to_point(char *str, t_point3 *point)
 
 	atod_errno = 0;
 	point_data = ft_split(str, ',');
+	if (point_data == NULL)
+	{
+		perror("point_data");
+		exit(-1);
+	}
 	if (count_element_2pt_arr(point_data) != 3)
 	{
 		ft_double_free(point_data);

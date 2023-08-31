@@ -72,6 +72,7 @@ void	swap_d(double *left, double *right);
 double	clamp(double x, double min, double max);
 double	random_double(void);
 void	vec3_init(t_vec3 *v);
+void	*xmalloc(size_t size);
 
 /* miniRT utils */
 int		exit_hook();

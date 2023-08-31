@@ -36,7 +36,7 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 	char	**data;
 	int		ret;
 
-	data = ft_split(line, ' ');
+	data = ft_split_white(line);
 	if (data == NULL)
 	{
 		perror("miniRT:");

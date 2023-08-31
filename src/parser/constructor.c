@@ -5,7 +5,7 @@ t_sphere	*sphere_constructor(t_point3 center, double radius, t_color rgb)
 {
 	t_sphere	*new_sp;
 
-	new_sp = (t_sphere *)malloc(sizeof(t_sphere));
+	new_sp = (t_sphere *)xmalloc(sizeof(t_sphere));
 	new_sp->center = center;
 	new_sp->radius = radius;
 	new_sp->mat.mat_type = diffuse;
@@ -23,7 +23,7 @@ t_sphere	*light_constructor(t_point3 center, double ratio, t_color rgb)
 {
 	t_sphere	*new_light;
 
-	new_light = (t_sphere *)malloc(sizeof(t_sphere));
+	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
 	new_light->center = center;
 	new_light->radius = DEFAULT_LIGHT_SIZE;
 	new_light->mat.mat_type = light;
@@ -41,9 +41,9 @@ t_plane	*plane_constructor(t_point3 p, t_point3 normal, t_color rgb)
 {
 	t_plane	*new_pl;
 
-	new_pl = (t_plane *)malloc(sizeof(t_plane));
+	new_pl = (t_plane *)xmalloc(sizeof(t_plane));
 	new_pl->p = p;
-	new_pl->n = normal;
+	new_pl->n = vec3_unit(normal);
 	new_pl->mat.mat_type = diffuse;
 	new_pl->mat.emit = emit_general;
 	new_pl->mat.scatter = scatter_diffuse;
@@ -59,7 +59,7 @@ t_cylinder	*cylinder_constructor(t_point3 center, t_vec3 axis, double diameter, 
 {
 	t_cylinder	*new_cy;
 
-	new_cy = (t_cylinder *)malloc(sizeof(t_cylinder));
+	new_cy = (t_cylinder *)xmalloc(sizeof(t_cylinder));
 	new_cy->center = center;
 	new_cy->axis = axis;
 	new_cy->diameter = diameter;

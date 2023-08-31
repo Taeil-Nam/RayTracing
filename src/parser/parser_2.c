@@ -55,7 +55,7 @@ int	light_data(char **data, t_list **list)
 		return (-1);
 	if (data_to_rgb(data[3], &rgb) == -1)
 		return (-1);
-	new_object = (t_hittable *)malloc(sizeof(t_hittable));
+	new_object = (t_hittable *)xmalloc(sizeof(t_hittable));
 	new_object->object = light_constructor(center, ratio, rgb);
 	new_object->center = ((t_sphere *)new_object->object)->center;
 	new_object->hit = sphere_hit;

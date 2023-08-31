@@ -18,7 +18,7 @@ t_aabb	*surrounding_box(t_aabb box1, t_aabb box2)
 {
 	t_aabb	*new_box;
 
-	new_box = (t_aabb *)malloc(sizeof(t_aabb));
+	new_box = (t_aabb *)xmalloc(sizeof(t_aabb));
 	new_box->p_min.x = fmin(box1.p_min.x, box2.p_min.x);
 	new_box->p_min.y = fmin(box1.p_min.y, box2.p_min.y);
 	new_box->p_min.z = fmin(box1.p_min.z, box2.p_min.z);
@@ -40,7 +40,7 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 		hittables[start]->right = NULL;
 		return (hittables[start]);
 	}
-	node = (t_hittable *)malloc(sizeof(t_hittable));
+	node = (t_hittable *)xmalloc(sizeof(t_hittable));
 	comparator = set_comparator();
 	quick_sort(hittables, start, end, comparator);
 	mid = (start + end) / 2;
