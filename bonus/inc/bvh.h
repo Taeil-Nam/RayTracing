@@ -21,17 +21,18 @@ typedef int		(*t_comparator)(t_hittable *, t_hittable *);
 
 /* bvh.c */
 t_hittable	*make_bvh(t_hittable **hittables, int i, int j);
-bool		hit_bvh(t_hit_rec *rec, double min_t, double max_t, t_ray *r, t_hittable *tree);
+bool		hit_bvh(t_hit_rec *rec, double min_t, double max_t,
+				t_ray *r, t_hittable *tree);
 
 /* bvh_utils.c */
 void		dummy(void *object);
 t_hittable	**list_to_hittable_arr(t_list *list);
 void		quick_sort(t_hittable **arr, int left, int right,
-					t_comparator comparator);
+				t_comparator comparator);
 
 /* comparator.c */
-int	compare_x(t_hittable *left, t_hittable *right);
-int	compare_y(t_hittable *left, t_hittable *right);
-int	compare_z(t_hittable *left, t_hittable *right);
+int			compare_x(t_hittable *left, t_hittable *right);
+int			compare_y(t_hittable *left, t_hittable *right);
+int			compare_z(t_hittable *left, t_hittable *right);
 
 #endif

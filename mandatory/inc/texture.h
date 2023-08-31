@@ -22,7 +22,5 @@ typedef struct s_texture
 }	t_texture;
 
 t_color	solid_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
-//t_color	checker_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
-//t_color	img_value(t_hit_rec *rec, void *img, void *bum_img, t_color rgb);
 
 #endif

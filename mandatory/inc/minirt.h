@@ -27,14 +27,15 @@
 
 typedef struct s_material	t_material;
 
-typedef struct	s_vars {
+typedef struct s_vars
+{
 	void	*mlx;
 	void	*win;
 }	t_vars;
 
 typedef struct s_data
 {
-	void 	*img;
+	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -56,10 +57,10 @@ typedef struct s_hit_record
 typedef struct s_camera
 {
 	t_point3	center;
-    t_point3	lower_left_corner;
-    t_vec3		horizontal;
-    t_vec3		vertical;
-    t_vec3		u;
+	t_point3	lower_left_corner;
+	t_vec3		horizontal;
+	t_vec3		vertical;
+	t_vec3		u;
 	t_vec3		v;
 	t_vec3		w;
 	t_color		a_background;
@@ -75,7 +76,7 @@ void	vec3_init(t_vec3 *v);
 void	*xmalloc(size_t size);
 
 /* miniRT utils */
-int		exit_hook();
+int		exit_hook(void);
 int		key_hook(int keycode, t_vars *vars);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	minirt_init(t_data *image, t_vars *vars);
@@ -94,7 +95,8 @@ int		cylinder_data(char **data, t_list **list);
 
 /* camera.c 관련 함수 */
 double	degrees_to_radians(double degrees);
-void	set_camera_pos(t_point3 look_from, t_vec3 dir, double hfov, t_camera *cam);
+void	set_camera_pos(t_point3 look_from, t_vec3 dir,
+			double hfov, t_camera *cam);
 void	set_camera_image(t_color background, double ratio, t_camera *cam);
 t_ray	get_ray(t_camera *cam, double s, double t);
 

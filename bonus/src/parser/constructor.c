@@ -55,7 +55,8 @@ t_plane	*plane_constructor(t_point3 p, t_point3 normal, t_color rgb)
 	return (new_pl);
 }
 
-t_cylinder	*cylinder_constructor(t_point3 center, t_vec3 axis, double diameter, double height, t_color rgb)
+t_cylinder	*cylinder_constructor(t_point3 center, t_vec3 axis, double diameter,
+		double height, t_color rgb)
 {
 	t_cylinder	*new_cy;
 

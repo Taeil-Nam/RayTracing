@@ -20,25 +20,27 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 	basic.z = 0;
 	rec.depth = depth;
 	if (depth <= 0)
-        return (basic);
+		return (basic);
 	if (!hit_bvh(&rec, 0.001, INFINITY, &r, bvh))
 		return (vec3_mul_scalar(cam->a_background, cam->a_ratio));
 	emit = vec3_mul_scalar(rec.mat->emit(&rec, &rec.p, &rec.mat->t), 2);
 	if (!rec.mat->scatter(&r, &rec, &attenuation, &scattered))
 		return (emit);
-	return vec3_add(emit, vec3_mul_vec3(attenuation, ray_color(scattered,  cam, bvh, depth - 1)));
+	return (vec3_add(emit, vec3_mul_vec3(attenuation,
+				ray_color(scattered, cam, bvh, depth - 1))));
 }
 
 void	write_color(t_color color, t_data *image, int i, int j)
 {
 	double	scale;
 	int		pixel;
-	
+
 	scale = 1.0 / (SAMPLE_PER_PIXEL);
 	color.x = clamp(sqrt(scale * color.x), 0.0, 0.999);
 	color.y = clamp(sqrt(scale * color.y), 0.0, 0.999);
 	color.z = clamp(sqrt(scale * color.z), 0.0, 0.999);
-	pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8) + ((int)(255.999 * color.z));
+	pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8)
+		+ ((int)(255.999 * color.z));
 	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
 }
 
@@ -53,7 +55,7 @@ void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
 	j = DEFAULT_IMAGE_HGT - 1;
 	while (j >= 0)
 	{
-		printf("\rScanlines remaining : %d\n", j);
+		printf("\rScanlines remaining : %d\n", j); // 1줄 줄여야되는 경우 평가할 때 지우기
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
@@ -61,8 +63,9 @@ void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
 			s = 0;
 			while (s++ < SAMPLE_PER_PIXEL)
 			{
-				r = get_ray(cam, (i + random_double()) / (DEFAULT_IMAGE_WID - 1),
-								(j + random_double()) / (DEFAULT_IMAGE_HGT - 1));
+				r = get_ray(cam,
+						(i + random_double()) / (DEFAULT_IMAGE_WID - 1),
+						(j + random_double()) / (DEFAULT_IMAGE_HGT - 1));
 				color = vec3_add(color, ray_color(r, cam, bvh, DEPTH));
 			}
 			write_color(color, image, i++, j);
@@ -71,7 +74,7 @@ void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
 	}
 }
 
-int print_image(t_hittable *bvh, t_camera *cam)
+int	print_image(t_hittable *bvh, t_camera *cam)
 {
 	int		pixel;
 	double	sample_per_pixel;
@@ -81,13 +84,12 @@ int print_image(t_hittable *bvh, t_camera *cam)
 	minirt_init(&image, &vars);
 	trace(&image, bvh, cam);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
-	mlx_key_hook(vars.win, key_hook, &vars); // esc key press event
-	mlx_hook(vars.win, 17, 0, exit_hook, 0); // close button press event
+	mlx_key_hook(vars.win, key_hook, &vars);
+	mlx_hook(vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(vars.mlx);
 	return (0);
 }
 
-// main function!
 int	main(int argc, char *argv[])
 {
 	t_list		*list;

@@ -1,6 +1,6 @@
 #include "object.h"
 
-t_aabb		aabb_b_box(void *object)
+t_aabb	aabb_b_box(void *object)
 {
 	t_aabb	*ret;
 
@@ -26,11 +26,11 @@ double	sub_p_orig(t_vec3 p, t_vec3 orig, int i)
 	return (p.z - orig.z);
 }
 
-bool		aabb_hit(t_ray *r, double min_t, double max_t,
+bool	aabb_hit(t_ray *r, double min_t, double max_t,
 			t_hit_rec *rec, void *object)
 {
 	int		i;
-	double	invD;
+	double	inv_d;
 	double	t0;
 	double	t1;
 	t_aabb	*aabb;
@@ -39,10 +39,10 @@ bool		aabb_hit(t_ray *r, double min_t, double max_t,
 	i = 0;
 	while (i < 3)
 	{
-        invD = find_inverse(r->dir, i);
-		t0 =  sub_p_orig(aabb->p_min, r->orig, i) * invD;
-		t1 = sub_p_orig(aabb->p_max, r->orig, i) * invD;
-		if (invD < 0.0f)
+		inv_d = find_inverse(r->dir, i);
+		t0 = sub_p_orig(aabb->p_min, r->orig, i) * inv_d;
+		t1 = sub_p_orig(aabb->p_max, r->orig, i) * inv_d;
+		if (inv_d < 0.0f)
 			swap_d(&t0, &t1);
 		if (t0 > min_t)
 			min_t = t0;
@@ -52,5 +52,5 @@ bool		aabb_hit(t_ray *r, double min_t, double max_t,
 			return (false);
 		i++;
 	}
-    return (true);
+	return (true);
 }

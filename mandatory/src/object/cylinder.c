@@ -24,7 +24,7 @@ t_aabb	cylinder_b_box(void *object)
 }
 
 bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
-		t_hit_rec *rec, t_cylinder *object)
+			t_hit_rec *rec, t_cylinder *object)
 {
 	t_vec3	ray_d;
 	t_vec3	oc;
@@ -45,12 +45,12 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
 		return (false);
 	sqrtd = sqrt(discrement);
 	root = (-half_b - sqrtd) / a;
-    if (root < min_t || max_t < root)
+	if (root < min_t || max_t < root)
 	{
-        root = (-half_b + sqrtd) / a;
-        if (root < min_t || max_t < root)
-            return (false);
-    }
+		root = (-half_b + sqrtd) / a;
+		if (root < min_t || max_t < root)
+			return (false);
+	}
 	double	p_height = vec3_dot(vec3_sub(ray_at(*r, root), object->center), object->axis);
 	if (p_height > object->height || p_height < 0)
 		return (false);
@@ -119,7 +119,7 @@ bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 }
 
 bool	cylinder_hit(t_ray *r, double min_t, double max_t,
-        t_hit_rec *rec, void *object)
+		t_hit_rec *rec, void *object)
 {
 	t_cylinder	*cy;
 	bool		side;
@@ -128,16 +128,6 @@ bool	cylinder_hit(t_ray *r, double min_t, double max_t,
 
 	cy = (t_cylinder *)object;
 	rec->t = max_t;
-	//side = cylinder_side_hit(r, min_t, max_t, rec, cy);
-	//if (side == true)
-	//	top = cylinder_cap_top_hit(r, min_t, rec->t, rec, cy);
-	//else
-	//	top = cylinder_cap_top_hit(r, min_t, max_t, rec, cy);
-	//if (side == true || top == true)
-	//	bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);
-	//else
-	//	bottom = cylinder_cap_bottom_hit(r, min_t, max_t, rec, cy);
-	//return (side || top || bottom);
 	side = cylinder_side_hit(r, min_t, rec->t, rec, cy);
 	top = cylinder_cap_top_hit(r, min_t, rec->t, rec, cy);
 	bottom = cylinder_cap_bottom_hit(r, min_t, rec->t, rec, cy);

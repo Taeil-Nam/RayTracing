@@ -9,9 +9,11 @@ bool	scatter_diffuse(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat)
 		scatter_direction = rec->normal;
 	scat->orig = rec->p;
 	scat->dir = scatter_direction;
-	*att = rec->mat->t.value(rec, rec->mat->t.img, rec->mat->t.bmp_img, rec->mat->t.rgb);
+	*att = rec->mat->t.value(rec, rec->mat->t.img, rec->mat->t.bmp_img,
+			rec->mat->t.rgb);
 	return (true);
 }
+
 bool	scatter_light(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat)
 {
 	return (false);

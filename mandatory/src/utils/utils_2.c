@@ -17,13 +17,14 @@ void	swap_d(double *left, double *right)
 	*right = *left;
 	*left = tmp;
 }
+
 double	clamp(double x, double min, double max)
 {
-    if (x < min)
-		return min;
-    if (x > max)
-		return max;
-    return x;
+	if (x < min)
+		return (min);
+	if (x > max)
+		return (max);
+	return (x);
 }
 
 void	vec3_init(t_vec3 *v)

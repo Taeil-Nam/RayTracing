@@ -53,7 +53,8 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 	return (node);
 }
 
-bool	hit_bvh(t_hit_rec *rec, double min_t, double max_t, t_ray *r, t_hittable *tree)
+bool	hit_bvh(t_hit_rec *rec, double min_t, double max_t,
+			t_ray *r, t_hittable *tree)
 {
 	bool	left_hit;
 	bool	right_hit;

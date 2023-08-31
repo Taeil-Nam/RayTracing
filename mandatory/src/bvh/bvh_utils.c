@@ -37,17 +37,17 @@ void	quick_sort(t_hittable **arr, int left, int right,
 	j = right;
 	key = arr[left];
 	if (left >= right)
-        return;
-    while (i < j)
+		return ;
+	while (i < j)
 	{
-        while (i < j && comparator(arr[j], key) >= 0)
+		while (i < j && comparator(arr[j], key) >= 0)
 			j--;
-        arr[i] = arr[j];
-        while (i < j && comparator(arr[i], key) <= 0)
+		arr[i] = arr[j];
+		while (i < j && comparator(arr[i], key) <= 0)
 			i++;
-        arr[j] = arr[i];
-    }
-    arr[i] = key;
-    quick_sort(arr, left, i - 1, comparator);
-    quick_sort(arr, i + 1, right, comparator);
+		arr[j] = arr[i];
+	}
+	arr[i] = key;
+	quick_sort(arr, left, i - 1, comparator);
+	quick_sort(arr, i + 1, right, comparator);
 }
