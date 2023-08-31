@@ -4,7 +4,7 @@
 # include "minirt.h"
 # include "material.h"
 
-# define DEFAULT_LIGHT_SIZE 5
+# define DEFAULT_lIZE 5
 
 typedef struct s_aabb
 {

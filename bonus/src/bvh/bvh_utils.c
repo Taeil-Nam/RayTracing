@@ -16,13 +16,14 @@ t_hittable	**list_to_hittable_arr(t_list *list)
 	if (list == NULL)
 		return (NULL);
 	size = ft_lstsize(list);
-	arr = (t_hittable **)xmalloc(sizeof(t_hittable *) * size);
+	arr = (t_hittable **)xmalloc(sizeof(t_hittable *) * (size + 1));
 	while (list != NULL)
 	{
 		arr[index] = list->content;
 		list = list->next;
 		index++;
 	}
+	arr[index] = NULL;
 	return (arr);
 }
 
