@@ -15,6 +15,8 @@
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
+# define KSN 64
+# define KS 0.6
 
 # define AMBIENT "A"
 # define CAMERA "C"
@@ -26,6 +28,8 @@
 # define ERR_ARGV_MSG "miniRT : Argument Error : filename with .rt"
 
 typedef struct s_material	t_material;
+typedef struct s_hittable	t_hittable;
+typedef struct s_sphere		t_sphere;
 
 typedef struct s_vars
 {
@@ -67,12 +71,15 @@ typedef struct s_camera
 	double		a_ratio;
 }	t_camera;
 
+t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
+
 /* utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
 void	swap_d(double *left, double *right);
 double	clamp(double x, double min, double max);
 double	random_double(void);
 void	vec3_init(t_vec3 *v);
+t_color	black_color(void);
 void	*xmalloc(size_t size);
 
 /* miniRT utils */

@@ -44,7 +44,20 @@ void	write_color(t_color color, t_data *image, int i, int j)
 	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
 }
 
-void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
+void	write_phong_color(t_color color, t_data *image, int i, int j)
+{
+	double	scale;
+	int		pixel;
+
+	color.x = clamp((color.x), 0.0, 0.999);
+	color.y = clamp((color.y), 0.0, 0.999);
+	color.z = clamp((color.z), 0.0, 0.999);
+	pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8)
+		+ ((int)(255.999 * color.z));
+	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
+}
+
+void	path_trace(t_data *image, t_hittable *bvh, t_camera *cam)
 {
 	t_color	color;
 	t_ray	r;
@@ -73,8 +86,37 @@ void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
 		j--;
 	}
 }
+void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
+{
+	t_color	color;
+	t_ray	r;
+	int		i;
+	int		j;
+	int		s;
 
-int	print_image(t_hittable *bvh, t_camera *cam)
+	j = DEFAULT_IMAGE_HGT - 1;
+	while (j >= 0)
+	{
+		printf("\rScanlines remaining : %d\n", j); // 1줄 줄여야되는 경우 평가할 때 지우기
+		i = 0;
+		while (i < DEFAULT_IMAGE_WID)
+		{
+			r = get_ray(cam,
+							(double)(i) / (DEFAULT_IMAGE_WID - 1),
+							(double)(j) / (DEFAULT_IMAGE_HGT - 1));
+			vec3_init(&color);
+			s = 0;
+			while (light_lst[s] != NULL)
+				color = vec3_add(color, phong_color(r, cam, bvh, light_lst[s++]));
+			color = vec3_mul_scalar(color, 1 / (double)s);
+			write_phong_color(color, image, i++, j);
+		}
+		j--;
+	}
+}
+
+
+int	print_image(t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
 {
 	int		pixel;
 	double	sample_per_pixel;
@@ -82,12 +124,41 @@ int	print_image(t_hittable *bvh, t_camera *cam)
 	t_data	image;
 
 	minirt_init(&image, &vars);
-	trace(&image, bvh, cam);
+	//path_trace(&image, bvh, cam);
+	phong_trace(&image, bvh, cam, light_lst);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(vars.mlx);
 	return (0);
+}
+
+t_sphere	**make_light_lst(t_hittable **hittables)
+{
+	int			count;
+	int			i;
+	t_sphere	*tmp;
+	t_sphere	**light_lst;
+
+	count = 0;
+	i = 0;
+	while (hittables[i] != NULL)
+	{
+		tmp = (t_sphere *)(hittables[i++]->object);
+		if (tmp->mat.mat_type == light)
+			count++;
+	}
+	light_lst = (t_sphere **)xmalloc(sizeof(t_sphere *) * (count + 1));
+	i = 0;
+	count = 0;
+	while (hittables[i] != NULL)
+	{
+		tmp = (t_sphere *)(hittables[i++]->object);
+		if (tmp->mat.mat_type == light)
+			light_lst[count++] = tmp;
+	}
+	light_lst[count] = NULL;
+	return (light_lst);
 }
 
 int	main(int argc, char *argv[])
@@ -96,6 +167,7 @@ int	main(int argc, char *argv[])
 	t_camera	cam;
 	t_hittable	*bvh;
 	t_hittable	**hittables;
+	t_sphere	**light_lst;
 
 	list = NULL;
 	if (argc != 2)
@@ -106,8 +178,9 @@ int	main(int argc, char *argv[])
 		return (-1);
 	}
 	hittables = list_to_hittable_arr(list);
+	light_lst = make_light_lst(hittables);
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
-	print_image(bvh, &cam);
+	print_image(bvh, &cam, light_lst);
 	return (0);
 }
