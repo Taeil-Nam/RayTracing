@@ -85,7 +85,7 @@ int print_image(t_hittable *bvh, t_camera *cam)
 	int img_width = DEFAULT_IMAGE_WID;
 	int img_height = DEFAULT_IMAGE_HGT;
 
-	sample_per_pixel = 200;
+	sample_per_pixel = 10;
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, img_width, img_height, "miniRT");
 	image.img = mlx_new_image(vars.mlx, img_width, img_height); // 이미지 객체 생성

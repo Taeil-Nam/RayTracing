@@ -5,17 +5,21 @@ t_aabb	cylinder_b_box(void *object)
 	t_cylinder	*cy;
 	t_aabb		cy_box;
 	t_point3	c_top;
-	t_point3	c_bottom;
 
 	cy = (t_cylinder *)object;
-	c_bottom = cy->center;
-	c_top = vec3_add(c_bottom, vec3_mul_scalar(cy->axis, cy->height));
-	cy_box.p_max.x = c_top.x + cy->diameter * 0.5;
-	cy_box.p_max.y = c_top.y + cy->diameter * 0.5;
-	cy_box.p_max.z = c_top.z + cy->diameter * 0.5;
-	cy_box.p_min.x = c_bottom.x - cy->diameter * 0.5;
-	cy_box.p_min.y = c_bottom.y - cy->diameter * 0.5;
-	cy_box.p_min.z = c_bottom.z - cy->diameter * 0.5;
+	c_top = vec3_add(cy->center, vec3_mul_scalar(cy->axis, cy->height));
+	cy_box.p_min.x = fmin(cy->center.x - cy->diameter * 0.5,
+			c_top.x + cy->diameter * 0.5);
+	cy_box.p_min.y = fmin(cy->center.y - cy->diameter * 0.5,
+			c_top.y + cy->diameter * 0.5);
+	cy_box.p_min.z = fmin(cy->center.z - cy->diameter * 0.5,
+			c_top.z + cy->diameter * 0.5);
+	cy_box.p_max.x = fmax(cy->center.x + cy->diameter * 0.5,
+			c_top.x + cy->diameter * 0.5);
+	cy_box.p_max.y = fmax(cy->center.y + cy->diameter * 0.5,
+			c_top.y + cy->diameter * 0.5);
+	cy_box.p_max.z = fmax(cy->center.z + cy->diameter * 0.5,
+			c_top.z + cy->diameter * 0.5);
 	return (cy_box);
 }
 
