@@ -9,11 +9,11 @@ t_aabb	cylinder_b_box(void *object)
 	cy = (t_cylinder *)object;
 	c_top = vec3_add(cy->center, vec3_mul_scalar(cy->axis, cy->height));
 	cy_box.p_min.x = fmin(cy->center.x - cy->diameter * 0.5,
-			c_top.x + cy->diameter * 0.5);
+			c_top.x - cy->diameter * 0.5);
 	cy_box.p_min.y = fmin(cy->center.y - cy->diameter * 0.5,
-			c_top.y + cy->diameter * 0.5);
+			c_top.y - cy->diameter * 0.5);
 	cy_box.p_min.z = fmin(cy->center.z - cy->diameter * 0.5,
-			c_top.z + cy->diameter * 0.5);
+			c_top.z - cy->diameter * 0.5);
 	cy_box.p_max.x = fmax(cy->center.x + cy->diameter * 0.5,
 			c_top.x + cy->diameter * 0.5);
 	cy_box.p_max.y = fmax(cy->center.y + cy->diameter * 0.5,
