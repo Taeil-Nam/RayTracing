@@ -59,15 +59,13 @@ void	trace(t_data *image, t_hittable *bvh, t_camera *cam)
 		{
 			vec3_init(&color);
 			s = 0;
-			while (s < SAMPLE_PER_PIXEL)
+			while (s++ < SAMPLE_PER_PIXEL)
 			{
 				r = get_ray(cam, (i + random_double()) / (DEFAULT_IMAGE_WID - 1),
 								(j + random_double()) / (DEFAULT_IMAGE_HGT - 1));
 				color = vec3_add(color, ray_color(r, cam, bvh, DEPTH));
-				s++;
 			}
-			write_color(color, image, i, j);
-			i++;
+			write_color(color, image, i++, j);
 		}
 		j--;
 	}
