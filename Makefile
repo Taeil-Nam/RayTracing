@@ -15,6 +15,7 @@ INC=-Ilibft -Imlx -Iinc
 FILE=	main.c				\
 		utils/utils_1.c		\
 		utils/utils_2.c		\
+		utils/mlx_utils.c	\
 		vec3/vec3_1.c		\
 		vec3/vec3_2.c		\
 		vec3/vec3_3.c		\
