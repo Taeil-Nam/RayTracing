@@ -4,6 +4,7 @@
 # include <stdbool.h>
 # include <math.h>
 # include <stdio.h>
+# include <errno.h>
 
 # include "libft.h"
 # include <mlx.h>
@@ -25,7 +26,9 @@
 # define PLANE "pl"
 # define CYLINDER "cy"
 
-# define ERR_ARGV_MSG "miniRT : Argument Error : filename with .rt"
+# define ERR_ARGV_MSG "Error\nminiRT : Argument Error : filename with .rt"
+# define ERR_INV_FILE "Error\nminiRT : invalid file format: .rt"
+# define ERR_MAP "Error\nminiRT : Map Error!"
 
 typedef struct s_material	t_material;
 typedef struct s_hittable	t_hittable;
@@ -71,7 +74,12 @@ typedef struct s_camera
 	double		a_ratio;
 }	t_camera;
 
+/* rendering 함수 */
 t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
+t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
+void	path_trace(t_data *image, t_hittable *bvh, t_camera *cam);
+void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light_lst);
+void	write_color(t_color color, t_data *image, int i, int j);
 
 /* utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
@@ -81,6 +89,8 @@ double	random_double(void);
 void	vec3_init(t_vec3 *v);
 t_color	black_color(void);
 void	*xmalloc(size_t size);
+void	minirt_error_exit(void);
+void	minirt_str_error_exit(char *str);
 
 /* miniRT utils */
 int		exit_hook(void);

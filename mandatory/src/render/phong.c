@@ -4,11 +4,6 @@
 #include "vec3.h"
 #include "ray.h"
 
-t_vec3	vec3_reflect_h(t_vec3 v, t_vec3 n)
-{
-	return (vec3_sub(v, vec3_mul_scalar(n, vec3_dot(v, n) * 2)));
-}
-
 t_color	diffuse_color(t_hit_rec *rec, t_camera *cam, t_sphere *l, t_ray *p_to_light)
 {
 	double	theta;
@@ -25,7 +20,7 @@ t_color	specular_color(t_ray *r, t_ray *p_to_light, t_hit_rec *rec, t_sphere *l)
 	double		spec;
 
 	view_r = vec3_unit(vec3_mul_scalar(r->dir, -1));
-	reflect_r = vec3_reflect_h(vec3_mul_scalar(p_to_light->dir, -1), rec->normal);
+	reflect_r = vec3_reflect(vec3_mul_scalar(p_to_light->dir, -1), rec->normal);
 	spec = pow(fmax(vec3_dot(view_r, reflect_r), 0.0), KSN);
     return (vec3_mul_scalar(vec3_mul_scalar(l->mat.t.rgb, KS), spec));
 }
