@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include "bvh.h"
 #include <fcntl.h>
 #include <string.h>
 #include <stdio.h>
@@ -10,25 +11,13 @@ void	check_extention(const char *filename)
 
 	len = ft_strlen(filename);
 	if (len < 3)
-	{
-		printf("Error\nminiRT: invalid file format: .rt\n");
-		exit(-1);
-	}
+		minirt_str_error_exit(ERR_INV_FILE);
 	if (filename[len - 1] != 't')
-	{
-		printf("Error\nminiRT: invalid file format: .rt\n");
-		exit(-1);
-	}
+		minirt_str_error_exit(ERR_INV_FILE);
 	if (filename[len - 2] != 'r')
-	{
-		printf("Error\nminiRT: invalid file format: .rt\n");
-		exit(-1);
-	}
+		minirt_str_error_exit(ERR_INV_FILE);
 	if (filename[len - 3] != '.')
-	{
-		printf("Error\nminiRT: invalid file format: .rt\n");
-		exit(-1);
-	}
+		minirt_str_error_exit(ERR_INV_FILE);
 }
 
 int	data_processing(char *line, t_list **list, t_camera *camera)
@@ -38,10 +27,7 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 
 	data = ft_split_white(line);
 	if (data == NULL)
-	{
-		perror("miniRT:");
-		exit(-1);
-	}
+		minirt_str_error_exit(ERR_MAP);
 	if (data[0] == NULL)
 		ret = 1;
 	else if (ft_strequal(AMBIENT, data[0]))
@@ -62,6 +48,15 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 	return (ret);
 }
 
+void	free_hittables(void *hittable)
+{
+	t_hittable	*tmp;
+
+	tmp = (t_hittable *)hittable;
+	free(tmp->object);
+	free(tmp);
+}
+
 int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 {
 	int			rt_fd;
@@ -71,10 +66,7 @@ int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 	check_extention(filename);
 	rt_fd = open(filename, O_RDONLY);
 	if (rt_fd == -1)
-	{
-		perror("Error\nminiRT");
-		exit(-1);
-	}
+		minirt_error_exit();
 	while (1)
 	{
 		line = get_next_line(rt_fd);
@@ -86,7 +78,8 @@ int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 			continue ;
 		if (data_processing(line, list, camera) == -1)
 		{
-			//free -> node free하는 것 생각보다 까다로움 타고타고 들어가야함
+			free(line);
+			ft_lstclear(list, free_hittables);
 			return (-1);
 		}
 		free(line);

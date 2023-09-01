@@ -16,11 +16,10 @@ void	vec3_print(t_vec3 v)
 	printf("vecter | x = %.3f, y = %.3f, z = %.3f\n", v.x, v.y, v.z);
 }
 
-//t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
-//{
-
-//}
-
+t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
+{
+	return (vec3_sub(v, vec3_mul_scalar(n, vec3_dot(v, n) * 2)));
+}
 //t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat)
 //{
 

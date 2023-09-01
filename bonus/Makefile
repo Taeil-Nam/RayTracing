@@ -36,7 +36,9 @@ FILE=	main.c				\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\
-		phong/phong.c		\
+		render/phong.c		\
+		render/path.c		\
+		render/render.c 	\
 		camera.c			\
 		ray.c				\
 
@@ -51,7 +53,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR)object || mkdir -p $(OBJ_DIR)object
 	@test -d $(OBJ_DIR)material || mkdir -p $(OBJ_DIR)material
 	@test -d $(OBJ_DIR)texture || mkdir -p $(OBJ_DIR)texture
-	@test -d $(OBJ_DIR)phong || mkdir -p $(OBJ_DIR)phong
+	@test -d $(OBJ_DIR)render || mkdir -p $(OBJ_DIR)render
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)

@@ -27,6 +27,7 @@ bool		hit_bvh(t_hit_rec *rec, double min_t, double max_t,
 /* bvh_utils.c */
 void		dummy(void *object);
 t_hittable	**list_to_hittable_arr(t_list *list);
+t_sphere	**make_light_lst(t_hittable **hittables);
 void		quick_sort(t_hittable **arr, int left, int right,
 				t_comparator comparator);
 

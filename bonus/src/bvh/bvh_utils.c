@@ -27,6 +27,34 @@ t_hittable	**list_to_hittable_arr(t_list *list)
 	return (arr);
 }
 
+t_sphere	**make_light_lst(t_hittable **hittables)
+{
+	int			count;
+	int			i;
+	t_sphere	*tmp;
+	t_sphere	**light_lst;
+
+	count = 0;
+	i = 0;
+	while (hittables[i] != NULL)
+	{
+		tmp = (t_sphere *)(hittables[i++]->object);
+		if (tmp->mat.mat_type == light)
+			count++;
+	}
+	light_lst = (t_sphere **)xmalloc(sizeof(t_sphere *) * (count + 1));
+	i = 0;
+	count = 0;
+	while (hittables[i] != NULL)
+	{
+		tmp = (t_sphere *)(hittables[i++]->object);
+		if (tmp->mat.mat_type == light)
+			light_lst[count++] = tmp;
+	}
+	light_lst[count] = NULL;
+	return (light_lst);
+}
+
 void	quick_sort(t_hittable **arr, int left, int right,
 					t_comparator comparator)
 {
