@@ -63,7 +63,6 @@ void	path_trace(t_data *image, t_hittable *bvh, t_camera *cam)
 void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
 {
 	t_color	color;
-	t_ray	r;
 	int		i;
 	int		j;
 	int		s;
@@ -75,9 +74,6 @@ void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
-			r = get_ray(cam,
-							(double)(i) / (DEFAULT_IMAGE_WID - 1),
-							(double)(j) / (DEFAULT_IMAGE_HGT - 1));
 			vec3_init(&color);
 			s = 0;
 			while (light_lst[s] != NULL)
