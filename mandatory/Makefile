@@ -17,6 +17,7 @@ FILE=	main.c				\
 		utils/utils_2.c		\
 		utils/utils_3.c		\
 		utils/mlx_utils.c	\
+		utils/memory_free.c	\
 		vec3/vec3_1.c		\
 		vec3/vec3_2.c		\
 		vec3/vec3_3.c		\
