@@ -20,14 +20,14 @@ t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
 	return (new_light);
 }
 
-int	sphere_initializer(t_hittable *hittable, char **data)
+int	sphere_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
 {
 	t_sphere	*tmp;
 
 	tmp = (t_sphere *)hittable->object;
 	if (init_material(&tmp->mat, data[1]) == -1)
 		return (-1);
-	if (init_texture(&tmp->mat.t, data[2]) == -1)
+	if (init_texture(&tmp->mat.t, data[2], minirt) == -1)
 		return (-1);
 	hittable->center = tmp->center;
 	hittable->hit = sphere_hit;
@@ -35,14 +35,14 @@ int	sphere_initializer(t_hittable *hittable, char **data)
 	return (1);
 }
 
-int	plane_initializer(t_hittable *hittable, char **data)
+int	plane_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
 {
 	t_plane	*tmp;
 
 	tmp = (t_plane *)hittable->object;
 	if (init_material(&tmp->mat, data[1]) == -1)
 		return (-1);
-	if (init_texture(&tmp->mat.t, data[2]) == -1)
+	if (init_texture(&tmp->mat.t, data[2], minirt) == -1)
 		return (-1);
 	hittable->center = tmp->p;
 	hittable->hit = plane_hit;
@@ -50,14 +50,14 @@ int	plane_initializer(t_hittable *hittable, char **data)
 	return (1);
 }
 
-int	cylinder_initializer(t_hittable *hittable, char **data)
+int	cylinder_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
 {
 	t_cylinder	*tmp;
 
 	tmp = (t_cylinder *)hittable->object;
 	if (init_material(&tmp->mat, data[1]) == -1)
 		return (-1);
-	if (init_texture(&tmp->mat.t, data[2]) == -1)
+	if (init_texture(&tmp->mat.t, data[2], minirt) == -1)
 		return (-1);
 	hittable->center = tmp->center;
 	hittable->hit = cylinder_hit;

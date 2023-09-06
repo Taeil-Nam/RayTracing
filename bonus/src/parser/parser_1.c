@@ -20,7 +20,7 @@ void	check_extention(const char *filename)
 		minirt_str_error_exit(ERR_INV_FILE);
 }
 
-int	data_processing(char *line, t_list **list, t_camera *camera)
+int	data_processing(char *line, t_list **list, t_minirt *minirt)
 {
 	char	**data;
 	int		ret;
@@ -33,9 +33,9 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 		return (1);
 	cnt = count_element_2pt_arr(data);
 	if (cnt == 3)
-		ret = object_constructor(data, list);
+		ret = object_constructor(data, list, minirt);
 	else if (cnt == 1)
-		ret = world_constructor(data[0], list, camera);
+		ret = world_constructor(data[0], list, &minirt->cam);
 	else
 		ret = -1;
 	ft_double_free(data);
@@ -51,7 +51,7 @@ void	free_hittables(void *hittable)
 	free(tmp);
 }
 
-int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
+int	minirt_parser(const char *filename, t_list **list, t_minirt *minirt)
 {
 	int			rt_fd;
 	int			len;
@@ -68,7 +68,7 @@ int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 			break ;
 		len = ft_strlen(line);
 		line[len - 1] = '\0';
-		if (data_processing(line, list, camera) == -1)
+		if (data_processing(line, list, minirt) == -1)
 		{
 			free(line);
 			ft_lstclear(list, free_hittables);

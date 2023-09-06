@@ -2,7 +2,7 @@
 #include "bvh.h"
 #include "object.h"
 
-int	object_constructor(char **data, t_list **list)
+int	object_constructor(char **data, t_list **list, t_minirt *minirt)
 {
 	t_hittable	*new_object;
 	int			ret;
@@ -13,11 +13,11 @@ int	object_constructor(char **data, t_list **list)
 	if (init_object(new_object, data[0]) == -1)
 		return (-1);
 	if (new_object->type == sphere)
-		ret = sphere_initializer(new_object, data);
+		ret = sphere_initializer(new_object, data, minirt);
 	else if (new_object->type == cylinder)
-		ret = cylinder_initializer(new_object, data);
+		ret = cylinder_initializer(new_object, data, minirt);
 	else if (new_object->type == plane)
-		ret = plane_initializer(new_object, data);
+		ret = plane_initializer(new_object, data, minirt);
 	else
 		ret = -1;
 	if (ret == -1)

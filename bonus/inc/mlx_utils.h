@@ -21,6 +21,5 @@ typedef struct s_data
 int		exit_hook(void);
 int		key_hook(int keycode, t_vars *vars);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	minirt_init(t_data *image, t_vars *vars);
 
 #endif

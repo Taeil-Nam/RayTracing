@@ -1,29 +1,25 @@
 #include "texture.h"
 
-t_color	solid_value(t_hit_rec *rec, t_img *img, void *bum_img, t_color rgb)
+t_color	solid_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 {
 	return (rgb);
 }
 
-t_color	checker_value(t_hit_rec *rec, t_img *img, void *bum_img, t_color rgb)
+t_color	checker_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 {
-	t_color	checker_odd;
-	t_color	checker_even;
+	t_color	checker;
 	double	sines;
 
-	checker_odd.x = 0.2;
-	checker_odd.y = 0.3;
-	checker_odd.z = 0.1;
-	checker_even.x = 0.9;
-	checker_even.y = 0.9;
-	checker_even.z = 0.9;
-	sines = sin(10 * rec->p.x) * sin(10 * rec->p.y) * sin(10 * rec->p.z);
+	checker.x = 0.9;
+	checker.y = 0.9;
+	checker.z = 0.9;
+	sines = sin(rec->p.x) * sin(rec->p.y) * sin(rec->p.z);
 	if (sines < 0)
-		return (checker_odd);
-	return (checker_even);
+		return (rgb);
+	return (checker);
 }
 
-t_color	img_value(t_hit_rec *rec, t_img *img, void *bum_img, t_color rgb)
+t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 {
 	double	u;
 	double	v;

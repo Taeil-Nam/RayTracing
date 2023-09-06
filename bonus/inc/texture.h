@@ -3,7 +3,6 @@
 
 # include "minirt.h"
 
-typedef t_color	(*t_value)(t_hit_rec *, void *, void *, t_color);
 
 enum e_texture_type
 {
@@ -14,17 +13,19 @@ enum e_texture_type
 
 typedef struct s_img
 {
-	void			*img_ptr;
-	unsigned char	*data;
-	int				img_width;
-	int				img_height;
-	int				bytes_per_pixel;
-	int				bytes_per_scanline;
-	int				endian;
-	int				i;
-	int				j;
-	unsigned char	*pixel;
+	void	*img_ptr;
+	char	*data;
+	int		img_width;
+	int		img_height;
+	int		bytes_per_pixel;
+	int		bytes_per_scanline;
+	int		endian;
+	int		i;
+	int		j;
+	char	*pixel;
 }	t_img;
+
+typedef t_color	(*t_value)(t_hit_rec *, t_img *, t_img *, t_color);
 
 typedef struct s_texture
 {
@@ -36,10 +37,10 @@ typedef struct s_texture
 }	t_texture;
 
 t_color	solid_value(t_hit_rec *rec, t_img *img,
-			void *bum_img, t_color rgb);
+			t_img *bum_img, t_color rgb);
 t_color	checker_value(t_hit_rec *rec, t_img *img,
-			void *bum_img, t_color rgb);
+			t_img *bum_img, t_color rgb);
 t_color	img_value(t_hit_rec *rec, t_img *img,
-			void *bum_img, t_color rgb);
+			t_img *bum_img, t_color rgb);
 
 #endif

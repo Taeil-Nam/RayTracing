@@ -22,13 +22,3 @@ int	key_hook(int keycode, t_vars *vars)
 	}
 	return (0);
 }
-
-void	minirt_init(t_data *image, t_vars *vars)
-{
-	vars->mlx = mlx_init();
-	vars->win = mlx_new_window(vars->mlx, DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT,
-			"miniRT");
-	image->img = mlx_new_image(vars->mlx, DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT);
-	image->addr = mlx_get_data_addr(image->img, &image->bits_per_pixel,
-			&image->line_length, &image->endian);
-}
