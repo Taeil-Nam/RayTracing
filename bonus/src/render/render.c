@@ -78,7 +78,7 @@ void	phong_trace(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 			vec3_init(&color, 0, 0, 0);
 			s = 0;
 			while (light_lst[s] != NULL)
-				color = anti_aliasing_phong(i, j, minirt, bvh, light_lst[s++]);
+				color = vec3_add(color, anti_aliasing_phong(i, j, minirt, bvh, light_lst[s++]));
 			color = vec3_mul_scalar(color, 1 / (double)s);
 			write_color(color, &minirt->data, i++, j);
 		}

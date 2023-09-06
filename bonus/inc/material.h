@@ -12,6 +12,7 @@ enum e_mat_type
 	diffuse,
 	metal,
 	light,
+	dielectric
 };
 
 typedef struct s_material

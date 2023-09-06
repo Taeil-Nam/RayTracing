@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 10
+# define SAMPLE_PER_PIXEL 200
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 900

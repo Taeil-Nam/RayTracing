@@ -13,16 +13,16 @@ enum e_texture_type
 
 typedef struct s_img
 {
-	void	*img_ptr;
-	char	*data;
-	int		img_width;
-	int		img_height;
-	int		bytes_per_pixel;
-	int		bytes_per_scanline;
-	int		endian;
-	int		i;
-	int		j;
-	char	*pixel;
+	void			*img_ptr;
+	unsigned char	*data;
+	int				img_width;
+	int				img_height;
+	int				bytes_per_pixel;
+	int				bytes_per_scanline;
+	int				endian;
+	int				i;
+	int				j;
+	unsigned char	*pixel;
 }	t_img;
 
 typedef t_color	(*t_value)(t_hit_rec *, t_img *, t_img *, t_color);

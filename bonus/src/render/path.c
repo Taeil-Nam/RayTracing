@@ -22,7 +22,7 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 		return (vec3_mul_scalar(cam->a_background, cam->a_ratio));
 	emit = rec.mat->emit(&rec, &rec.p, &rec.mat->t);
 	if (!rec.mat->scatter(&r, &rec, &attenuation, &scattered))
-		return (emit);
+		return (vec3_mul_scalar(emit, 3));
 	return (vec3_add(emit, vec3_mul_vec3(attenuation,
 				ray_color(scattered, cam, bvh, depth - 1))));
 }

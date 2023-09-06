@@ -27,7 +27,7 @@ t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 	t_color	color;
 
 	color_scale = 1.0f / 255;
-	img->data = mlx_get_data_addr(img->img_ptr, &img->bytes_per_pixel,
+	img->data = (unsigned char *)mlx_get_data_addr(img->img_ptr, &img->bytes_per_pixel,
 			&img->bytes_per_scanline, &img->endian);
 	img->bytes_per_pixel /= 8;
 	u = clamp(rec->u, 0.0, 1.0);
@@ -37,9 +37,9 @@ t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 	img->pixel = img->data
 		+ img->j * img->bytes_per_scanline
 		+ img->i * img->bytes_per_pixel;
-	color.x = color_scale * img->pixel[1];
-	color.y = color_scale * img->pixel[2];
-	color.z = color_scale * img->pixel[3];
+	color.x = clamp(color_scale * img->pixel[2], 0, 1);
+	color.y = clamp(color_scale * img->pixel[1], 0 ,1);
+	color.z = clamp(color_scale * img->pixel[0], 0 ,1);
 	return (color);
 }
 
