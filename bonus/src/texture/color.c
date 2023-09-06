@@ -26,7 +26,7 @@ t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 	double	color_scale;
 	t_color	color;
 
-	color_scale = 1.0 / 255.0;
+	color_scale = 1.0f / 255;
 	img->data = mlx_get_data_addr(img->img_ptr, &img->bytes_per_pixel,
 			&img->bytes_per_scanline, &img->endian);
 	img->bytes_per_pixel /= 8;

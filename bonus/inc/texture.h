@@ -31,8 +31,8 @@ typedef struct s_texture
 {
 	enum e_texture_type	tex_type;
 	t_color				rgb;
-	t_img				*img;
-	t_img				*bmp_img;
+	t_img				img;
+	t_img				bmp_img;
 	t_value				value;
 }	t_texture;
 
