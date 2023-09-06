@@ -18,7 +18,7 @@ typedef struct s_material
 {
 	enum e_mat_type	mat_type;
 	double			fuzz;
-	int				ir;
+	double			ir;
 	t_texture		t;
 	t_emit			emit;
 	t_scatter		scatter;
@@ -26,6 +26,8 @@ typedef struct s_material
 
 bool	scatter_diffuse(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat);
 bool	scatter_light(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat);
+bool	scatter_metal(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat);
+bool	scatter_dielectric(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat);
 t_color	emit_general(t_hit_rec *rec, t_point3 *p, t_texture *t);
 t_color	emit_light(t_hit_rec *rec, t_point3 *p, t_texture *t);
 #endif

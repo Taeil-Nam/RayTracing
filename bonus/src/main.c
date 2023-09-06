@@ -15,8 +15,8 @@ int	print_image(t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
 	t_data	image;
 
 	minirt_init(&image, &vars);
-	//path_trace(&image, bvh, cam);
-	phong_trace(&image, bvh, cam, light_lst);
+	path_trace(&image, bvh, cam);
+	//phong_trace(&image, bvh, cam, light_lst);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, 0);

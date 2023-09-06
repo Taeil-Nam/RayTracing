@@ -7,8 +7,16 @@
 typedef bool	(*t_hit)(t_ray *, double, double, t_hit_rec *, void *);
 typedef t_aabb	(*t_b_box)(void *);
 
+enum e_object_type
+{
+	sphere,
+	cylinder,
+	plane
+};
+
 typedef struct s_hittable
 {
+	int					type;
 	void				*object;
 	t_vec3				center;
 	t_hit				hit;

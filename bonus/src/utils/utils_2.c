@@ -27,9 +27,15 @@ double	clamp(double x, double min, double max)
 	return (x);
 }
 
-void	vec3_init(t_vec3 *v)
+void	*xmalloc(size_t size)
 {
-	v->x = 0;
-	v->y = 0;
-	v->z = 0;
+	void	*p;
+
+	p = malloc(size);
+	if (!p)
+	{
+		perror("Error\nxmalloc");
+		exit(-1);
+	}
+	return (p);
 }

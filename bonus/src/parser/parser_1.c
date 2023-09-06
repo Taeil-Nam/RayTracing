@@ -24,24 +24,18 @@ int	data_processing(char *line, t_list **list, t_camera *camera)
 {
 	char	**data;
 	int		ret;
+	int		cnt;
 
-	data = ft_split_white(line);
+	data = ft_split(line, '|');
 	if (data == NULL)
 		minirt_str_error_exit(ERR_MAP);
 	if (data[0] == NULL)
-		ret = 1;
-	else if (ft_strequal(AMBIENT, data[0]))
-		ret = ambient_data(data, camera);
-	else if (ft_strequal(CAMERA, data[0]))
-		ret = camera_data(data, camera);
-	else if (ft_strequal(LIGHT, data[0]))
-		ret = light_data(data, list);
-	else if (ft_strequal(SPHERE, data[0]))
-		ret = sphere_data(data, list);
-	else if (ft_strequal(PLANE, data[0]))
-		ret = plane_data(data, list);
-	else if (ft_strequal(CYLINDER, data[0]))
-		ret = cylinder_data(data, list);
+		return (1);
+	cnt = count_element_2pt_arr(data);
+	if (cnt == 3)
+		ret = object_constructor(data, list);
+	else if (cnt == 1)
+		ret = world_constructor(data[0], list, camera);
 	else
 		ret = -1;
 	ft_double_free(data);
@@ -74,8 +68,6 @@ int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 			break ;
 		len = ft_strlen(line);
 		line[len - 1] = '\0';
-		if (ft_strequal(line, "\n") == 1)
-			continue ;
 		if (data_processing(line, list, camera) == -1)
 		{
 			free(line);

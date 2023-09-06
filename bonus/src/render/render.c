@@ -11,7 +11,7 @@ t_color	anti_aliasing_path(int i, int j, t_camera *cam, t_hittable *bvh)
 	int		s;
 
 	s = 0;
-	vec3_init(&color);
+	vec3_init(&color, 0, 0, 0);
 	while (s++ < SAMPLE_PER_PIXEL)
 	{
 		r = get_ray(cam,
@@ -29,7 +29,7 @@ t_color	anti_aliasing_phong(int i, int j, t_camera *cam, t_hittable *bvh, t_sphe
 	int		s;
 
 	s = 0;
-	vec3_init(&color);
+	vec3_init(&color, 0, 0, 0);
 	while (s++ < SAMPLE_PER_PIXEL)
 	{
 		r = get_ray(cam,
@@ -75,7 +75,7 @@ void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
-			vec3_init(&color);
+			vec3_init(&color, 0, 0, 0);
 			s = 0;
 			while (light_lst[s] != NULL)
 				color = anti_aliasing_phong(i, j, cam, bvh, light_lst[s++]);

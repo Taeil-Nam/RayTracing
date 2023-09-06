@@ -39,4 +39,8 @@ void	vec3_print(t_vec3 v); //print vec3
 t_vec3	vec3_reflect(t_vec3 v, t_vec3 n); //return reflect vector
 t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
 
+/* vec3_5.c */
+void	vec3_init(t_vec3 *v, double x, double y, double z);
+t_vec3	vec3_instant(double x, double y, double z);
+
 #endif
