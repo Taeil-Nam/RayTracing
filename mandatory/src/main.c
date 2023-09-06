@@ -7,12 +7,12 @@
 #include "vec3.h"
 #include "ray.h"
 
-/*
+
 void	leaks()
 {
 	system("leaks -q $PPID");
 }
-*/
+
 
 int	print_image(t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
 {
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[])
 	t_hittable	**hittables;
 	t_sphere	**light_lst;
 
-	//atexit(leaks);
+	atexit(leaks);
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
@@ -50,6 +50,6 @@ int	main(int argc, char *argv[])
 	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
 	print_image(bvh, &cam, light_lst);
-	//free_all(bvh, hittables, light_lst);
+	free_mem(bvh, hittables, light_lst);
 	return (0);
 }

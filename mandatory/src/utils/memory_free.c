@@ -1,4 +1,5 @@
 #include "minirt.h"
+#include "bvh.h"
 /*
 	--- free variable list ---
 	1. t_hittable**			hittables
@@ -13,28 +14,28 @@
 	---
 */
 
-// void    free_bvh(t_hittable *node)
-// {
-//     if (node->left == NULL && node->Right == NULL)
-//         return ;
-//     free_bvh(node->left);
-//     free_bvh(node->right);
-//     free(node->object);
-//     free(node);
-// }
+void	free_bvh(t_hittable *node)
+{
+	if (node->left == NULL && node->right == NULL)
+		return ;
+	free_bvh(node->left);
+	free_bvh(node->right);
+	free(node->object);
+	free(node);
+}
 
-// void	free_all(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst)
-// {
-// 	int	i;
+void	free_mem(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst)
+{
+	int	i;
 
-//     free_bvh(bvh);
-// 	i = 0;
-// 	while (hittables[i] != NULL)
-// 	{
-// 		free(hittables[i]->object);
-// 		free(hittables[i]);
-// 		i++;
-// 	}
-// 	free(hittables);
-// 	free(light_lst);
-// }
+	free_bvh(bvh);
+	i = 0;
+	while (hittables[i] != NULL)
+	{
+		free(hittables[i]->object);
+		free(hittables[i]);
+		i++;
+	}
+	free(hittables);
+	free(light_lst);
+}

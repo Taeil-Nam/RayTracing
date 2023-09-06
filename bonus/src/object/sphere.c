@@ -21,7 +21,7 @@ void	get_sphere_uv(t_vec3 o_n, t_hit_rec *rec)
 	double	phi;
 
 	theta = acos(-(o_n.y));
-    phi = atan2(-(o_n.z), o_n.x) + PI;
+	phi = atan2(-(o_n.z), o_n.x) + PI;
 	rec->u = phi / (2 * PI);
 	rec->v = theta / PI;
 }

@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 10
+# define SAMPLE_PER_PIXEL 5
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
@@ -91,6 +91,7 @@ t_color	black_color(void);
 void	*xmalloc(size_t size);
 void	minirt_error_exit(void);
 void	minirt_str_error_exit(char *str);
+void	free_mem(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst);
 
 /* miniRT utils */
 int		exit_hook(void);
