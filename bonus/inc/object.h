@@ -35,6 +35,14 @@ typedef struct s_cylinder
 	t_material	mat;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	t_point3	center;
+	t_point3	top;
+	double		radius;
+	t_material	mat;
+}	t_cone;
+
 bool		sphere_hit(t_ray *r, double min_t, double max_t,
 				t_hit_rec *rec, void *object);
 bool		aabb_hit(t_ray *r, double min_t, double max_t,
@@ -43,10 +51,13 @@ bool		plane_hit(t_ray *r, double min_t, double max_t,
 				t_hit_rec *rec, void *object);
 bool		cylinder_hit(t_ray *r, double min_t, double max_t,
 				t_hit_rec *rec, void *object);
+bool		cone_hit(t_ray *r, double min_t, double max_t,
+				t_hit_rec *rec, void *object);
 
 t_aabb		sphere_b_box(void *object);
 t_aabb		plane_b_box(void *object);
 t_aabb		cylinder_b_box(void *object);
 t_aabb		aabb_b_box(void *object);
+t_aabb		cone_b_box(void *object);
 
 #endif

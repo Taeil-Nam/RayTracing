@@ -37,6 +37,7 @@ FILE=	main.c				\
 		object/sphere.c		\
 		object/plane.c		\
 		object/cylinder.c	\
+		object/cone.c		\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\

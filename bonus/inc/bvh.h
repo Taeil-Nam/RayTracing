@@ -11,7 +11,8 @@ enum e_object_type
 {
 	sphere,
 	cylinder,
-	plane
+	plane,
+	cone
 };
 
 typedef struct s_hittable

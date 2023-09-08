@@ -64,3 +64,18 @@ int	cylinder_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
 	hittable->b_box = cylinder_b_box;
 	return (1);
 }
+
+int	cone_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
+{
+	t_cone	*tmp;
+
+	tmp = (t_cone *)hittable->object;
+	if (init_material(&tmp->mat, data[1]) == -1)
+		return (-1);
+	if (init_texture(&tmp->mat.t, data[2], minirt) == -1)
+		return (-1);
+	hittable->center = tmp->center;
+	hittable->hit = cone_hit;
+	hittable->b_box = cone_b_box;
+	return (1);
+}

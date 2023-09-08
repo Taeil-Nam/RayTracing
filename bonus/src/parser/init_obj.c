@@ -68,6 +68,30 @@ int	init_cylinder(t_hittable *new_object, char **data)
 	return (1);
 }
 
+int	init_cone(t_hittable *new_object, char **data)
+{
+	t_point3	center;
+	t_point3	top;
+	double		radius;
+	int			atod_errno;
+
+	if (count_element_2pt_arr(data) != 4)
+		return (-1);
+	if (data_to_point(data[1], &center) == -1)
+		return (-1);
+	if (data_to_point(data[2], &top) == -1)
+		return (-1);
+	radius = ft_atod(data[3], &atod_errno);
+	if (atod_errno == ATOD_FORMAT_ERR)
+		return (-1);
+	new_object->object = (t_cone *)xmalloc(sizeof(t_cone));
+	new_object->type = cone;
+	((t_cone *)(new_object->object))->center = center;
+	((t_cone *)(new_object->object))->top = top;
+	((t_cone *)(new_object->object))->radius = radius;
+	return (1);
+}
+
 int	init_object(t_hittable *hittable, char *obj_line)
 {
 	int		ret;
@@ -82,6 +106,8 @@ int	init_object(t_hittable *hittable, char *obj_line)
 		ret = init_plane(hittable, data);
 	else if (ft_strequal(CYLINDER, data[0]))
 		ret = init_cylinder(hittable, data);
+	else if (ft_strequal(CONE, data[0]))
+		ret = init_cone(hittable, data);
 	else
 		ret = -1;
 	ft_double_free(data);

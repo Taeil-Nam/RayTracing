@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 200
+# define SAMPLE_PER_PIXEL 2
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 900
@@ -30,6 +30,7 @@
 # define SPHERE "sp"
 # define PLANE "pl"
 # define CYLINDER "cy"
+# define CONE "co"
 
 # define DIFFUSE "D"
 # define METAL "M"
@@ -116,6 +117,7 @@ int			init_object(t_hittable *hittable, char *obj_line);
 int			init_texture(t_texture *tex, char *line, t_minirt *minirt);
 int			plane_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
 int			cylinder_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
+int			cone_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
 int			sphere_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
 t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb);
 int			object_constructor(char **data, t_list **list, t_minirt *minirt);
