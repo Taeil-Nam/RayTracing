@@ -34,9 +34,10 @@ void	set_camera_pos(t_point3 look_from, t_vec3 dir,
 	double	viewport_h;
 	double	viewport_w;
 
-	vup.x = 0;
-	vup.y = 1.0;
-	vup.z = 0;
+	if (dir.x == 0 && dir.z == 0)
+		vec3_init(&vup, 0,0,-1);
+	else
+		vec3_init(&vup, 0, 1, 0);
 	viewport_w = tan(degrees_to_radians(hfov) / 2) * 2.0;
 	viewport_h = viewport_w * ((double)DEFAULT_IMAGE_HGT / DEFAULT_IMAGE_WID);
 	cam->w = vec3_unit(dir);
