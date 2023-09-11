@@ -31,36 +31,23 @@ bool	sphere_hit(t_ray *r, double min_t, double max_t,
 {
 	t_sphere	*sp;
 	t_vec3		oc;
-	double		a;
-	double		half_b;
-	double		c;
-	double		discrement;
-	double		sqrtd;
-	double		root;
+	t_vec3		normal;
+	double		constants[3];
 
 	sp = (t_sphere *)object;
 	if (rec->depth == 50 && sp->mat.mat_type == light)
 		return (false);
 	oc = vec3_sub(r->orig, sp->center);
-	a = vec3_squared(r->dir);
-	half_b = vec3_dot(oc, r->dir);
-	c = vec3_squared(oc) - sp->radius * sp->radius;
-	discrement = half_b * half_b - a * c;
-	if (discrement < 0)
+	constants[0] = vec3_squared(r->dir);
+	constants[1] = vec3_dot(oc, r->dir);
+	constants[2] = vec3_squared(oc) - sp->radius * sp->radius;
+	if (quadratic_formular(constants, rec, min_t, max_t) == false)
 		return (false);
-	sqrtd = sqrt(discrement);
-	root = (-half_b - sqrtd) / a;
-	if (root < min_t || max_t < root)
-	{
-		root = (-half_b + sqrtd) / a;
-		if (root < min_t || max_t < root)
-			return (false);
-	}
-	rec->t = root;
+	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
-	t_vec3 outward_normal = vec3_mul_scalar(vec3_sub(rec->p, sp->center), 1 / sp->radius);
-	set_face_normal(r, outward_normal, rec);
-	get_sphere_uv(outward_normal, rec);
+	normal = vec3_mul_scalar(vec3_sub(rec->p, sp->center), 1 / sp->radius);
+	set_face_normal(r, normal, rec);
+	get_sphere_uv(normal, rec);
 	rec->mat = &sp->mat;
 	return (true);
 }

@@ -39,6 +39,8 @@ typedef struct s_cone
 {
 	t_point3	center;
 	t_point3	top;
+	t_vec3		axis;
+	int			is_inf;
 	double		radius;
 	t_material	mat;
 }	t_cone;
@@ -59,5 +61,7 @@ t_aabb		plane_b_box(void *object);
 t_aabb		cylinder_b_box(void *object);
 t_aabb		aabb_b_box(void *object);
 t_aabb		cone_b_box(void *object);
+
+bool	quadratic_formular(double constants[3], t_hit_rec *rec, double min_t, double max_t);
 
 #endif

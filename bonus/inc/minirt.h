@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 2
+# define SAMPLE_PER_PIXEL 10
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 900
@@ -58,6 +58,7 @@ typedef struct s_hit_record
 	t_point3	center;
 	t_vec3		normal;
 	t_material	*mat;
+	double		root;
 	double		t;
 	double		u;
 	double		v;
@@ -126,6 +127,7 @@ t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb);
 int			object_constructor(char **data, t_list **list, t_minirt *minirt);
 int			world_constructor(char *line, t_list **list, t_minirt *minirt);
 void		free_hittables(void *hittable);
+bool		check_nan_in_vec3(t_vec3 v);
 
 /* camera.c 관련 함수 */
 double	degrees_to_radians(double degrees);

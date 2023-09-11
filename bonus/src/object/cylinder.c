@@ -28,35 +28,25 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
 {
 	t_vec3	ray_d;
 	t_vec3	oc;
-	double	a;
-	double	half_b;
-	double	c;
-	double	discrement;
-	double	sqrtd;
-	double	root;
+	double	constants[3];
+	double	p_height;
 
 	ray_d = r->dir;
 	oc = vec3_sub(r->orig, object->center);
-	a = vec3_dot(ray_d, ray_d) - pow(vec3_dot(ray_d, object->axis), 2);
-	half_b = vec3_dot(ray_d, oc) - vec3_dot(ray_d, object->axis) * vec3_dot(oc, object->axis);
-	c = vec3_dot(oc, oc) - pow(vec3_dot(oc, object->axis), 2) - pow(object->diameter * 0.5, 2);
-	discrement = pow(half_b, 2) - a * c;
-	if (discrement < 0)
+	constants[0] = vec3_dot(ray_d, ray_d) - pow(vec3_dot(ray_d, object->axis), 2);
+	constants[1] = vec3_dot(ray_d, oc) - vec3_dot(ray_d, object->axis) 
+										* vec3_dot(oc, object->axis);
+	constants[2] = vec3_dot(oc, oc) - pow(vec3_dot(oc, object->axis), 2)
+									- pow(object->diameter * 0.5, 2);
+	if (quadratic_formular(constants, rec, min_t, max_t) == false)
 		return (false);
-	sqrtd = sqrt(discrement);
-	root = (-half_b - sqrtd) / a;
-	if (root < min_t || max_t < root)
-	{
-		root = (-half_b + sqrtd) / a;
-		if (root < min_t || max_t < root)
-			return (false);
-	}
-	double	p_height = vec3_dot(vec3_sub(ray_at(*r, root), object->center), object->axis);
+	p_height = vec3_dot(vec3_sub(ray_at(*r, rec->root), object->center), object->axis);
 	if (p_height > object->height || p_height < 0)
 		return (false);
-	rec->t = root;
+	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
-	t_vec3	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, object->center), vec3_mul_scalar(object->axis, p_height)));
+	t_vec3	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, object->center),
+									 vec3_mul_scalar(object->axis, p_height)));
 	set_face_normal(r, outward_normal, rec);
 	rec->mat = &object->mat;
 	return (true);
@@ -110,7 +100,7 @@ bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 	p = ray_at(*r, root);
 	if (vec3_length(vec3_sub(p, top)) > object->diameter * 0.5)
 		return (false);
-	rec->t = root;
+	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
 	outward_normal = object->axis;
 	set_face_normal(r, outward_normal, rec);

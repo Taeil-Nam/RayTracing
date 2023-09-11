@@ -34,6 +34,8 @@ int	init_plane(t_hittable *new_object, char **data)
 		return (-1);
 	if (data_to_point(data[2], &normal) == -1)
 		return (-1);
+	if (check_nan_in_vec3(normal))
+		return (-1);
 	new_object->object = (t_plane *)xmalloc(sizeof(t_plane));
 	new_object->type = plane;
 	((t_plane *)(new_object->object))->p = p;
@@ -57,7 +59,7 @@ int	init_cylinder(t_hittable *new_object, char **data)
 		return (-1);
 	diameter = ft_atod(data[3], &atod_errno);
 	height = ft_atod(data[4], &atod_errno);
-	if (atod_errno == ATOD_FORMAT_ERR)
+	if (atod_errno == ATOD_FORMAT_ERR || check_nan_in_vec3(axis))
 		return (-1);
 	new_object->object = (t_cylinder *)xmalloc(sizeof(t_cylinder));
 	new_object->type = cylinder;
@@ -74,21 +76,32 @@ int	init_cone(t_hittable *new_object, char **data)
 	t_point3	top;
 	double		radius;
 	int			atod_errno;
+	int			is_inf;
 
-	if (count_element_2pt_arr(data) != 4)
+	if (count_element_2pt_arr(data) != 5)
 		return (-1);
 	if (data_to_point(data[1], &center) == -1)
 		return (-1);
 	if (data_to_point(data[2], &top) == -1)
 		return (-1);
+	if (check_nan_in_vec3(vec3_unit(vec3_sub(center, top))))
+		return (-1);
 	radius = ft_atod(data[3], &atod_errno);
 	if (atod_errno == ATOD_FORMAT_ERR)
+		return (-1);
+	if (ft_strequal(data[4], "INF") == 1)
+		is_inf = 1;
+	else if (ft_strequal(data[4], "NO_INF") == 1)
+		is_inf = 0;
+	else
 		return (-1);
 	new_object->object = (t_cone *)xmalloc(sizeof(t_cone));
 	new_object->type = cone;
 	((t_cone *)(new_object->object))->center = center;
 	((t_cone *)(new_object->object))->top = top;
 	((t_cone *)(new_object->object))->radius = radius;
+	((t_cone *)(new_object->object))->axis = vec3_unit(vec3_sub(center, top));
+	((t_cone *)(new_object->object))->is_inf = is_inf;
 	return (1);
 }
 

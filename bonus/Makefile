@@ -22,14 +22,15 @@ FILE=	main.c				\
 		vec3/vec3_3.c		\
 		vec3/vec3_4.c		\
 		vec3/vec3_5.c		\
-		parser/parser_1.c	\
-		parser/parser_2.c	\
-		parser/parser_3.c	\
-		parser/init_mat.c	\
-		parser/init_tex.c 	\
-		parser/init_obj.c	\
+		parser/constructor.c\
 		parser/initializer.c\
-		parser/parser_util.c\
+		parser/init_mat.c	\
+		parser/init_obj.c	\
+		parser/init_tex.c 	\
+		parser/parser_minirt.c\
+		parser/parser_world.c\
+		parser/parser_util1.c\
+		parser/parser_util2.c\
 		bvh/bvh.c			\
 		bvh/comparator.c	\
 		bvh/bvh_utils.c		\
@@ -38,6 +39,7 @@ FILE=	main.c				\
 		object/plane.c		\
 		object/cylinder.c	\
 		object/cone.c		\
+		object/object_utils.c\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\
