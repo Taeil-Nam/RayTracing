@@ -28,7 +28,7 @@ int	object_constructor(char **data, t_list **list, t_minirt *minirt)
 		ft_lstadd_back(list, ft_lstnew(new_object));
 	return (ret);
 }
-int	world_constructor(char *line, t_list **list, t_camera *camera)
+int	world_constructor(char *line, t_list **list, t_minirt *minirt)
 {
 	char	**data;
 	int		ret;
@@ -39,9 +39,9 @@ int	world_constructor(char *line, t_list **list, t_camera *camera)
 	if (data[0] == NULL)
 		ret = 1;
 	else if (ft_strequal(AMBIENT, data[0]))
-		ret = ambient_data(data, camera);
+		ret = ambient_data(data, minirt);
 	else if (ft_strequal(CAMERA, data[0]))
-		ret = camera_data(data, camera);
+		ret = camera_data(data, minirt);
 	else if (ft_strequal(LIGHT, data[0]))
 		ret = light_data(data, list);
 	else

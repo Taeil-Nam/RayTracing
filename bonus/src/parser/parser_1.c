@@ -35,7 +35,7 @@ int	data_processing(char *line, t_list **list, t_minirt *minirt)
 	if (cnt == 3)
 		ret = object_constructor(data, list, minirt);
 	else if (cnt == 1)
-		ret = world_constructor(data[0], list, &minirt->cam);
+		ret = world_constructor(data[0], list, minirt);
 	else
 		ret = -1;
 	ft_double_free(data);

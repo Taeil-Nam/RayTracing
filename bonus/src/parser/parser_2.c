@@ -2,13 +2,17 @@
 #include "bvh.h"
 #include "object.h"
 
-int	ambient_data(char **data, t_camera *cam)
+int	ambient_data(char **data, t_minirt *minirt)
 {
 	double	ratio;
 	t_color	rgb;
 	int		atod_errno;
 
 	atod_errno = 0;
+	if (minirt->is_ambient_in_map == false)
+		minirt->is_ambient_in_map = true;
+	else
+		return (-1);
 	if (count_element_2pt_arr(data) != 3)
 		return (-1);
 	ratio = ft_atod(data[1], &atod_errno);
@@ -16,16 +20,20 @@ int	ambient_data(char **data, t_camera *cam)
 		return (-1);
 	if (data_to_rgb(data[2], &rgb) == -1)
 		return (-1);
-	set_camera_image(rgb, ratio, cam);
+	set_camera_image(rgb, ratio, &minirt->cam);
 	return (1);
 }
 
-int	camera_data(char **data, t_camera *cam)
+int	camera_data(char **data, t_minirt *minirt)
 {
 	t_point3	look_from;
 	t_vec3		dir;
 	double		hfov;
 
+	if (minirt->is_camera_in_map == false)
+		minirt->is_camera_in_map = true;
+	else
+		return (-1);
 	if (count_element_2pt_arr(data) != 4)
 		return (-1);
 	if (data_to_point(data[1], &look_from) == -1)
@@ -33,7 +41,7 @@ int	camera_data(char **data, t_camera *cam)
 	if (data_to_point(data[2], &dir) == -1)
 		return (-1);
 	hfov = ft_atoi(data[3]);
-	set_camera_pos(look_from, dir, hfov, cam);
+	set_camera_pos(look_from, dir, hfov, &minirt->cam);
 	return (1);
 }
 

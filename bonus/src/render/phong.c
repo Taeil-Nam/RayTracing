@@ -33,21 +33,19 @@ t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l)
 	t_ray		p_to_light;
 	t_hit_rec	light_rec;
 
-	//ambient
 	ambient = vec3_mul_scalar(cam->a_background, cam->a_ratio);
 	if (!hit_bvh(&rec, 0.001, INFINITY, &r, bvh) || rec.mat->mat_type == light)
 		return (ambient);
-
+	if (l == NULL)
+		return (vec3_mul_vec3(ambient, rec.mat->t.value(&rec, &rec.mat->t.img, &rec.mat->t.bmp_img, rec.mat->t.rgb)));
 	p_to_light.orig = vec3_add(rec.p, vec3_mul_scalar(rec.normal, 0.0001));
 	p_to_light.dir = vec3_unit(vec3_sub(l->center, p_to_light.orig));
 	double length = vec3_length(vec3_sub(l->center, p_to_light.orig));
-
 	if (hit_bvh(&light_rec, 0.001, length, &p_to_light, bvh)
 		&& light_rec.mat->mat_type != light
 		&& light_rec.mat != rec.mat)
 		return (vec3_instant(0,0,0));
-	t_color	diffuse = diffuse_color(&rec, cam, l,
-	 				&p_to_light);
+	t_color	diffuse = diffuse_color(&rec, cam, l, &p_to_light);
 	t_color	specular = specular_color(&r, &p_to_light, &rec, l);
 	phong = vec3_add(vec3_mul_vec3(vec3_add(ambient, diffuse),
 					rec.mat->t.value(&rec, &rec.mat->t.img, &rec.mat->t.bmp_img, rec.mat->t.rgb)) ,specular);

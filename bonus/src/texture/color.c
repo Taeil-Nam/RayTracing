@@ -7,16 +7,36 @@ t_color	solid_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 
 t_color	checker_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 {
-	t_color	checker;
-	double	sines;
+	// t_color	checker;
+	// double	sines;
 
-	checker.x = 0.9;
-	checker.y = 0.9;
-	checker.z = 0.9;
-	sines = sin(rec->p.x) * sin(rec->p.y) * sin(rec->p.z);
-	if (sines < 0)
-		return (rgb);
-	return (checker);
+	// checker.x = 0.9;
+	// checker.y = 0.9;
+	// checker.z = 0.9;
+	// sines = sin(rec->p.x) * sin(rec->p.y) * sin(rec->p.z);
+	// if (sines < 0)
+	// 	return (rgb);
+	// return (checker);
+	t_color checker;
+    double sines;
+
+    checker.x = 0.9;
+    checker.y = 0.9;
+    checker.z = 0.9;
+
+    // 평면의 normal 벡터를 기준으로 체커보드 패턴 배치
+    double dx = rec->p.x - rec->center.x;
+	double dy = rec->p.y - rec->center.y;
+    double dz = rec->p.z - rec->center.z;
+
+    int i = (int)(floor(dx)) + (int)(floor(dz));
+    int j = (int)(floor(dy));
+
+    // 체커보드 패턴 선택
+    if ((i + j) % 2 == 0)
+        return checker;
+    else
+        return rgb;
 }
 
 t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)

@@ -37,6 +37,8 @@ void	minirt_init(t_minirt *minirt)
 	minirt->depth = DEPTH;
 	minirt->illumination = PHONG;
 	minirt->mode = RENDERING;
+	minirt->is_ambient_in_map = false;
+	minirt->is_camera_in_map = false;
 }
 
 int	main(int argc, char *argv[])

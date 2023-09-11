@@ -32,6 +32,7 @@ bool	plane_hit(t_ray *r, double min_t, double max_t,
 	root = numer / denomi;
 	if (root < min_t || max_t < root)
 		return (false);
+	rec->center = pl->p;
 	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
 	outward_normal = pl->n;
