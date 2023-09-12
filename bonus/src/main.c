@@ -33,7 +33,7 @@ void	minirt_init(t_minirt *minirt)
 	minirt->data.addr = mlx_get_data_addr(minirt->data.img, 
 								&minirt->data.bits_per_pixel,
 								&minirt->data.line_length, &minirt->data.endian);
-	minirt->sample_per_pixel = 10;
+	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
 	minirt->depth = DEPTH;
 	minirt->illumination = PATH;
 	minirt->mode = RENDERING;

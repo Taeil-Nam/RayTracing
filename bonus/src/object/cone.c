@@ -17,12 +17,12 @@ t_aabb	cone_b_box(void *object)
 	}
 	else
 	{
-		cone_box.p_min.x = fmin(cone->center.x - cone->radius, cone->top.x);
-		cone_box.p_min.y = fmin(cone->center.y - cone->radius, cone->top.y);
-		cone_box.p_min.z = fmin(cone->center.z - cone->radius, cone->top.z);
-		cone_box.p_max.x = fmax(cone->center.x + cone->radius, cone->top.x);
-		cone_box.p_max.y = fmax(cone->center.y + cone->radius, cone->top.y);
-		cone_box.p_max.z = fmax(cone->center.z + cone->radius, cone->top.z);
+		cone_box.p_min.x = fmin(cone->center.x - cone->radius, cone->top.x - cone->radius);
+		cone_box.p_min.y = fmin(cone->center.y - cone->radius, cone->top.y - cone->radius);
+		cone_box.p_min.z = fmin(cone->center.z - cone->radius, cone->top.z - cone->radius);
+		cone_box.p_max.x = fmax(cone->center.x + cone->radius, cone->top.x + cone->radius);
+		cone_box.p_max.y = fmax(cone->center.y + cone->radius, cone->top.y + cone->radius);
+		cone_box.p_max.z = fmax(cone->center.z + cone->radius, cone->top.z + cone->radius);
 	}
 	return (cone_box);
 }
@@ -70,8 +70,9 @@ bool	cone_side_hit(t_ray *r, double min_t, double max_t,
 	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
 	normal = vec3_sub(rec->p, cone->top);
-	normal = vec3_sub(normal, vec3_mul_scalar(axis, vec3_dot(normal, axis) / vec3_dot(axis, axis)));
-	normal = vec3_unit(normal); 
+	double tmp = vec3_length(normal) / vec3_dot(vec3_unit(normal), axis);
+	normal = vec3_sub(normal, vec3_mul_scalar(axis, tmp));
+	normal = vec3_unit(normal);
 	set_face_normal(r, normal, rec);
 	rec->mat = &cone->mat;
 	return (true);
@@ -114,6 +115,8 @@ bool	cone_hit(t_ray *r, double min_t, double max_t,
 	cone = (t_cone *)object;
 	rec->t = max_t;
 	side = cone_side_hit(r, min_t, rec->t, rec, cone);
+	if (cone->is_inf)
+		return (side);
 	bottom = cone_bottom_hit(r, min_t, rec->t, rec, cone);
 	return (side || bottom);
 }
