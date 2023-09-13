@@ -17,6 +17,7 @@ void	get_cone_uv(t_vec3 o_n, t_hit_rec *rec, double p_height, t_cone *cone)
 		rec->u = clamp(1 - (acos(theta) /  (2 * PI)), 0, 1);
 	else
 		rec->u = clamp(acos(theta) /  (2 * PI), 0, 1);
+	p_height = fmod(fabs(p_height), vec3_length(vec3_sub(cone->top, cone->center)));
 	rec->v = clamp(p_height / vec3_length(vec3_sub(cone->top, cone->center)), 0, 1);
 }
 
