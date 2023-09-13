@@ -92,32 +92,32 @@ t_color	solid_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 t_color	checker_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
 {
 	//default checker
-	t_color	checker;
-	double	sines;
-
-	checker.x = 0.9;
-	checker.y = 0.9;
-	checker.z = 0.9;
-	sines = sin(rec->u) * sin(rec->v);
-	if (sines < 0)
-		return (rgb);
-	return (checker);
-	// int		width;
-	// int		height;
 	// t_color	checker;
-	// int		u;
-	// int		v;
+	// double	sines;
 
-	// width = 2;
-	// height = 2;
 	// checker.x = 0.9;
 	// checker.y = 0.9;
 	// checker.z = 0.9;
-	// u = floor(fmod(rec->u, 1) * width);
-	// v = floor(fmod(rec->v, 1) * height);
-	// if ((u + v) % 2 == 0)
+	// sines = sin(rec->u) * sin(rec->v);
+	// if (sines < 0)
 	// 	return (rgb);
 	// return (checker);
+	int		width;
+	int		height;
+	t_color	checker;
+	int		u;
+	int		v;
+
+	width = 10;
+	height = 10;
+	checker.x = 0.9;
+	checker.y = 0.9;
+	checker.z = 0.9;
+	u = floor(rec->u * width);
+	v = floor(rec->v * height);
+	if ((u + v) % 2 == 0)
+		return (rgb);
+	return (checker);
 	// int		width;
 	// int		height;
 	// t_color	checker;

@@ -1,5 +1,25 @@
 #include "object.h"
 
+void	get_cone_uv(t_vec3 o_n, t_hit_rec *rec, double p_height, t_cone *cone)
+{
+	double	theta;
+	t_vec3	u_vec;
+	t_vec3	tmp;
+	t_vec3	w;
+	int		sign;
+
+	u_vec = vec3_unit(vec3_cross(cone->axis, vec3_instant(1.0, 0.0, 0.0)));
+	tmp = vec3_sub(vec3_sub(rec->p, cone->top), vec3_mul_scalar(cone->axis, p_height));
+	tmp = vec3_unit(tmp);
+	theta = vec3_dot(u_vec, tmp);
+	w = vec3_cross(u_vec, tmp);
+	if (vec3_dot(w, cone->axis) <= 0)
+		rec->u = clamp(1 - (acos(theta) /  (2 * PI)), 0, 1);
+	else
+		rec->u = clamp(acos(theta) /  (2 * PI), 0, 1);
+	rec->v = clamp(p_height / vec3_length(vec3_sub(cone->top, cone->center)), 0, 1);
+}
+
 t_aabb	cone_b_box(void *object)
 {
 	t_cone		*cone;
@@ -73,6 +93,7 @@ bool	cone_side_hit(t_ray *r, double min_t, double max_t,
 	double tmp = vec3_length(normal) / vec3_dot(vec3_unit(normal), axis);
 	normal = vec3_sub(normal, vec3_mul_scalar(axis, tmp));
 	normal = vec3_unit(normal);
+	get_cone_uv(normal, rec, vec3_dot(axis, vec3_sub(rec->p, cone->top)), cone);
 	set_face_normal(r, normal, rec);
 	rec->mat = &cone->mat;
 	return (true);
@@ -98,8 +119,9 @@ bool	cone_bottom_hit(t_ray *r, double min_t, double max_t,
 	p = ray_at(*r, root);
 	if (vec3_length(vec3_sub(p, cone->center)) > cone->radius)
 		return (false);
-	rec->t = rec->root;
+	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
+	get_cone_uv(cone->axis, rec, vec3_length(vec3_sub(cone->top, cone->center)), cone);
 	set_face_normal(r, vec3_unit(axis), rec);
 	rec->mat = &cone->mat;
 	return (true);
