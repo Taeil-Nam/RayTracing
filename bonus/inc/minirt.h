@@ -13,11 +13,12 @@
 
 # define SAMPLE_PER_PIXEL 10
 # define DEPTH 50
-# define DEFAULT_IMAGE_WID 1000
-# define DEFAULT_IMAGE_HGT 600
+# define DEFAULT_IMAGE_WID 1200
+# define DEFAULT_IMAGE_HGT 900
 # define PI 3.1415926535897932385
 # define KSN 64
 # define KS 0.6
+# define TILE_SIZE 100
 
 # define PHONG 0
 # define PATH 1
@@ -50,7 +51,6 @@ typedef struct s_material	t_material;
 typedef struct s_texture	t_texture;
 typedef struct s_hittable	t_hittable;
 typedef struct s_sphere		t_sphere;
-
 
 typedef struct s_hit_record
 {

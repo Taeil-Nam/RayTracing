@@ -5,16 +5,21 @@ void	get_plane_uv(t_vec3 o_n, t_point3 p, t_hit_rec *rec)
 	t_vec3	u_vec;
     t_vec3	v_vec;
 	t_vec3	q_minus_p;
+	t_vec3	std;
 
-	u_vec = vec3_cross(o_n, vec3_instant(1.0, 0.0, 0.0)); // Choose an arbitrary vector not collinear with normal
+	if (o_n.y == 0 && o_n.z == 0)
+		vec3_init(&std, 0, 1, 0);
+	else
+		vec3_init(&std, 1, 0, 0);
+	u_vec = vec3_cross(o_n, std); // Choose an arbitrary vector not collinear with normal
 	v_vec = vec3_cross(o_n, u_vec);
 
     // Calculate Q - pointOnPlane
     vec3_init(&q_minus_p, rec->p.x - p.x, rec->p.y - p.y, rec->p.z - p.z);
 
     // Calculate dot products to find UV coordinates
-    rec->u = fmod(vec3_dot(q_minus_p, u_vec), 40) / 40;
-    rec->v = fmod(vec3_dot(q_minus_p, v_vec), 40) / 40;
+    rec->u = fmod(vec3_dot(q_minus_p, u_vec), TILE_SIZE) / TILE_SIZE;
+    rec->v = fmod(vec3_dot(q_minus_p, v_vec), TILE_SIZE) / TILE_SIZE;
 }
 
 t_aabb	plane_b_box(void *object)

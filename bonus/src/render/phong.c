@@ -38,7 +38,7 @@ t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l)
 		return (ambient);
 	if (l == NULL)
 		return (vec3_mul_vec3(ambient, rec.mat->t.value(&rec, &rec.mat->t.img, &rec.mat->t.bmp_img, rec.mat->t.rgb)));
-	p_to_light.orig = vec3_add(rec.p, vec3_mul_scalar(rec.normal, 0.0001));
+	p_to_light.orig = rec.p;
 	p_to_light.dir = vec3_unit(vec3_sub(l->center, p_to_light.orig));
 	double length = vec3_length(vec3_sub(l->center, p_to_light.orig));
 	if (hit_bvh(&light_rec, 0.001, length, &p_to_light, bvh)

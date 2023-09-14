@@ -5,10 +5,15 @@ void	get_cylinder_uv(t_vec3 o_n, t_hit_rec *rec, double p_height, t_cylinder *cy
 	double	theta;
 	t_vec3	u_vec;
 	t_vec3	tmp;
+	t_vec3	std;
 	t_vec3	w;
 	int		sign;
 
-	u_vec = vec3_unit(vec3_cross(cy->axis, vec3_instant(1.0, 0.0, 0.0)));
+	if (o_n.y == 0 && o_n.z == 0)
+		vec3_init(&std, 0, 1, 0);
+	else
+		vec3_init(&std, 1, 0, 0);
+	u_vec = vec3_unit(vec3_cross(cy->axis, std));
 	tmp = vec3_sub(vec3_sub(rec->p, cy->center), vec3_mul_scalar(cy->axis, p_height));
 	tmp = vec3_unit(tmp);
 	theta = vec3_dot(u_vec, tmp);

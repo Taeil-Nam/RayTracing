@@ -36,14 +36,21 @@ int	init_checker(t_texture *tex, char **data, t_minirt *minirt)
 }
 int	init_image(t_texture *tex, char **data, t_minirt *minirt)
 {
-	if (count_element_2pt_arr(data) != 2)
+	if (count_element_2pt_arr(data) != 3)
 		return (-1);
 	tex->img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[1], 
 							&tex->img.img_width, &tex->img.img_height);
 	if (tex->img.img_ptr == NULL)
 		return (-1);
-	//bmp 처리
-	tex->bmp_img.img_ptr = NULL;
+	if (ft_strequal(data[2], "NULL") != 1)
+	{
+		tex->bmp_img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[2], 
+							&tex->bmp_img.img_width, &tex->bmp_img.img_height);
+		if (tex->bmp_img.img_ptr == NULL)
+			return (-1);
+	}
+	else
+		tex->bmp_img.img_ptr = NULL;
 	tex->tex_type = image;
 	tex->value = img_value;
 	return (1);

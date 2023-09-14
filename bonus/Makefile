@@ -66,7 +66,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 $(NAME) : $(OBJ)
 	$(MAKE) -C ./mlx
 	$(MAKE) -C ./libft
-	$(CC) $(CFLAGS) $(CLIB) $(OBJ) -o $(NAME) $(INC)
+	$(CC) $(CFLAGS) $(CLIB) $(OBJ) -g -o $(NAME) $(INC)
 	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 clean :

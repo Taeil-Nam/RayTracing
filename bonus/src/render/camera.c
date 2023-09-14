@@ -34,8 +34,10 @@ void	set_camera_pos(t_point3 look_from, t_vec3 dir,
 	double	viewport_h;
 	double	viewport_w;
 
-	if (dir.x == 0 && dir.z == 0)
-		vec3_init(&vup, 0,0,-1);
+	if (dir.x == 0 && dir.z == 0 && dir.y < 0)
+		vec3_init(&vup, 0, 0, 1);
+	else if (dir.x == 0 && dir.z == 0 && dir.y > 0)
+		vec3_init(&vup, 0, 0, -1);
 	else
 		vec3_init(&vup, 0, 1, 0);
 	viewport_w = tan(degrees_to_radians(hfov) / 2) * 2.0;

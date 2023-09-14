@@ -51,6 +51,7 @@ int	init_cylinder(t_hittable *new_object, char **data)
 	double		height;
 	int			atod_errno;
 
+	atod_errno = 0;
 	if (count_element_2pt_arr(data) != 5)
 		return (-1);
 	if (data_to_point(data[1], &center) == -1)
@@ -78,6 +79,7 @@ int	init_cone(t_hittable *new_object, char **data)
 	int			atod_errno;
 	int			is_inf;
 
+	atod_errno = 0;
 	if (count_element_2pt_arr(data) != 5)
 		return (-1);
 	if (data_to_point(data[1], &center) == -1)
