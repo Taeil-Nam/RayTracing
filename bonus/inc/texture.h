@@ -42,5 +42,5 @@ t_color	checker_value(t_hit_rec *rec, t_img *img,
 			t_img *bum_img, t_color rgb);
 t_color	img_value(t_hit_rec *rec, t_img *img,
 			t_img *bum_img, t_color rgb);
-
+t_vec3	bmp_value(t_hit_rec *rec, t_img *img);
 #endif

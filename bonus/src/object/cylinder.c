@@ -49,7 +49,7 @@ t_aabb	cylinder_b_box(void *object)
 }
 
 bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
-			t_hit_rec *rec, t_cylinder *object)
+			t_hit_rec *rec, t_cylinder *cy)
 {
 	t_vec3	ray_d;
 	t_vec3	oc;
@@ -57,29 +57,31 @@ bool	cylinder_side_hit(t_ray *r, double min_t, double max_t,
 	double	p_height;
 
 	ray_d = r->dir;
-	oc = vec3_sub(r->orig, object->center);
-	constants[0] = vec3_dot(ray_d, ray_d) - pow(vec3_dot(ray_d, object->axis), 2);
-	constants[1] = vec3_dot(ray_d, oc) - vec3_dot(ray_d, object->axis) 
-										* vec3_dot(oc, object->axis);
-	constants[2] = vec3_dot(oc, oc) - pow(vec3_dot(oc, object->axis), 2)
-									- pow(object->diameter * 0.5, 2);
+	oc = vec3_sub(r->orig, cy->center);
+	constants[0] = vec3_dot(ray_d, ray_d) - pow(vec3_dot(ray_d, cy->axis), 2);
+	constants[1] = vec3_dot(ray_d, oc) - vec3_dot(ray_d, cy->axis) 
+										* vec3_dot(oc, cy->axis);
+	constants[2] = vec3_dot(oc, oc) - pow(vec3_dot(oc, cy->axis), 2)
+									- pow(cy->diameter * 0.5, 2);
 	if (quadratic_formular(constants, rec, min_t, max_t) == false)
 		return (false);
-	p_height = vec3_dot(vec3_sub(ray_at(*r, rec->root), object->center), object->axis);
-	if (p_height > object->height || p_height < 0)
+	p_height = vec3_dot(vec3_sub(ray_at(*r, rec->root), cy->center), cy->axis);
+	if (p_height > cy->height || p_height < 0)
 		return (false);
 	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
-	t_vec3	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, object->center),
-									 vec3_mul_scalar(object->axis, p_height)));
-	get_cylinder_uv(outward_normal, rec, p_height, object);
+	t_vec3	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, cy->center),
+									 vec3_mul_scalar(cy->axis, p_height)));
+	get_cylinder_uv(outward_normal, rec, p_height, cy);
 	set_face_normal(r, outward_normal, rec);
-	rec->mat = &object->mat;
+	if (cy->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &cy->mat.t.bmp_img)));
+	rec->mat = &cy->mat;
 	return (true);
 }
 
 bool	cylinder_cap_bottom_hit(t_ray *r, double min_t, double max_t,
-		t_hit_rec *rec, t_cylinder *object)
+		t_hit_rec *rec, t_cylinder *cy)
 {
 	double		numer;
 	double		denomi;
@@ -87,27 +89,29 @@ bool	cylinder_cap_bottom_hit(t_ray *r, double min_t, double max_t,
 	t_vec3		outward_normal;
 	t_point3	p;
 
-	numer = vec3_dot(object->axis, vec3_sub(object->center, r->orig));
-	denomi = vec3_dot(object->axis, r->dir);
+	numer = vec3_dot(cy->axis, vec3_sub(cy->center, r->orig));
+	denomi = vec3_dot(cy->axis, r->dir);
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
 	if (root < min_t || max_t < root)
 		return (false);
 	p = ray_at(*r, root);
-	if (vec3_length(vec3_sub(p, object->center)) > object->diameter * 0.5)
+	if (vec3_length(vec3_sub(p, cy->center)) > cy->diameter * 0.5)
 		return (false);
 	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
-	outward_normal = object->axis;
-	get_cylinder_uv(outward_normal, rec, 0, object);
+	outward_normal = cy->axis;
+	get_cylinder_uv(outward_normal, rec, 0, cy);
 	set_face_normal(r, outward_normal, rec);
-	rec->mat = &object->mat;
+	if (cy->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &cy->mat.t.bmp_img)));
+	rec->mat = &cy->mat;
 	return (true);
 }
 
 bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
-		t_hit_rec *rec, t_cylinder *object)
+		t_hit_rec *rec, t_cylinder *cy)
 {
 	double		numer;
 	double		denomi;
@@ -116,23 +120,25 @@ bool	cylinder_cap_top_hit(t_ray *r, double min_t, double max_t,
 	t_point3	top;
 	t_point3	p;
 
-	top = vec3_add(object->center, vec3_mul_scalar(object->axis, object->height));
-	numer = vec3_dot(object->axis, vec3_sub(top, r->orig));
-	denomi = vec3_dot(object->axis, r->dir);
+	top = vec3_add(cy->center, vec3_mul_scalar(cy->axis, cy->height));
+	numer = vec3_dot(cy->axis, vec3_sub(top, r->orig));
+	denomi = vec3_dot(cy->axis, r->dir);
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
 	if (root < min_t || max_t < root)
 		return (false);
 	p = ray_at(*r, root);
-	if (vec3_length(vec3_sub(p, top)) > object->diameter * 0.5)
+	if (vec3_length(vec3_sub(p, top)) > cy->diameter * 0.5)
 		return (false);
 	rec->t = root;
 	rec->p = ray_at(*r, rec->t);
-	outward_normal = object->axis;
-	get_cylinder_uv(outward_normal, rec, object->height, object);
+	outward_normal = cy->axis;
+	get_cylinder_uv(outward_normal, rec, cy->height, cy);
 	set_face_normal(r, outward_normal, rec);
-	rec->mat = &object->mat;
+	if (cy->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &cy->mat.t.bmp_img)));
+	rec->mat = &cy->mat;
 	return (true);
 }
 

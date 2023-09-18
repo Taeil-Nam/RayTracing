@@ -1,8 +1,8 @@
 A 0.3 255,255,255
-C 0,0,-60 0,0,1 70
-L -50,50,0 1 255,255,255
-L 50,50,0 1 255,255,255
-pl 0,-20,0 0,1,0 | D | S 123,123,123
-sp 0,0,0 20 | D | IMG ./img/anotherm.xpm NULL
-
+C 0,0,-80 0,0,1 70
+L 0,40,0 1 255,255,255
+pl 0,-20,0 0,1,0 | D | CH 123,123,123 ./img/earth_normalmap.xpm
+sp 0,0,0 20 | D | IMG ./img/earthmap.xpm ./img/earth_normalmap.xpm
+co -30,0,0 -30,20,3 5 NOT_INF | D | S 123,234,123 NO_BMP
+cy 30,0,0 0,1,0.3 10 20 | D | CH 255,23,23 NO_BMP
 

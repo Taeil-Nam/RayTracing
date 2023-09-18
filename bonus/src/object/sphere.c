@@ -45,9 +45,11 @@ bool	sphere_hit(t_ray *r, double min_t, double max_t,
 		return (false);
 	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
-	normal = vec3_mul_scalar(vec3_sub(rec->p, sp->center), 1 / sp->radius);
+	normal = vec3_unit(vec3_sub(rec->p, sp->center));
 	set_face_normal(r, normal, rec);
 	get_sphere_uv(normal, rec);
+	if (sp->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &sp->mat.t.bmp_img)));
 	rec->mat = &sp->mat;
 	return (true);
 }

@@ -91,9 +91,9 @@ int	init_cone(t_hittable *new_object, char **data)
 	radius = ft_atod(data[3], &atod_errno);
 	if (atod_errno == ATOD_FORMAT_ERR)
 		return (-1);
-	if (ft_strequal(data[4], "INF") == 1)
+	if (ft_strequal(data[4], INF) == 1)
 		is_inf = 1;
-	else if (ft_strequal(data[4], "NO_INF") == 1)
+	else if (ft_strequal(data[4], NOT_INF) == 1)
 		is_inf = 0;
 	else
 		return (-1);

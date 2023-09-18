@@ -60,6 +60,8 @@ bool	plane_hit(t_ray *r, double min_t, double max_t,
 	outward_normal = pl->n;
 	get_plane_uv(outward_normal, pl->p, rec);
 	set_face_normal(r, outward_normal, rec);
+	if (pl->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &pl->mat.t.bmp_img)));
 	rec->mat = &pl->mat;
 	return (true);
 }

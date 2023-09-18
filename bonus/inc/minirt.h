@@ -37,6 +37,10 @@
 # define METAL "M"
 # define DIELECTRIC "DI"
 
+# define INF "INF"
+# define NOT_INF "NOT_INF"
+# define NO_BMP "NO_BMP"
+
 # define SOLID "S"
 # define CHECKER "CH"
 # define IMAGE "IMG"

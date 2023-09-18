@@ -8,7 +8,7 @@ t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
 
 	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
 	new_light->center = center;
-	new_light->radius = DEFAULT_lIZE;
+	new_light->radius = DEFAULT_SIZE;
 	new_light->mat.mat_type = light;
 	new_light->mat.emit = emit_light;
 	new_light->mat.scatter = scatter_light;

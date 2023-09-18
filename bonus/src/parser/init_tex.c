@@ -5,13 +5,20 @@ int	init_solid(t_texture *tex, char **data, t_minirt *minirt)
 {
 	t_color	rgb;
 
-	if (count_element_2pt_arr(data) != 2)
+	if (count_element_2pt_arr(data) != 3)
 		return (-1);
 	if (data_to_rgb(data[1], &rgb) == -1)
 		return (-1);
-	//bmp image 씌우기
+	if (ft_strequal(data[2], NO_BMP) != 1)
+	{
+		tex->bmp_img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[2], 
+							&tex->bmp_img.img_width, &tex->bmp_img.img_height);
+		if (tex->bmp_img.img_ptr == NULL)
+			return (-1);
+	}
+	else
+		tex->bmp_img.img_ptr = NULL;
 	tex->rgb = rgb;
-	tex->bmp_img.img_ptr = NULL;
 	tex->img.img_ptr = NULL;
 	tex->tex_type = solid;
 	tex->value = solid_value;
@@ -22,13 +29,20 @@ int	init_checker(t_texture *tex, char **data, t_minirt *minirt)
 {
 	t_color	rgb;
 
-	if (count_element_2pt_arr(data) != 2)
+	if (count_element_2pt_arr(data) != 3)
 		return (-1);
 	if (data_to_rgb(data[1], &rgb) == -1)
 		return (-1);
-	//bmp image 씌우기
+	if (ft_strequal(data[2], NO_BMP) != 1)
+	{
+		tex->bmp_img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[2], 
+							&tex->bmp_img.img_width, &tex->bmp_img.img_height);
+		if (tex->bmp_img.img_ptr == NULL)
+			return (-1);
+	}
+	else
+		tex->bmp_img.img_ptr = NULL;
 	tex->rgb = rgb;
-	tex->bmp_img.img_ptr = NULL;
 	tex->img.img_ptr = NULL;
 	tex->tex_type = checker;
 	tex->value = checker_value;
@@ -42,7 +56,7 @@ int	init_image(t_texture *tex, char **data, t_minirt *minirt)
 							&tex->img.img_width, &tex->img.img_height);
 	if (tex->img.img_ptr == NULL)
 		return (-1);
-	if (ft_strequal(data[2], "NULL") != 1)
+	if (ft_strequal(data[2], NO_BMP) != 1)
 	{
 		tex->bmp_img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[2], 
 							&tex->bmp_img.img_width, &tex->bmp_img.img_height);

@@ -101,6 +101,8 @@ bool	cone_side_hit(t_ray *r, double min_t, double max_t,
 	normal = vec3_unit(normal);
 	get_cone_uv(normal, rec, vec3_dot(axis, vec3_sub(rec->p, cone->top)), cone);
 	set_face_normal(r, normal, rec);
+	if (cone->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &cone->mat.t.bmp_img)));
 	rec->mat = &cone->mat;
 	return (true);
 }
@@ -129,6 +131,8 @@ bool	cone_bottom_hit(t_ray *r, double min_t, double max_t,
 	rec->p = ray_at(*r, rec->t);
 	get_cone_uv(cone->axis, rec, vec3_length(vec3_sub(cone->top, cone->center)), cone);
 	set_face_normal(r, vec3_unit(axis), rec);
+	if (cone->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &cone->mat.t.bmp_img)));
 	rec->mat = &cone->mat;
 	return (true);
 }

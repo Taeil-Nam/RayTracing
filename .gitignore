@@ -1,4 +1,11 @@
-mandatory//obj
+bonus/mlx/*
+bonus/boj
+bonus/*.o
+bonus/*.a
+bonus/*.out
+bonus/*.dylib
+bonus/.DS_Store
+mandatory/obj
 mandatory/*.o
 mandatory/*.a
 mandatory/*.out

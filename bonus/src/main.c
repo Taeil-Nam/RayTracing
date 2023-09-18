@@ -35,7 +35,7 @@ void	minirt_init(t_minirt *minirt)
 								&minirt->data.line_length, &minirt->data.endian);
 	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
 	minirt->depth = DEPTH;
-	minirt->illumination = PATH;
+	minirt->illumination = PHONG;
 	minirt->mode = RENDERING;
 	minirt->is_ambient_in_map = false;
 	minirt->is_camera_in_map = false;
