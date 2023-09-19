@@ -15,6 +15,10 @@ int	init_solid(t_texture *tex, char **data, t_minirt *minirt)
 						&tex->bmp_img.img_width, &tex->bmp_img.img_height);
 		if (tex->bmp_img.img_ptr == NULL)
 			return (-1);
+		tex->bmp_img.data
+			= (unsigned char *)mlx_get_data_addr(tex->bmp_img.img_ptr,
+			&tex->bmp_img.bytes_per_pixel, &tex->bmp_img.bytes_per_scanline, &tex->bmp_img.endian);
+		tex->bmp_img.bytes_per_pixel /= 8;
 	}
 	else
 		tex->bmp_img.img_ptr = NULL;
@@ -39,6 +43,10 @@ int	init_checker(t_texture *tex, char **data, t_minirt *minirt)
 							&tex->bmp_img.img_width, &tex->bmp_img.img_height);
 		if (tex->bmp_img.img_ptr == NULL)
 			return (-1);
+		tex->bmp_img.data
+			= (unsigned char *)mlx_get_data_addr(tex->bmp_img.img_ptr,
+			&tex->bmp_img.bytes_per_pixel, &tex->bmp_img.bytes_per_scanline, &tex->bmp_img.endian);
+		tex->bmp_img.bytes_per_pixel /= 8;
 	}
 	else
 		tex->bmp_img.img_ptr = NULL;
@@ -57,12 +65,20 @@ int	init_image(t_texture *tex, char **data, t_minirt *minirt)
 							&tex->img.img_width, &tex->img.img_height);
 	if (tex->img.img_ptr == NULL)
 		return (-1);
+	tex->img.data
+		= (unsigned char *)mlx_get_data_addr(tex->img.img_ptr,
+			&tex->img.bytes_per_pixel, &tex->img.bytes_per_scanline, &tex->img.endian);
+	tex->img.bytes_per_pixel /= 8;
 	if (ft_strequal(data[2], NO_BMP) != 1)
 	{
 		tex->bmp_img.img_ptr = mlx_xpm_file_to_image(minirt->vars.mlx, data[2],
 							&tex->bmp_img.img_width, &tex->bmp_img.img_height);
 		if (tex->bmp_img.img_ptr == NULL)
 			return (-1);
+		tex->bmp_img.data
+			= (unsigned char *)mlx_get_data_addr(tex->bmp_img.img_ptr,
+			&tex->bmp_img.bytes_per_pixel, &tex->bmp_img.bytes_per_scanline, &tex->bmp_img.endian);
+		tex->bmp_img.bytes_per_pixel /= 8;
 	}
 	else
 		tex->bmp_img.img_ptr = NULL;

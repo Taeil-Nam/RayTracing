@@ -54,53 +54,63 @@ void	write_color(t_color color, t_data *image, int i, int j)
 	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
 }
 
-void	path_trace(t_hittable *bvh, t_minirt *minirt)
+void	*path_trace(void *arg)
 {
-	t_color	color;
-	int		i;
-	int		j;
+	t_color		color;
+	int			i;
+	int			j;
+	t_thread	*thread;
 
-	j = DEFAULT_IMAGE_HGT - 1;
-	while (j >= 0)
+	thread = (t_thread *)arg;
+	j = thread->h_start;
+	while (j <= thread->h_end)
 	{
-		printf("\rScanlines remaining : %d\n", j);
+		pthread_mutex_lock(&thread->common->print_mutex);
+		printf("\rScanlines remaining : %d\n", thread->common->cnt++);
+		pthread_mutex_unlock(&thread->common->print_mutex);
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
-			color = anti_aliasing_path(i, j, minirt, bvh);
-			write_color(color, &minirt->data, i++, j);
+			color = anti_aliasing_path(i, j, thread->common->minirt, thread->common->bvh);
+			write_color(color, &thread->common->minirt->data, i++, j);
 		}
-		j--;
+		j++;
 	}
+	return (NULL);
 }
 
-void	phong_trace(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
+void	*phong_trace(void *arg)
 {
 	t_color	color;
 	t_ray	r;
 	int		i;
 	int		j;
 	int		s;
+	t_thread	*thread;
 
-	j = DEFAULT_IMAGE_HGT - 1;
-	while (j >= 0)
+	thread = (t_thread *)arg;
+	j = thread->h_start;
+	while (j <= thread->h_end)
 	{
-		printf("\rScanlines remaining : %d\n", j);
+		pthread_mutex_lock(&thread->common->print_mutex);
+		printf("\rScanlines remaining : %d\n", thread->common->cnt++);
+		pthread_mutex_unlock(&thread->common->print_mutex);
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
 			vec3_init(&color, 0, 0, 0);
 			s = 0;
-			if (light_lst[0] == NULL)
-				color = anti_aliasing_phong(i, j, minirt, bvh, light_lst[0]);
+			if (thread->common->light_lst[0] == NULL)
+				color = anti_aliasing_phong(i, j, thread->common->minirt, thread->common->bvh, thread->common->light_lst[0]);
 			else
 			{
-				while (light_lst[s] != NULL)
-					color = vec3_add(color, anti_aliasing_phong(i, j, minirt, bvh, light_lst[s++]));
+				while (thread->common->light_lst[s] != NULL)
+					color = vec3_add(color, anti_aliasing_phong(i, j, thread->common->minirt, thread->common->bvh, thread->common->light_lst[s++]));
 				color = vec3_mul_scalar(color, 1 / (double)s);
 			}
-			write_color(color, &minirt->data, i++, j);
+			write_color(color, &thread->common->minirt->data, i++, j);
 		}
-		j--;
+		j++;
 	}
+	return (NULL);
 }

@@ -5,16 +5,18 @@
 # include <math.h>
 # include <stdio.h>
 # include <errno.h>
+# include <pthread.h>
 
 # include "libft.h"
 # include "mlx_utils.h"
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 10
+# define THREAD_NUM 20
+# define SAMPLE_PER_PIXEL 100
 # define DEPTH 50
-# define DEFAULT_IMAGE_WID 1200
-# define DEFAULT_IMAGE_HGT 900
+# define DEFAULT_IMAGE_WID 900
+# define DEFAULT_IMAGE_HGT 600
 # define PI 3.1415926535897932385
 # define KSN 64
 # define KS 0.6
@@ -74,11 +76,28 @@ typedef struct s_minirt
 	int			is_ambient_in_map;
 }	t_minirt;
 
+typedef struct s_common
+{
+	pthread_mutex_t	print_mutex;
+	t_hittable		*bvh;
+	t_minirt		*minirt;
+	t_sphere		**light_lst;
+	int				cnt;
+}	t_common;
+
+typedef struct s_thread
+{
+	pthread_t		thread;
+	t_common		*common;
+	int				h_start;
+	int				h_end;
+}	t_thread;
+
 /* rendering 함수 */
 t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
 t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
-void	path_trace(t_hittable *bvh, t_minirt *minirt);
-void	phong_trace(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst);
+void	*path_trace(void *thread);
+void	*phong_trace(void *thread);
 t_ray	get_ray(t_camera *cam, double s, double t);
 
 /* miniRT utils */
@@ -93,5 +112,8 @@ void	minirt_str_error_exit(char *str);
 
 /* parser */
 int		minirt_parser(const char *filename, t_list **list, t_minirt *minirt);
+
+/* thread */
+void	multi_threading(t_thread *threads, t_minirt *minirt);
 
 #endif

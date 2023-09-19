@@ -9,10 +9,10 @@ void	get_cylinder_uv(t_vec3 o_n, t_hit_rec *rec, double p_height, t_cylinder *cy
 	t_vec3	w;
 	int		sign;
 
-	if (o_n.y == 0 && o_n.z == 0)
-		vec3_init(&std, 0, 1, 0);
-	else
+	if (o_n.x == 0 && o_n.z == 0)
 		vec3_init(&std, 1, 0, 0);
+	else
+		vec3_init(&std, 0, 1, 0);
 	u_vec = vec3_unit(vec3_cross(cy->axis, std));
 	tmp = vec3_sub(vec3_sub(rec->p, cy->center), vec3_mul_scalar(cy->axis, p_height));
 	tmp = vec3_unit(tmp);

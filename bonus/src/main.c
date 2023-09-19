@@ -7,15 +7,44 @@
 #include "vec3.h"
 #include "ray.h"
 
+t_thread	*threads_init(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst, t_common *common)
+{
+	t_thread	*threads;
+	int			i;
+	int			start;
+
+	i = 0;
+	start = 0;
+	if (pthread_mutex_init(&common->print_mutex, NULL) != 0)
+		minirt_error_exit();
+	common->bvh = bvh;
+	common->minirt = minirt;
+	common->light_lst = light_lst;
+	common->cnt = 1;
+	threads = (t_thread *)xmalloc(sizeof(t_thread) * THREAD_NUM);
+	while (i < THREAD_NUM)
+	{
+		threads[i].common = common;
+		threads[i].h_start = start;
+		if (i == THREAD_NUM - 1)
+			threads[i].h_end = DEFAULT_IMAGE_HGT - 1;
+		else
+			threads[i].h_end = start + DEFAULT_IMAGE_HGT / THREAD_NUM - 1;
+		start = threads[i].h_end + 1;
+		i++;
+	}
+	return (threads);
+}
+
 int	print_image(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 {
-	int		pixel;
-	double	sample_per_pixel;
+	int			pixel;
+	double		sample_per_pixel;
+	t_thread	*threads;
+	t_common	common;
 
-	if (minirt->illumination == PATH)
-		path_trace(bvh, minirt);
-	else
-		phong_trace(bvh, minirt, light_lst);
+	threads = threads_init(bvh, minirt, light_lst, &common);
+	multi_threading(threads, minirt);
 	mlx_put_image_to_window(minirt->vars.mlx, minirt->vars.win, minirt->data.img, 0, 0);
 	mlx_key_hook(minirt->vars.win, key_hook, &minirt->vars);
 	mlx_hook(minirt->vars.win, 17, 0, exit_hook, 0);
@@ -35,7 +64,7 @@ void	minirt_init(t_minirt *minirt)
 								&minirt->data.line_length, &minirt->data.endian);
 	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
 	minirt->depth = DEPTH;
-	minirt->illumination = PHONG;
+	minirt->illumination = PATH;
 	minirt->mode = RENDERING;
 	minirt->is_ambient_in_map = false;
 	minirt->is_camera_in_map = false;
@@ -52,6 +81,8 @@ int	main(int argc, char *argv[])
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
+	if (THREAD_NUM > DEFAULT_IMAGE_HGT)
+		minirt_str_error_exit("Too small image.");
 	minirt_init(&minirt);
 	if (minirt_parser(argv[1], &list, &minirt) == -1)
 		minirt_str_error_exit(ERR_MAP);

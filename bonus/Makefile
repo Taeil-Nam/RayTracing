@@ -48,6 +48,7 @@ FILE=	main.c				\
 		render/path.c		\
 		render/render.c 	\
 		render/ray.c		\
+		thread/thread.c		\
 
 all : $(NAME)
 
@@ -61,6 +62,7 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR)material || mkdir -p $(OBJ_DIR)material
 	@test -d $(OBJ_DIR)texture || mkdir -p $(OBJ_DIR)texture
 	@test -d $(OBJ_DIR)render || mkdir -p $(OBJ_DIR)render
+	@test -d $(OBJ_DIR)thread || mkdir -p $(OBJ_DIR)thread
 	$(CC) $(CFLAG) -g -c $< -o $@ $(INC)
 
 $(NAME) : $(OBJ)

@@ -7,12 +7,12 @@ void	get_plane_uv(t_vec3 o_n, t_point3 p, t_hit_rec *rec)
 	t_vec3	q_minus_p;
 	t_vec3	std;
 
-	if (o_n.y == 0 && o_n.z == 0)
-		vec3_init(&std, 0, 1, 0);
+	if (o_n.x == 0 && o_n.z == 0)
+		vec3_init(&std, -1, 0, 0);
 	else
-		vec3_init(&std, 1, 0, 0);
-	u_vec = vec3_cross(o_n, std); // Choose an arbitrary vector not collinear with normal
-	v_vec = vec3_cross(o_n, u_vec);
+		vec3_init(&std, 0, 1, 0);
+	u_vec = vec3_unit(vec3_cross(o_n, std)); // Choose an arbitrary vector not collinear with normal
+	v_vec = vec3_unit(vec3_cross(o_n, u_vec));
 
     // Calculate Q - pointOnPlane
     vec3_init(&q_minus_p, rec->p.x - p.x, rec->p.y - p.y, rec->p.z - p.z);
