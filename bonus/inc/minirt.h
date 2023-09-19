@@ -25,28 +25,6 @@
 # define RENDERING 0
 # define EDITING 1
 
-# define AMBIENT "A"
-# define CAMERA "C"
-# define LIGHT "L"
-# define SPHERE "sp"
-# define PLANE "pl"
-# define CYLINDER "cy"
-# define CONE "co"
-
-# define DIFFUSE "D"
-# define METAL "M"
-# define DIELECTRIC "DI"
-
-# define INF "INF"
-# define NOT_INF "NOT_INF"
-# define NO_BMP "NO_BMP"
-
-# define SOLID "S"
-# define CHECKER "CH"
-# define IMAGE "IMG"
-
-# define COMMENT "#"
-
 # define ERR_ARGV_MSG "Error\nminiRT : Argument Error : filename with .rt"
 # define ERR_INV_FILE "Error\nminiRT : invalid file format: .rt"
 # define ERR_MAP "Error\nminiRT : Map Error!"
@@ -90,8 +68,8 @@ typedef struct s_minirt
 	t_camera	cam;
 	int			sample_per_pixel;
 	int			depth;
-	int			illumination; //phong or path
-	int			mode; //editing or rendering
+	int			illumination;
+	int			mode;
 	int			is_camera_in_map;
 	int			is_ambient_in_map;
 }	t_minirt;
@@ -101,7 +79,7 @@ t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
 t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
 void	path_trace(t_hittable *bvh, t_minirt *minirt);
 void	phong_trace(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst);
-void	write_color(t_color color, t_data *image, int i, int j);
+t_ray	get_ray(t_camera *cam, double s, double t);
 
 /* miniRT utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
@@ -114,31 +92,6 @@ void	minirt_error_exit(void);
 void	minirt_str_error_exit(char *str);
 
 /* parser */
-int			minirt_parser(const char *filename, t_list **list, t_minirt *minirt);
-int			data_to_rgb(char *str, t_color *rgb);
-int			data_to_point(char *str, t_point3 *point);
-int			count_element_2pt_arr(char **data);
-int			ambient_data(char **data, t_minirt *minirt);
-int			camera_data(char **data, t_minirt *minirt);
-int			light_data(char **data, t_list **list);
-int			init_material(t_material *mat, char *mat_line);
-int			init_object(t_hittable *hittable, char *obj_line);
-int			init_texture(t_texture *tex, char *line, t_minirt *minirt);
-int			plane_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			cylinder_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			cone_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			sphere_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb);
-int			object_constructor(char **data, t_list **list, t_minirt *minirt);
-int			world_constructor(char *line, t_list **list, t_minirt *minirt);
-void		free_hittables(void *hittable);
-bool		check_nan_in_vec3(t_vec3 v);
-
-/* camera.c 관련 함수 */
-double	degrees_to_radians(double degrees);
-void	set_camera_pos(t_point3 look_from, t_vec3 dir,
-			double hfov, t_camera *cam);
-void	set_camera_image(t_color background, double ratio, t_camera *cam);
-t_ray	get_ray(t_camera *cam, double s, double t);
+int		minirt_parser(const char *filename, t_list **list, t_minirt *minirt);
 
 #endif

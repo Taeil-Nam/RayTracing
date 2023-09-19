@@ -34,12 +34,8 @@ t_aabb	cone_b_box(void *object)
 	cone = (t_cone *)object;
 	if (cone->is_inf == 1)
 	{
-		cone_box.p_min.x = -INFINITY;
-		cone_box.p_min.y = -INFINITY;
-		cone_box.p_min.z = -INFINITY;
-		cone_box.p_max.x = INFINITY;
-		cone_box.p_max.y = INFINITY;
-		cone_box.p_max.z = INFINITY;
+		vec3_init(&cone_box.p_min, -INFINITY, -INFINITY, -INFINITY);
+		vec3_init(&cone_box.p_max, INFINITY, INFINITY, INFINITY);
 	}
 	else
 	{

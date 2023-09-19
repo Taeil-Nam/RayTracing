@@ -1,6 +1,5 @@
-#include "minirt.h"
+#include "parser.h"
 #include "bvh.h"
-#include "object.h"
 
 int	ambient_data(char **data, t_minirt *minirt)
 {
@@ -24,25 +23,22 @@ int	ambient_data(char **data, t_minirt *minirt)
 	return (1);
 }
 
-int	camera_data(char **data, t_minirt *minirt)
+t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
 {
-	t_point3	look_from;
-	t_vec3		dir;
-	double		hfov;
+	t_sphere	*new_light;
 
-	if (minirt->is_camera_in_map == false)
-		minirt->is_camera_in_map = true;
-	else
-		return (-1);
-	if (count_element_2pt_arr(data) != 4)
-		return (-1);
-	if (data_to_point(data[1], &look_from) == -1)
-		return (-1);
-	if (data_to_point(data[2], &dir) == -1)
-		return (-1);
-	hfov = ft_atoi(data[3]);
-	set_camera_pos(look_from, dir, hfov, &minirt->cam);
-	return (1);
+	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
+	new_light->center = center;
+	new_light->radius = DEFAULT_SIZE;
+	new_light->mat.mat_type = light;
+	new_light->mat.emit = emit_light;
+	new_light->mat.scatter = scatter_light;
+	new_light->mat.t.bmp_img.img_ptr = NULL;
+	new_light->mat.t.img.img_ptr = NULL;
+	new_light->mat.t.rgb = vec3_mul_scalar(rgb, ratio);
+	new_light->mat.t.tex_type = solid;
+	new_light->mat.t.value = solid_value;
+	return (new_light);
 }
 
 int	light_data(char **data, t_list **list)

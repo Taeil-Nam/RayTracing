@@ -1,6 +1,5 @@
-#include "minirt.h"
+#include "parser.h"
 #include "bvh.h"
-#include "object.h"
 
 int	object_constructor(char **data, t_list **list, t_minirt *minirt)
 {
@@ -28,6 +27,7 @@ int	object_constructor(char **data, t_list **list, t_minirt *minirt)
 		ft_lstadd_back(list, ft_lstnew(new_object));
 	return (ret);
 }
+
 int	world_constructor(char *line, t_list **list, t_minirt *minirt)
 {
 	char	**data;

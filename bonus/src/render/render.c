@@ -40,6 +40,20 @@ t_color	anti_aliasing_phong(int i, int j, t_minirt *minirt, t_hittable *bvh, t_s
 	return (color);
 }
 
+void	write_color(t_color color, t_data *image, int i, int j)
+{
+	double	scale;
+	int		pixel;
+
+	scale = 1.0 / (SAMPLE_PER_PIXEL);
+	color.x = clamp(sqrt(scale * color.x), 0.0, 0.999);
+	color.y = clamp(sqrt(scale * color.y), 0.0, 0.999);
+	color.z = clamp(sqrt(scale * color.z), 0.0, 0.999);
+	pixel = ((int)(255.999 * color.x) << 16) + ((int)(255.999 * color.y) << 8)
+		+ ((int)(255.999 * color.z));
+	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
+}
+
 void	path_trace(t_hittable *bvh, t_minirt *minirt)
 {
 	t_color	color;

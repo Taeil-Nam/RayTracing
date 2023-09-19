@@ -1,6 +1,5 @@
-#include "minirt.h"
+#include "parser.h"
 #include "bvh.h"
-#include "object.h"
 
 int	init_sphere(t_hittable *new_object, char **data)
 {

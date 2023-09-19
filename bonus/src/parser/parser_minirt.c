@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "parser.h"
 #include "bvh.h"
 #include <fcntl.h>
 #include <string.h>

@@ -1,24 +1,5 @@
-#include "minirt.h"
-#include "object.h"
+#include "parser.h"
 #include "bvh.h"
-
-t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
-{
-	t_sphere	*new_light;
-
-	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
-	new_light->center = center;
-	new_light->radius = DEFAULT_SIZE;
-	new_light->mat.mat_type = light;
-	new_light->mat.emit = emit_light;
-	new_light->mat.scatter = scatter_light;
-	new_light->mat.t.bmp_img.img_ptr = NULL;
-	new_light->mat.t.img.img_ptr = NULL;
-	new_light->mat.t.rgb = vec3_mul_scalar(rgb, ratio);
-	new_light->mat.t.tex_type = solid;
-	new_light->mat.t.value = solid_value;
-	return (new_light);
-}
 
 int	sphere_initializer(t_hittable *hittable, char **data, t_minirt *minirt)
 {

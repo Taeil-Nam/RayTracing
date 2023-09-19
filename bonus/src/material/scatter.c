@@ -9,8 +9,7 @@ bool	scatter_diffuse(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat)
 		scatter_direction = rec->normal;
 	scat->orig = rec->p;
 	scat->dir = scatter_direction;
-	*att = rec->mat->t.value(rec, &rec->mat->t.img, &rec->mat->t.bmp_img,
-			rec->mat->t.rgb);
+	*att = rec->mat->t.value(rec, &rec->mat->t.img, rec->mat->t.rgb);
 	return (true);
 }
 
@@ -26,8 +25,7 @@ bool	scatter_metal(t_ray *r, t_hit_rec *rec, t_color *att, t_ray *scat)
 	reflected = vec3_reflect(vec3_unit(r->dir), rec->normal);
 	scat->orig = rec->p;
 	scat->dir = vec3_add(reflected, vec3_mul_scalar(vec3_random_unit(), rec->mat->fuzz));
-	*att = rec->mat->t.value(rec, &rec->mat->t.img, &rec->mat->t.bmp_img,
-			rec->mat->t.rgb);
+	*att = rec->mat->t.value(rec, &rec->mat->t.img, rec->mat->t.rgb);
 	if (vec3_dot(scat->dir, rec->normal) > 0)
 		return (true);
 	return (false);

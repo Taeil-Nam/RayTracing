@@ -23,12 +23,13 @@ FILE=	main.c				\
 		vec3/vec3_4.c		\
 		vec3/vec3_5.c		\
 		parser/constructor.c\
-		parser/initializer.c\
+		parser/init_hittable.c\
+		parser/init_camera.c \
+		parser/init_world.c	\
 		parser/init_mat.c	\
 		parser/init_obj.c	\
 		parser/init_tex.c 	\
 		parser/parser_minirt.c\
-		parser/parser_world.c\
 		parser/parser_util1.c\
 		parser/parser_util2.c\
 		bvh/bvh.c			\
@@ -46,7 +47,6 @@ FILE=	main.c				\
 		render/phong.c		\
 		render/path.c		\
 		render/render.c 	\
-		render/camera.c		\
 		render/ray.c		\
 
 all : $(NAME)

@@ -1,4 +1,5 @@
-#include "minirt.h"
+#include "parser.h"
+#include "bvh.h"
 
 double	degrees_to_radians(double degrees)
 {
@@ -51,16 +52,23 @@ void	set_camera_pos(t_point3 look_from, t_vec3 dir,
 	cam->lower_left_corner = get_lower_left_corner(cam);
 }
 
-t_ray	get_ray(t_camera *cam, double s, double t)
+int	camera_data(char **data, t_minirt *minirt)
 {
-	t_ray	ret;
+	t_point3	look_from;
+	t_vec3		dir;
+	double		hfov;
 
-	ret.orig = cam->center;
-	ret.dir.x = cam->lower_left_corner.x + cam->horizontal.x * s + \
-				cam->vertical.x * t - cam->center.x;
-	ret.dir.y = cam->lower_left_corner.y + cam->horizontal.y * s + \
-				cam->vertical.y * t - cam->center.y;
-	ret.dir.z = cam->lower_left_corner.z + cam->horizontal.z * s + \
-				cam->vertical.z * t - cam->center.z;
-	return (ret);
+	if (minirt->is_camera_in_map == false)
+		minirt->is_camera_in_map = true;
+	else
+		return (-1);
+	if (count_element_2pt_arr(data) != 4)
+		return (-1);
+	if (data_to_point(data[1], &look_from) == -1)
+		return (-1);
+	if (data_to_point(data[2], &dir) == -1)
+		return (-1);
+	hfov = ft_atoi(data[3]);
+	set_camera_pos(look_from, dir, hfov, &minirt->cam);
+	return (1);
 }

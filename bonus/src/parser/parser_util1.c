@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "parser.h"
 
 int	count_element_2pt_arr(char **data)
 {

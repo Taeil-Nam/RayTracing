@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "parser.h"
 #include "material.h"
 
 int	init_diffuse(t_material *mat, char **data)

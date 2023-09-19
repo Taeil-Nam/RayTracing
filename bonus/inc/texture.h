@@ -25,7 +25,7 @@ typedef struct s_img
 	unsigned char	*pixel;
 }	t_img;
 
-typedef t_color	(*t_value)(t_hit_rec *, t_img *, t_img *, t_color);
+typedef t_color	(*t_value)(t_hit_rec *, t_img *, t_color);
 
 typedef struct s_texture
 {
@@ -36,11 +36,8 @@ typedef struct s_texture
 	t_value				value;
 }	t_texture;
 
-t_color	solid_value(t_hit_rec *rec, t_img *img,
-			t_img *bum_img, t_color rgb);
-t_color	checker_value(t_hit_rec *rec, t_img *img,
-			t_img *bum_img, t_color rgb);
-t_color	img_value(t_hit_rec *rec, t_img *img,
-			t_img *bum_img, t_color rgb);
+t_color	solid_value(t_hit_rec *rec, t_img *img, t_color rgb);
+t_color	checker_value(t_hit_rec *rec, t_img *img, t_color rgb);
+t_color	img_value(t_hit_rec *rec, t_img *img, t_color rgb);
 t_vec3	bmp_value(t_hit_rec *rec, t_img *img);
 #endif

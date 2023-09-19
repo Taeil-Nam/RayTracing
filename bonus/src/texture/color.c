@@ -1,11 +1,11 @@
 #include "texture.h"
 
-t_color	solid_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
+t_color	solid_value(t_hit_rec *rec, t_img *img, t_color rgb)
 {
 	return (rgb);
 }
 
-t_color	checker_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
+t_color	checker_value(t_hit_rec *rec, t_img *img, t_color rgb)
 {
 	int		width;
 	int		height;
@@ -51,10 +51,10 @@ t_vec3	bmp_value(t_hit_rec *rec, t_img *img)
 	bmp_normal.x = clamp(color_scale * img->pixel[2], 0, 1) * 2 - 1;
 	bmp_normal.y = clamp(color_scale * img->pixel[1], 0, 1) * 2 - 1;
 	bmp_normal.z = clamp(color_scale * img->pixel[0], 0, 1) * 2 - 1;
-	return (vec3_unit(bmp_normal));
+	return (bmp_normal);
 }
 
-t_color	img_value(t_hit_rec *rec, t_img *img, t_img *bum_img, t_color rgb)
+t_color	img_value(t_hit_rec *rec, t_img *img, t_color rgb)
 {
 	double	u;
 	double	v;
