@@ -12,8 +12,9 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define THREAD_NUM 20
-# define SAMPLE_PER_PIXEL 100
+# define LUMEN 5
+# define THREAD_NUM 12
+# define SAMPLE_PER_PIXEL 1000
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 900
 # define DEFAULT_IMAGE_HGT 600
