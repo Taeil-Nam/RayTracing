@@ -12,9 +12,9 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define LUMEN 5
-# define THREAD_NUM 12
-# define SAMPLE_PER_PIXEL 1000
+# define LUMEN 7
+# define THREAD_NUM 20
+# define SAMPLE_PER_PIXEL 100
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 900
 # define DEFAULT_IMAGE_HGT 600
@@ -44,6 +44,8 @@ typedef struct s_hit_record
 	t_vec3		normal;
 	t_material	*mat;
 	double		root;
+	double		min_t;
+	double		max_t;
 	double		t;
 	double		u;
 	double		v;
@@ -75,6 +77,7 @@ typedef struct s_minirt
 	int			mode;
 	int			is_camera_in_map;
 	int			is_ambient_in_map;
+	t_sphere	*light;
 }	t_minirt;
 
 typedef struct s_common
@@ -100,6 +103,8 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
 void	*path_trace(void *thread);
 void	*phong_trace(void *thread);
 t_ray	get_ray(t_camera *cam, double s, double t);
+t_color	aa_path(int i, int j, t_minirt *minirt, t_hittable *bvh);
+t_color	aa_phong(int i, int j, t_common *common, t_sphere *l);
 
 /* miniRT utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);

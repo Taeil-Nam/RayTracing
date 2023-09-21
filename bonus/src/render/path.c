@@ -18,7 +18,9 @@ t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth)
 	rec.depth = depth;
 	if (depth <= 0)
 		return (basic);
-	if (!hit_bvh(&rec, 0.001, INFINITY, &r, bvh))
+	rec.min_t = 0.001;
+	rec.max_t = INFINITY;
+	if (!hit_bvh(&rec, &r, bvh))
 		return (vec3_mul_scalar(cam->a_background, cam->a_ratio));
 	emit = vec3_mul_scalar(rec.mat->emit(&rec, &rec.p, &rec.mat->t), LUMEN);
 	if (!rec.mat->scatter(&r, &rec, &attenuation, &scattered))

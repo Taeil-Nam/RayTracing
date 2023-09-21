@@ -1,6 +1,6 @@
 #include "object.h"
 
-t_aabb		sphere_b_box(void *object)
+t_aabb	sphere_b_box(void *object)
 {
 	t_sphere	*sp;
 	t_aabb		sp_box;
@@ -15,19 +15,7 @@ t_aabb		sphere_b_box(void *object)
 	return (sp_box);
 }
 
-void	get_sphere_uv(t_vec3 o_n, t_hit_rec *rec)
-{
-	double	theta;
-	double	phi;
-
-	theta = acos(-(o_n.y));
-	phi = atan2(-(o_n.z), o_n.x) + PI;
-	rec->u = phi / (2 * PI);
-	rec->v = theta / PI;
-}
-
-bool	sphere_hit(t_ray *r, double min_t, double max_t,
-				t_hit_rec *rec, void *object)
+bool	sphere_hit(t_ray *r, t_hit_rec *rec, void *object)
 {
 	t_sphere	*sp;
 	t_vec3		oc;
@@ -35,21 +23,23 @@ bool	sphere_hit(t_ray *r, double min_t, double max_t,
 	double		constants[3];
 
 	sp = (t_sphere *)object;
-	if (rec->depth == 50 && sp->mat.mat_type == light)
+	if (rec->depth == DEPTH && sp->mat.mat_type == light)
 		return (false);
 	oc = vec3_sub(r->orig, sp->center);
 	constants[0] = vec3_squared(r->dir);
 	constants[1] = vec3_dot(oc, r->dir);
 	constants[2] = vec3_squared(oc) - sp->radius * sp->radius;
-	if (quadratic_formular(constants, rec, min_t, max_t) == false)
+	if (quadratic_formular(constants, rec) == false)
 		return (false);
 	rec->t = rec->root;
+	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
 	normal = vec3_unit(vec3_sub(rec->p, sp->center));
 	set_face_normal(r, normal, rec);
 	get_sphere_uv(normal, rec);
 	if (sp->mat.t.bmp_img.img_ptr != NULL)
-		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &sp->mat.t.bmp_img)));
+		rec->normal = vec3_unit(vec3_add(rec->normal,
+					bmp_value(rec, &sp->mat.t.bmp_img)));
 	rec->mat = &sp->mat;
 	return (true);
 }

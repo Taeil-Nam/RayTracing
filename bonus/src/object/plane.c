@@ -1,27 +1,5 @@
 #include "object.h"
 
-void	get_plane_uv(t_vec3 o_n, t_point3 p, t_hit_rec *rec)
-{
-	t_vec3	u_vec;
-    t_vec3	v_vec;
-	t_vec3	q_minus_p;
-	t_vec3	std;
-
-	if (o_n.x == 0 && o_n.z == 0)
-		vec3_init(&std, -1, 0, 0);
-	else
-		vec3_init(&std, 0, 1, 0);
-	u_vec = vec3_unit(vec3_cross(o_n, std)); // Choose an arbitrary vector not collinear with normal
-	v_vec = vec3_unit(vec3_cross(o_n, u_vec));
-
-    // Calculate Q - pointOnPlane
-    vec3_init(&q_minus_p, rec->p.x - p.x, rec->p.y - p.y, rec->p.z - p.z);
-
-    // Calculate dot products to find UV coordinates
-    rec->u = fmod(vec3_dot(q_minus_p, u_vec), TILE_SIZE) / TILE_SIZE;
-    rec->v = fmod(vec3_dot(q_minus_p, v_vec), TILE_SIZE) / TILE_SIZE;
-}
-
 t_aabb	plane_b_box(void *object)
 {
 	t_plane	*pl;
@@ -37,14 +15,12 @@ t_aabb	plane_b_box(void *object)
 	return (pl_box);
 }
 
-bool	plane_hit(t_ray *r, double min_t, double max_t,
-		t_hit_rec *rec, void *object)
+bool	plane_hit(t_ray *r, t_hit_rec *rec, void *object)
 {
 	t_plane	*pl;
 	double	numer;
 	double	denomi;
 	double	root;
-	t_vec3	outward_normal;
 
 	pl = (t_plane *)object;
 	numer = vec3_dot(pl->n, vec3_sub(pl->p, r->orig));
@@ -52,16 +28,17 @@ bool	plane_hit(t_ray *r, double min_t, double max_t,
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
-	if (root < min_t || max_t < root)
+	if (root < rec->min_t || rec->max_t < root)
 		return (false);
 	rec->center = pl->p;
 	rec->t = root;
+	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
-	outward_normal = pl->n;
-	get_plane_uv(outward_normal, pl->p, rec);
-	set_face_normal(r, outward_normal, rec);
+	get_plane_uv(pl->n, pl->p, rec);
+	set_face_normal(r, pl->n, rec);
 	if (pl->mat.t.bmp_img.img_ptr != NULL)
-		rec->normal = vec3_unit(vec3_add(rec->normal, bmp_value(rec, &pl->mat.t.bmp_img)));
+		rec->normal = vec3_unit(vec3_add(rec->normal,
+					bmp_value(rec, &pl->mat.t.bmp_img)));
 	rec->mat = &pl->mat;
 	return (true);
 }

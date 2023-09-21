@@ -27,7 +27,8 @@ FILE=	main.c				\
 		parser/init_camera.c \
 		parser/init_world.c	\
 		parser/init_mat.c	\
-		parser/init_obj.c	\
+		parser/init_obj_1.c	\
+		parser/init_obj_2.c	\
 		parser/init_tex.c 	\
 		parser/parser_minirt.c\
 		parser/parser_util1.c\
@@ -41,6 +42,7 @@ FILE=	main.c				\
 		object/cylinder.c	\
 		object/cone.c		\
 		object/object_utils.c\
+		object/get_uv.c 	\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\
@@ -48,6 +50,7 @@ FILE=	main.c				\
 		render/path.c		\
 		render/render.c 	\
 		render/ray.c		\
+		render/aa.c			\
 		thread/thread.c		\
 
 all : $(NAME)

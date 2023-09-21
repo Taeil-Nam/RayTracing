@@ -1,10 +1,9 @@
 #include "object.h"
 
-bool	quadratic_formular(double constants[3], t_hit_rec *rec, double min_t, double max_t)
+bool	quadratic_formular(double constants[3], t_hit_rec *rec)
 {
 	double	discrement;
 	double	sqrtd;
-	double	root;
 	double	root1;
 	double	root2;
 
@@ -14,19 +13,14 @@ bool	quadratic_formular(double constants[3], t_hit_rec *rec, double min_t, doubl
 	sqrtd = sqrt(discrement);
 	root1 = (-constants[1] - sqrtd) / constants[0];
 	root2 = (-constants[1] + sqrtd) / constants[0];
-	if (root1 < root2)
+	if (root1 > root2)
+		swap_d(&root1, &root2);
+	if (root1 < rec->min_t || rec->max_t < root1)
 	{
-		root = root1;
 		root1 = root2;
-	}
-	else
-		root = root2;
-	if (root < min_t || max_t < root)
-	{
-		root = root1;
-		if (root < min_t || max_t < root)
+		if (root1 < rec->min_t || rec->max_t < root1)
 			return (false);
 	}
-	rec->root = root;
+	rec->root = root1;
 	return (true);
 }

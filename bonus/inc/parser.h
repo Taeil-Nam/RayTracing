@@ -34,10 +34,14 @@ int			light_data(char **data, t_list **list);
 int			init_material(t_material *mat, char *mat_line);
 int			init_object(t_hittable *hittable, char *obj_line);
 int			init_texture(t_texture *tex, char *line, t_minirt *minirt);
-int			plane_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			cylinder_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			cone_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
-int			sphere_initializer(t_hittable *hittable, char **data, t_minirt *minirt);
+int			plane_initializer(t_hittable *hittable,
+				char **data, t_minirt *minirt);
+int			cylinder_initializer(t_hittable *hittable,
+				char **data, t_minirt *minirt);
+int			cone_initializer(t_hittable *hittable,
+				char **data, t_minirt *minirt);
+int			sphere_initializer(t_hittable *hittable,
+				char **data, t_minirt *minirt);
 t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb);
 int			object_constructor(char **data, t_list **list, t_minirt *minirt);
 int			world_constructor(char *line, t_list **list, t_minirt *minirt);
@@ -45,7 +49,8 @@ void		free_hittables(void *hittable);
 bool		check_nan_in_vec3(t_vec3 v);
 double		degrees_to_radians(double degrees);
 void		set_camera_pos(t_point3 look_from, t_vec3 dir,
-							double hfov, t_camera *cam);
+				double hfov, t_camera *cam);
 void		set_camera_image(t_color background, double ratio, t_camera *cam);
+int			init_cone(t_hittable *new_object, char **data);
 
 #endif

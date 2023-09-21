@@ -4,7 +4,7 @@
 # include "minirt.h"
 # include "object.h"
 
-typedef bool	(*t_hit)(t_ray *, double, double, t_hit_rec *, void *);
+typedef bool	(*t_hit)(t_ray *, t_hit_rec *, void *);
 typedef t_aabb	(*t_b_box)(void *);
 
 enum e_object_type
@@ -30,8 +30,7 @@ typedef int		(*t_comparator)(t_hittable *, t_hittable *);
 
 /* bvh.c */
 t_hittable	*make_bvh(t_hittable **hittables, int i, int j);
-bool		hit_bvh(t_hit_rec *rec, double min_t, double max_t,
-				t_ray *r, t_hittable *tree);
+bool		hit_bvh(t_hit_rec *rec, t_ray *r, t_hittable *tree);
 
 /* bvh_utils.c */
 void		dummy(void *object);

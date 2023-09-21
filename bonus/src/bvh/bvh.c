@@ -53,21 +53,18 @@ t_hittable	*make_bvh(t_hittable **hittables, int start, int end)
 	return (node);
 }
 
-bool	hit_bvh(t_hit_rec *rec, double min_t, double max_t,
-			t_ray *r, t_hittable *tree)
+bool	hit_bvh(t_hit_rec *rec, t_ray *r, t_hittable *tree)
 {
 	bool	left_hit;
 	bool	right_hit;
 	bool	is_hit;
 
-	is_hit = tree->hit(r, min_t, max_t, rec, tree->object);
+	is_hit = tree->hit(r, rec, tree->object);
 	if (!is_hit)
 		return (false);
 	if (is_hit && tree->left == NULL)
 		return (true);
-	left_hit = hit_bvh(rec, min_t, max_t, r, tree->left);
-	if (left_hit)
-		max_t = rec->t;
-	right_hit = hit_bvh(rec, min_t, max_t, r, tree->right);
+	left_hit = hit_bvh(rec, r, tree->left);
+	right_hit = hit_bvh(rec, r, tree->right);
 	return (left_hit || right_hit);
 }

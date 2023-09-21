@@ -27,62 +27,50 @@ t_color	checker_value(t_hit_rec *rec, t_img *img, t_color rgb)
 
 t_vec3	bmp_value(t_hit_rec *rec, t_img *img)
 {
-	double	u;
-	double	v;
-	double	color_scale;
-	t_color	color;
-	int		i;
-	int		j;
-	unsigned char *pixel;
+	t_img_var	var;
 
-	color_scale = 1.0f / 255;
-	u = clamp(fabs(rec->u), 0.0, 1.0);
-	v = 1.0 - clamp(fabs(rec->v), 0.0, 1.0);
-	i = (int)(u * img->img_width);
-	j = (int)(v * img->img_height);
-	if (i == img->img_width)
-		i--;
-	if (j == img->img_height)
-		j--;
-	pixel = img->data
-		+ j * img->bytes_per_scanline
-		+ i * img->bytes_per_pixel;
-	color.x = clamp(color_scale * pixel[2], 0, 1) * 2 - 1;
-	color.y = clamp(color_scale * pixel[1], 0, 1) * 2 - 1;
-	color.z = clamp(color_scale * pixel[0], 0, 1) * 2 - 1;
-	return (color);
+	var.color_scale = 1.0f / 255;
+	var.u = clamp(fabs(rec->u), 0.0, 1.0);
+	var.v = 1.0 - clamp(fabs(rec->v), 0.0, 1.0);
+	var.i = (int)(var.u * img->img_width);
+	var.j = (int)(var.v * img->img_height);
+	if (var.i == img->img_width)
+		var.i--;
+	if (var.j == img->img_height)
+		var.j--;
+	var.pixel = img->data
+		+ var.j * img->bytes_per_scanline
+		+ var.i * img->bytes_per_pixel;
+	var.color.x = clamp(var.color_scale * var.pixel[2], 0, 1) * 2 - 1;
+	var.color.y = clamp(var.color_scale * var.pixel[1], 0, 1) * 2 - 1;
+	var.color.z = clamp(var.color_scale * var.pixel[0], 0, 1) * 2 - 1;
+	return (var.color);
 }
 
 t_color	img_value(t_hit_rec *rec, t_img *img, t_color rgb)
 {
-	double	u;
-	double	v;
-	double	color_scale;
-	t_color	color;
-	int		i;
-	int		j;
-	unsigned char *pixel;
+	t_img_var	var;
 
-	color_scale = 1.0f / 255;
+	var.color_scale = 1.0f / 255;
 	if (rec->u < 0)
-		u = clamp(fabs(rec->u), 0.0, 1.0);
+		var.u = clamp(fabs(rec->u), 0.0, 1.0);
 	else
-		u = 1 - clamp(rec->u, 0.0, 1.0);
+		var.u = 1 - clamp(rec->u, 0.0, 1.0);
 	if (rec->v < 0)
-		v = (clamp(fabs(rec->v), 0.0, 1.0));
+		var.v = (clamp(fabs(rec->v), 0.0, 1.0));
 	else
-		v = 1.0 - clamp(rec->v, 0.0, 1.0);
-	i = (int)(u * img->img_width);
-	j = (int)(v * img->img_height);
-	if (i == img->img_width)
-		i--;
-	if (j == img->img_height)
-		j--;
-	pixel = img->data
-		+ j * img->bytes_per_scanline
-		+ i * img->bytes_per_pixel;
-	color.x = clamp(color_scale * pixel[2], 0, 1);
-	color.y = clamp(color_scale * pixel[1], 0, 1);
-	color.z = clamp(color_scale * pixel[0], 0, 1);
-	return (color);
+		var.v = 1.0 - clamp(rec->v, 0.0, 1.0);
+	var.i = (int)(var.u * img->img_width);
+	var.j = (int)(var.v * img->img_height);
+	if (var.i == img->img_width)
+		var.i--;
+	if (var.j == img->img_height)
+		var.j--;
+	var.pixel = img->data
+		+ var.j * img->bytes_per_scanline
+		+ var.i * img->bytes_per_pixel;
+	var.color.x = clamp(var.color_scale * var.pixel[2], 0, 1);
+	var.color.y = clamp(var.color_scale * var.pixel[1], 0, 1);
+	var.color.z = clamp(var.color_scale * var.pixel[0], 0, 1);
+	return (var.color);
 }

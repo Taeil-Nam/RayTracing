@@ -25,6 +25,17 @@ typedef struct s_img
 	unsigned char	*pixel;
 }	t_img;
 
+typedef struct s_img_var
+{
+	double			u;
+	double			v;
+	double			color_scale;
+	t_color			color;
+	int				i;
+	int				j;
+	unsigned char	*pixel;
+}	t_img_var;
+
 typedef t_color	(*t_value)(t_hit_rec *, t_img *, t_color);
 
 typedef struct s_texture
