@@ -42,4 +42,3 @@ t_vec3	vec3_random_unit(void)
 {
 	return (vec3_unit(vec3_random_in_unit_sphere()));
 }
-

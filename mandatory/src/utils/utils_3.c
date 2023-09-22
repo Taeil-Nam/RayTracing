@@ -19,7 +19,7 @@ void	minirt_error_exit(void)
 	exit(-1);
 }
 
-void minirt_str_error_exit(char *str)
+void	minirt_str_error_exit(char *str)
 {
 	errno = 0;
 	perror(str);

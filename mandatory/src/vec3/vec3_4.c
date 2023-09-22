@@ -1,4 +1,4 @@
-/* near_zero, print, reflect, refract */
+/* near_zero, print, reflect, instant, init */
 
 #include <stdio.h>
 #include <math.h>
@@ -20,7 +20,20 @@ t_vec3	vec3_reflect(t_vec3 v, t_vec3 n)
 {
 	return (vec3_sub(v, vec3_mul_scalar(n, vec3_dot(v, n) * 2)));
 }
-//t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat)
-//{
 
-//}
+t_vec3	vec3_instant(double x, double y, double z)
+{
+	t_vec3	instant;
+
+	instant.x = x;
+	instant.y = y;
+	instant.z = z;
+	return (instant);
+}
+
+void	vec3_init(t_vec3 *v, double x, double y, double z)
+{
+	v->x = x;
+	v->y = y;
+	v->z = z;
+}

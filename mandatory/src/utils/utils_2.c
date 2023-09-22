@@ -26,10 +26,3 @@ double	clamp(double x, double min, double max)
 		return (max);
 	return (x);
 }
-
-void	vec3_init(t_vec3 *v)
-{
-	v->x = 0;
-	v->y = 0;
-	v->z = 0;
-}

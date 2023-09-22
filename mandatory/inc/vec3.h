@@ -36,7 +36,8 @@ t_vec3	vec3_random_unit(void); //return random unit vector
 /* vec3_4.c */
 bool	vec3_near_zero(t_vec3 v); //vec3가 0vector인지
 void	vec3_print(t_vec3 v); //print vec3
-t_vec3	vec3_reflect(t_vec3 v, t_vec3 n); //return reflect vector
-t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+t_vec3	vec3_reflect(t_vec3 v, t_vec3 n);
+t_vec3	vec3_instant(double x, double y, double z);
+void	vec3_init(t_vec3 *v, double x, double y, double z);
 
 #endif

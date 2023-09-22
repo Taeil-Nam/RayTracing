@@ -60,7 +60,6 @@ void	free_hittables(void *hittable)
 int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 {
 	int			rt_fd;
-	int			len;
 	char		*line;
 
 	check_extention(filename);
@@ -72,8 +71,7 @@ int	minirt_parser(const char *filename, t_list **list, t_camera *camera)
 		line = get_next_line(rt_fd);
 		if (line == NULL)
 			break ;
-		len = ft_strlen(line);
-		line[len - 1] = '\0';
+		line[ft_strlen(line) - 1] = '\0';
 		if (ft_strequal(line, "\n") == 1)
 			continue ;
 		if (data_processing(line, list, camera) == -1)

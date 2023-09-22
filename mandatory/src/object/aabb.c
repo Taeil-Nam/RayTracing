@@ -26,31 +26,31 @@ double	sub_p_orig(t_vec3 p, t_vec3 orig, int i)
 	return (p.z - orig.z);
 }
 
-bool	aabb_hit(t_ray *r, double min_t, double max_t,
-			t_hit_rec *rec, void *object)
+bool	aabb_hit(t_ray *r, t_hit_rec *rec, void *object)
 {
 	int		i;
 	double	inv_d;
-	double	t0;
-	double	t1;
 	t_aabb	*aabb;
+	double	t0_t1[2];
+	double	min_max[2];
 
+	min_max[0] = rec->min_t;
+	min_max[1] = rec->max_t;
 	aabb = (t_aabb *)object;
 	i = 0;
 	while (i < 3)
 	{
 		inv_d = find_inverse(r->dir, i);
-		t0 = sub_p_orig(aabb->p_min, r->orig, i) * inv_d;
-		t1 = sub_p_orig(aabb->p_max, r->orig, i) * inv_d;
+		t0_t1[0] = sub_p_orig(aabb->p_min, r->orig, i) * inv_d;
+		t0_t1[1] = sub_p_orig(aabb->p_max, r->orig, i++) * inv_d;
 		if (inv_d < 0.0f)
-			swap_d(&t0, &t1);
-		if (t0 > min_t)
-			min_t = t0;
-		if (t1 < max_t)
-			max_t = t1;
-		if (max_t <= min_t)
+			swap_d(&t0_t1[0], &t0_t1[1]);
+		if (t0_t1[0] > min_max[0])
+			min_max[0] = t0_t1[0];
+		if (t0_t1[1] < min_max[1])
+			min_max[1] = t0_t1[1];
+		if (min_max[1] <= min_max[0])
 			return (false);
-		i++;
 	}
 	return (true);
 }

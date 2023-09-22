@@ -34,11 +34,11 @@ FILE=	main.c				\
 		object/sphere.c		\
 		object/plane.c		\
 		object/cylinder.c	\
+		object/object_utils.c	\
 		texture/color.c		\
 		material/emit.c		\
 		material/scatter.c	\
 		render/phong.c		\
-		render/path.c		\
 		render/render.c 	\
 		camera.c			\
 		ray.c				\

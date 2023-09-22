@@ -12,7 +12,6 @@
 # include "ray.h"
 
 # define SAMPLE_PER_PIXEL 5
-# define DEPTH 50
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
@@ -52,8 +51,12 @@ typedef struct s_data
 typedef struct s_hit_record
 {
 	t_point3	p;
+	t_point3	center;
 	t_vec3		normal;
 	t_material	*mat;
+	double		root;
+	double		min_t;
+	double		max_t;
 	double		t;
 	double		u;
 	double		v;
@@ -74,11 +77,15 @@ typedef struct s_camera
 	double		a_ratio;
 }	t_camera;
 
+typedef struct s_common
+{
+	t_hittable	*bvh;
+	t_camera	*cam;
+}	t_common;
+
 /* rendering 함수 */
-t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
-t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
-void	path_trace(t_data *image, t_hittable *bvh, t_camera *cam);
-void	phong_trace(t_data *image, t_hittable *bvh, t_camera *cam, t_sphere **light_lst);
+void	phong_trace(t_data *image, t_common common, t_sphere **light_lst);
+t_color	phong_color(t_ray r, t_common common, t_sphere *l);
 void	write_color(t_color color, t_data *image, int i, int j);
 
 /* utils */
@@ -86,7 +93,6 @@ void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
 void	swap_d(double *left, double *right);
 double	clamp(double x, double min, double max);
 double	random_double(void);
-void	vec3_init(t_vec3 *v);
 t_color	black_color(void);
 void	*xmalloc(size_t size);
 void	minirt_error_exit(void);

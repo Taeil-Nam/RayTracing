@@ -15,14 +15,12 @@ t_aabb	plane_b_box(void *object)
 	return (pl_box);
 }
 
-bool	plane_hit(t_ray *r, double min_t, double max_t,
-		t_hit_rec *rec, void *object)
+bool	plane_hit(t_ray *r, t_hit_rec *rec, void *object)
 {
 	t_plane	*pl;
 	double	numer;
 	double	denomi;
 	double	root;
-	t_vec3	outward_normal;
 
 	pl = (t_plane *)object;
 	numer = vec3_dot(pl->n, vec3_sub(pl->p, r->orig));
@@ -30,12 +28,13 @@ bool	plane_hit(t_ray *r, double min_t, double max_t,
 	if (denomi == 0)
 		return (false);
 	root = numer / denomi;
-	if (root < min_t || max_t < root)
+	if (root < rec->min_t || rec->max_t < root)
 		return (false);
+	rec->center = pl->p;
 	rec->t = root;
+	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
-	outward_normal = pl->n;
-	set_face_normal(r, outward_normal, rec);
+	set_face_normal(r, pl->n, rec);
 	rec->mat = &pl->mat;
 	return (true);
 }
