@@ -42,7 +42,7 @@ bool	is_in_shadow(t_hittable *bvh, t_hit_rec *rec,
 	return (false);
 }
 
-t_color	phong_color(t_ray r, t_common common, t_sphere *l)
+t_color	phong_color(t_ray r, t_world *world, t_sphere *l)
 {
 	t_hit_rec	rec;
 	t_color		phong;
@@ -50,17 +50,17 @@ t_color	phong_color(t_ray r, t_common common, t_sphere *l)
 	t_ray		p_to_light;
 	t_color		p_color;
 
-	ads[0] = vec3_mul_scalar(common.cam->a_background, common.cam->a_ratio);
+	ads[0] = vec3_mul_scalar(world->cam->a_background, world->cam->a_ratio);
 	rec.min_t = 0.001;
 	rec.max_t = INFINITY;
-	if (!hit_bvh(&rec, &r, common.bvh) || rec.mat->mat_type == light)
+	if (!hit_bvh(&rec, &r, world->bvh) || rec.mat->mat_type == light)
 		return (ads[0]);
 	p_color = rec.mat->t.value(&rec, rec.mat->t.rgb);
 	if (l == NULL)
 		return (vec3_mul_vec3(ads[0], p_color));
 	p_to_light.orig = rec.p;
 	p_to_light.dir = vec3_unit(vec3_sub(l->center, p_to_light.orig));
-	if (is_in_shadow(common.bvh, &rec, &p_to_light, l))
+	if (is_in_shadow(world->bvh, &rec, &p_to_light, l))
 		return (vec3_add(vec3_instant(0, 0, 0), vec3_mul_scalar(p_color, 0.1)));
 	ads[1] = diffuse_color(&rec, l, &p_to_light);
 	ads[2] = specular_color(&r, &p_to_light, &rec, l);

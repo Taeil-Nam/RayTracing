@@ -18,7 +18,7 @@ void	write_color(t_color color, t_data *image, int i, int j)
 	my_mlx_pixel_put(image, i, DEFAULT_IMAGE_HGT - j - 1, pixel);
 }
 
-t_color	aa_phong(int i, int j, t_common common, t_sphere *l)
+t_color	aa_phong(int i, int j, t_world *world, t_sphere *l)
 {
 	t_ray	r;
 	t_color	color;
@@ -28,15 +28,15 @@ t_color	aa_phong(int i, int j, t_common common, t_sphere *l)
 	vec3_init(&color, 0, 0, 0);
 	while (s++ < SAMPLE_PER_PIXEL)
 	{
-		r = get_ray(common.cam,
+		r = get_ray(world->cam,
 				(i + random_double()) / (DEFAULT_IMAGE_WID - 1),
 				(j + random_double()) / (DEFAULT_IMAGE_HGT - 1));
-		color = vec3_add(color, phong_color(r, common, l));
+		color = vec3_add(color, phong_color(r, world, l));
 	}
 	return (color);
 }
 
-void	phong_trace(t_data *image, t_common common, t_sphere **light_lst)
+void	phong_trace(t_data *image, t_world *world)
 {
 	t_color	color;
 	int		i;
@@ -50,10 +50,11 @@ void	phong_trace(t_data *image, t_common common, t_sphere **light_lst)
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
+			//light 없을 때 처리 들어가야 함
 			vec3_init(&color, 0, 0, 0);
 			s = 0;
-			while (light_lst[s] != NULL)
-				color = aa_phong(i, j, common, light_lst[s++]);
+			while (world->light_lst[s] != NULL)
+				color = aa_phong(i, j, world, world->light_lst[s++]);
 			color = vec3_mul_scalar(color, 1 / (double)s);
 			write_color(color, image, i++, j);
 		}

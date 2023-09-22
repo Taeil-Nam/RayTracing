@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 5
+# define SAMPLE_PER_PIXEL 10
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
@@ -77,15 +77,16 @@ typedef struct s_camera
 	double		a_ratio;
 }	t_camera;
 
-typedef struct s_common
+typedef struct s_world
 {
 	t_hittable	*bvh;
 	t_camera	*cam;
-}	t_common;
+	t_sphere	**light_lst;
+}	t_world;
 
 /* rendering 함수 */
-void	phong_trace(t_data *image, t_common common, t_sphere **light_lst);
-t_color	phong_color(t_ray r, t_common common, t_sphere *l);
+void	phong_trace(t_data *image, t_world *world);
+t_color	phong_color(t_ray r, t_world *world, t_sphere *l);
 void	write_color(t_color color, t_data *image, int i, int j);
 
 /* utils */
