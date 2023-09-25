@@ -5,9 +5,10 @@
 #include <stdio.h>
 #include <errno.h>
 
-void	check_extention(const char *filename)
+int	check_extention_and_open(const char *filename)
 {
 	int	len;
+	int	rt_fd;
 
 	len = ft_strlen(filename);
 	if (len < 3)
@@ -18,6 +19,10 @@ void	check_extention(const char *filename)
 		minirt_str_error_exit(ERR_INV_FILE);
 	if (filename[len - 3] != '.')
 		minirt_str_error_exit(ERR_INV_FILE);
+	rt_fd = open(filename, O_RDONLY);
+	if (rt_fd == -1)
+		minirt_error_exit();
+	return (rt_fd);
 }
 
 int	data_processing(char *line, t_list **list, t_minirt *minirt)
@@ -31,13 +36,16 @@ int	data_processing(char *line, t_list **list, t_minirt *minirt)
 		minirt_str_error_exit(ERR_MAP);
 	if (data[0] == NULL)
 		return (1);
-	cnt = count_element_2pt_arr(data);
-	if (cnt == 3)
-		ret = object_constructor(data, list, minirt);
-	else if (cnt == 1)
-		ret = world_constructor(data[0], list, minirt);
 	else
-		ret = -1;
+	{
+		cnt = count_element_2pt_arr(data);
+		if (cnt == 3)
+			ret = object_constructor(data, list, minirt);
+		else if (cnt == 1)
+			ret = world_constructor(data[0], list, minirt);
+		else
+			ret = -1;
+	}
 	ft_double_free(data);
 	return (ret);
 }
@@ -54,20 +62,16 @@ void	free_hittables(void *hittable)
 int	minirt_parser(const char *filename, t_list **list, t_minirt *minirt)
 {
 	int			rt_fd;
-	int			len;
 	char		*line;
 
-	check_extention(filename);
-	rt_fd = open(filename, O_RDONLY);
-	if (rt_fd == -1)
-		minirt_error_exit();
+	rt_fd = check_extention_and_open(filename);
 	while (1)
 	{
 		line = get_next_line(rt_fd);
 		if (line == NULL)
 			break ;
-		len = ft_strlen(line);
-		line[len - 1] = '\0';
+		if (line[ft_strlen(line) - 1] == '\n')
+			line[ft_strlen(line) - 1] = '\0';
 		if (data_processing(line, list, minirt) == -1)
 		{
 			free(line);

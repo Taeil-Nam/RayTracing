@@ -14,7 +14,7 @@
 
 # define LUMEN 7
 # define THREAD_NUM 20
-# define SAMPLE_PER_PIXEL 100
+# define SAMPLE_PER_PIXEL 10
 # define DEPTH 50
 # define DEFAULT_IMAGE_WID 900
 # define DEFAULT_IMAGE_HGT 600
@@ -75,7 +75,6 @@ typedef struct s_minirt
 	int			depth;
 	int			illumination;
 	int			mode;
-	int			is_light_in_map;
 	int			is_camera_in_map;
 	int			is_ambient_in_map;
 	t_sphere	*light;

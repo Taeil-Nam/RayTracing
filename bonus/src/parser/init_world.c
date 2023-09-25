@@ -23,13 +23,17 @@ int	ambient_data(char **data, t_minirt *minirt)
 	return (1);
 }
 
-t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
+t_sphere	*light_initializer(t_point3 center, double ratio,
+			t_color rgb, t_minirt *minirt)
 {
 	t_sphere	*new_light;
 
 	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
 	new_light->center = center;
-	new_light->radius = DEFAULT_SIZE;
+	if (minirt->illumination == PHONG)
+		new_light->radius = 0.001f;
+	else
+		new_light->radius = DEFAULT_SIZE;
 	new_light->mat.mat_type = light;
 	new_light->mat.emit = emit_light;
 	new_light->mat.scatter = scatter_light;
@@ -41,7 +45,7 @@ t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb)
 	return (new_light);
 }
 
-int	light_data(char **data, t_list **list)
+int	light_data(char **data, t_list **list, t_minirt *minirt)
 {
 	t_hittable	*new_object;
 	t_point3	center;
@@ -60,7 +64,7 @@ int	light_data(char **data, t_list **list)
 	if (data_to_rgb(data[3], &rgb) == -1)
 		return (-1);
 	new_object = (t_hittable *)xmalloc(sizeof(t_hittable));
-	new_object->object = light_initializer(center, ratio, rgb);
+	new_object->object = light_initializer(center, ratio, rgb, minirt);
 	new_object->center = ((t_sphere *)new_object->object)->center;
 	new_object->hit = sphere_hit;
 	new_object->b_box = sphere_b_box;

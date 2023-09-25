@@ -40,8 +40,7 @@ void	cal_abc_cone(double constants[3], t_ray *r, t_cone *cone)
 	x_dot_y[3] = vec3_dot(vec3_sub(r->orig, cone->top),
 			vec3_sub(r->orig, cone->top));
 	x_dot_y[4] = vec3_dot(vec3_sub(r->orig, cone->top), cone->n_axis);
-	m = pow(cone->radius, 2)
-		/ pow(vec3_length(vec3_sub(cone->center, cone->top)), 2);
+	m = pow(cone->radius, 2) / pow(vec3_length(cone->axis), 2);
 	constants[0] = x_dot_y[0] - m * pow(x_dot_y[1], 2) - pow(x_dot_y[1], 2);
 	constants[1] = (x_dot_y[2] - m * x_dot_y[1] * x_dot_y[4]
 			- x_dot_y[1] * x_dot_y[4]);
@@ -64,6 +63,7 @@ bool	cone_side_hit(t_ray *r, t_hit_rec *rec, t_cone *cone)
 			return (false);
 	rec->t = rec->root;
 	rec->p = ray_at(*r, rec->t);
+	rec->max_t = rec->t;
 	normal = vec3_sub(rec->p, cone->top);
 	tmp = vec3_length(normal) / vec3_dot(vec3_unit(normal), cone->n_axis);
 	normal = vec3_unit(vec3_sub(normal, vec3_mul_scalar(cone->n_axis, tmp)));

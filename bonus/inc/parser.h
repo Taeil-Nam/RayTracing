@@ -30,7 +30,7 @@ int			data_to_point(char *str, t_point3 *point);
 int			count_element_2pt_arr(char **data);
 int			ambient_data(char **data, t_minirt *minirt);
 int			camera_data(char **data, t_minirt *minirt);
-int			light_data(char **data, t_list **list);
+int			light_data(char **data, t_list **list, t_minirt *minirt);
 int			init_material(t_material *mat, char *mat_line);
 int			init_object(t_hittable *hittable, char *obj_line);
 int			init_texture(t_texture *tex, char *line, t_minirt *minirt);
@@ -42,7 +42,8 @@ int			cone_initializer(t_hittable *hittable,
 				char **data, t_minirt *minirt);
 int			sphere_initializer(t_hittable *hittable,
 				char **data, t_minirt *minirt);
-t_sphere	*light_initializer(t_point3 center, double ratio, t_color rgb);
+t_sphere	*light_initializer(t_point3 center, double ratio,
+				t_color rgb, t_minirt *minirt);
 int			object_constructor(char **data, t_list **list, t_minirt *minirt);
 int			world_constructor(char *line, t_list **list, t_minirt *minirt);
 void		free_hittables(void *hittable);

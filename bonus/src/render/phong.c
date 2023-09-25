@@ -33,7 +33,7 @@ bool	is_in_shadow(t_hittable *bvh, t_hit_rec *rec,
 	double		length;
 
 	length = vec3_length(vec3_sub(l->center, p_to_light->orig));
-	light_rec.min_t = 0.001;
+	light_rec.min_t = 0.001f;
 	light_rec.max_t = length;
 	if (hit_bvh(&light_rec, p_to_light, bvh)
 		&& light_rec.mat->mat_type != light

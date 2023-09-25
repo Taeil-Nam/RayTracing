@@ -23,8 +23,6 @@ bool	sphere_hit(t_ray *r, t_hit_rec *rec, void *object)
 	double		constants[3];
 
 	sp = (t_sphere *)object;
-	if (rec->depth == DEPTH && sp->mat.mat_type == light)
-		return (false);
 	oc = vec3_sub(r->orig, sp->center);
 	constants[0] = vec3_squared(r->dir);
 	constants[1] = vec3_dot(oc, r->dir);

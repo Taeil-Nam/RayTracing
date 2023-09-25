@@ -43,7 +43,7 @@ int	world_constructor(char *line, t_list **list, t_minirt *minirt)
 	else if (ft_strequal(CAMERA, data[0]))
 		ret = camera_data(data, minirt);
 	else if (ft_strequal(LIGHT, data[0]))
-		ret = light_data(data, list);
+		ret = light_data(data, list, minirt);
 	else
 		ret = -1;
 	ft_double_free(data);
