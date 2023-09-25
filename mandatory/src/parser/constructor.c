@@ -23,7 +23,7 @@ t_sphere	*light_constructor(t_point3 center, double ratio, t_color rgb)
 
 	new_light = (t_sphere *)xmalloc(sizeof(t_sphere));
 	new_light->center = center;
-	new_light->radius = DEFAULT_SIZE;
+	new_light->radius = 0.001f;
 	new_light->mat.mat_type = light;
 	new_light->mat.emit = emit_light;
 	new_light->mat.scatter = scatter_light;
@@ -55,7 +55,7 @@ t_cylinder	*cylinder_constructor(t_cy_vars cy_vars)
 
 	new_cy = (t_cylinder *)xmalloc(sizeof(t_cylinder));
 	new_cy->center = cy_vars.center;
-	new_cy->axis = cy_vars.axis;
+	new_cy->axis = vec3_unit(cy_vars.axis);
 	new_cy->diameter = cy_vars.diameter;
 	new_cy->height = cy_vars.height;
 	new_cy->mat.mat_type = diffuse;

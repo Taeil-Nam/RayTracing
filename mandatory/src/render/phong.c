@@ -50,7 +50,7 @@ t_color	phong_color(t_ray r, t_world *world, t_sphere *l)
 	t_ray		p_to_light;
 	t_color		p_color;
 
-	ads[0] = vec3_mul_scalar(world->cam->a_background, world->cam->a_ratio);
+	ads[0] = vec3_mul_scalar(world->cam.a_background, world->cam.a_ratio);
 	rec.min_t = 0.001;
 	rec.max_t = INFINITY;
 	if (!hit_bvh(&rec, &r, world->bvh) || rec.mat->mat_type == light)

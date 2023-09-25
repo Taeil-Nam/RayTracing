@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 10
+# define SAMPLE_PER_PIXEL 1
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
@@ -80,8 +80,11 @@ typedef struct s_camera
 typedef struct s_world
 {
 	t_hittable	*bvh;
-	t_camera	*cam;
+	t_camera	cam;
 	t_sphere	**light_lst;
+	int			is_light_in_map;
+	int			is_camera_in_map;
+	int			is_ambient_in_map;
 }	t_world;
 
 /* rendering 함수 */
@@ -98,7 +101,7 @@ t_color	black_color(void);
 void	*xmalloc(size_t size);
 void	minirt_error_exit(void);
 void	minirt_str_error_exit(char *str);
-void	free_mem(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst);
+void	free_mem(t_world *world, t_hittable **hittables);
 
 /* miniRT utils */
 int		exit_hook(void);
@@ -107,16 +110,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	minirt_init(t_data *image, t_vars *vars);
 
 /* parser 관련함수 */
-int		minirt_parser(const char *filename, t_list **list, t_camera *camera);
+int		minirt_parser(const char *filename, t_list **list, t_world *world);
 int		data_to_rgb(char *str, t_color *rgb);
 int		data_to_point(char *str, t_point3 *point);
 int		count_element_2pt_arr(char **data);
-int		ambient_data(char **data, t_camera *cam);
-int		camera_data(char **data, t_camera *cam);
-int		light_data(char **data, t_list **list);
+int		ambient_data(char **data, t_world *world);
+int		camera_data(char **data, t_world *world);
+int		light_data(char **data, t_list **list, t_world *world);
 int		sphere_data(char **data, t_list **list);
 int		plane_data(char **data, t_list **list);
 int		cylinder_data(char **data, t_list **list);
+bool	check_nan_in_vec3(t_vec3 v);
 
 /* camera.c 관련 함수 */
 double	degrees_to_radians(double degrees);

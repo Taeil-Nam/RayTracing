@@ -59,7 +59,7 @@ void	multi_light(t_thread *thread, int i, int j)
 		while (thread->common->light_lst[s] != NULL)
 			color = vec3_add(color, aa_phong(i, j, thread->common,
 						thread->common->light_lst[s++]));
-			color = vec3_mul_scalar(color, 1 / (double)s);
+		color = vec3_mul_scalar(color, 1 / (double)s);
 	}
 	write_color(color, &thread->common->minirt->data, i, j);
 }

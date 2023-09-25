@@ -68,6 +68,8 @@ int	camera_data(char **data, t_minirt *minirt)
 		return (-1);
 	if (data_to_point(data[2], &dir) == -1)
 		return (-1);
+	if (check_nan_in_vec3(dir))
+		return (-1);
 	hfov = ft_atoi(data[3]);
 	set_camera_pos(look_from, dir, hfov, &minirt->cam);
 	return (1);

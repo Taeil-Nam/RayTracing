@@ -25,7 +25,8 @@ FILE=	main.c				\
 		parser/parser_1.c	\
 		parser/parser_2.c	\
 		parser/parser_3.c	\
-		parser/parser_util.c\
+		parser/parser_util_1.c\
+		parser/parser_util_2.c\
 		parser/constructor.c\
 		bvh/bvh.c			\
 		bvh/comparator.c	\

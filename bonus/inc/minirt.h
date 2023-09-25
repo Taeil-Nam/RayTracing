@@ -75,6 +75,7 @@ typedef struct s_minirt
 	int			depth;
 	int			illumination;
 	int			mode;
+	int			is_light_in_map;
 	int			is_camera_in_map;
 	int			is_ambient_in_map;
 	t_sphere	*light;

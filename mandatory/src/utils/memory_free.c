@@ -24,11 +24,11 @@ void	free_bvh(t_hittable *node)
 	free(node);
 }
 
-void	free_mem(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst)
+void	free_mem(t_world *world, t_hittable **hittables)
 {
 	int	i;
 
-	free_bvh(bvh);
+	free_bvh(world->bvh);
 	i = 0;
 	while (hittables[i] != NULL)
 	{
@@ -37,5 +37,5 @@ void	free_mem(t_hittable *bvh, t_hittable **hittables, t_sphere **light_lst)
 		i++;
 	}
 	free(hittables);
-	free(light_lst);
+	free(world->light_lst);
 }

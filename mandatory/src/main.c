@@ -7,19 +7,15 @@
 #include "vec3.h"
 #include "ray.h"
 
-int	print_image(t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
+int	print_image(t_world *world)
 {
 	int			pixel;
 	double		sample_per_pixel;
 	t_vars		vars;
 	t_data		image;
-	t_world		world;
 
 	minirt_init(&image, &vars);
-	world.bvh = bvh;
-	world.cam = cam;
-	world.light_lst = light_lst;
-	phong_trace(&image, &world);
+	phong_trace(&image, world);
 	mlx_put_image_to_window(vars.mlx, vars.win, image.img, 0, 0);
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_hook(vars.win, 17, 0, exit_hook, 0);
@@ -27,24 +23,29 @@ int	print_image(t_hittable *bvh, t_camera *cam, t_sphere **light_lst)
 	return (0);
 }
 
+void	world_init(t_world *world)
+{
+	world->is_ambient_in_map = false;
+	world->is_camera_in_map = false;
+	world->is_light_in_map = false;
+}
+
 int	main(int argc, char *argv[])
 {
 	t_list		*list;
-	t_camera	cam;
-	t_hittable	*bvh;
 	t_hittable	**hittables;
-	t_sphere	**light_lst;
+	t_world		world;
 
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
-	if (minirt_parser(argv[1], &list, &cam) == -1)
+	if (minirt_parser(argv[1], &list, &world) == -1)
 		minirt_str_error_exit(ERR_MAP);
 	hittables = list_to_hittable_arr(list);
-	light_lst = make_light_lst(hittables);
-	bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
+	world.light_lst = make_light_lst(hittables);
+	world.bvh = make_bvh(hittables, 0, ft_lstsize(list) - 1);
 	ft_lstclear(&list, dummy);
-	print_image(bvh, &cam, light_lst);
-	free_mem(bvh, hittables, light_lst);
+	print_image(&world);
+	free_mem(&world, hittables);
 	return (0);
 }

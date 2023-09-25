@@ -76,5 +76,10 @@ int	minirt_parser(const char *filename, t_list **list, t_minirt *minirt)
 		}
 		free(line);
 	}
+	if (minirt->is_ambient_in_map == false || minirt->is_camera_in_map == false)
+	{
+		ft_lstclear(list, free_hittables);
+		return (-1);
+	}
 	return (1);
 }
