@@ -60,9 +60,10 @@ t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l)
 		return (vec3_mul_vec3(ads[0], p_color));
 	p_to_light.orig = rec.p;
 	p_to_light.dir = vec3_unit(vec3_sub(l->center, p_to_light.orig));
-	if (is_in_shadow(bvh, &rec, &p_to_light, l))
-		return (vec3_add(vec3_instant(0, 0, 0), vec3_mul_scalar(p_color, 0.1)));
 	ads[1] = diffuse_color(&rec, l, &p_to_light);
+	if (is_in_shadow(bvh, &rec, &p_to_light, l))
+		return (vec3_add(vec3_instant(0, 0, 0),
+				vec3_mul_scalar(vec3_mul_vec3(p_color, ads[1]), 0.1)));
 	ads[2] = specular_color(&r, &p_to_light, &rec, l);
 	phong = vec3_add(vec3_mul_vec3(vec3_add(ads[0], ads[1]), p_color), ads[2]);
 	return (phong);

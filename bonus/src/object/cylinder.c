@@ -56,8 +56,8 @@ bool	cylinder_side_hit(t_ray *r, t_hit_rec *rec, t_cylinder *cy)
 	rec->p = ray_at(*r, rec->t);
 	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, cy->center),
 				vec3_mul_scalar(cy->axis, p_height)));
-	get_cylinder_uv(outward_normal, rec, p_height, cy);
 	set_face_normal(r, outward_normal, rec);
+	get_cylinder_uv(outward_normal, rec, p_height, cy);
 	if (cy->mat.t.bmp_img.img_ptr != NULL)
 		rec->normal = vec3_unit(vec3_add(rec->normal,
 					bmp_value(rec, &cy->mat.t.bmp_img)));
@@ -85,9 +85,9 @@ bool	cylinder_cap_hit(t_ray *r, t_hit_rec *rec,
 	rec->t = root;
 	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
+	set_face_normal(r, cy->axis, rec);
 	get_cylinder_uv(cy->axis, rec,
 		vec3_length(vec3_sub(cy->center, center)), cy);
-	set_face_normal(r, cy->axis, rec);
 	if (cy->mat.t.bmp_img.img_ptr != NULL)
 		rec->normal = vec3_unit(vec3_add(rec->normal,
 					bmp_value(rec, &cy->mat.t.bmp_img)));

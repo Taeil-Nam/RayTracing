@@ -34,8 +34,8 @@ bool	plane_hit(t_ray *r, t_hit_rec *rec, void *object)
 	rec->t = root;
 	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
-	get_plane_uv(pl->n, pl->p, rec);
 	set_face_normal(r, pl->n, rec);
+	get_plane_uv(pl->n, pl->p, rec);
 	if (pl->mat.t.bmp_img.img_ptr != NULL)
 		rec->normal = vec3_unit(vec3_add(rec->normal,
 					bmp_value(rec, &pl->mat.t.bmp_img)));

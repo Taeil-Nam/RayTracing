@@ -13,3 +13,10 @@ sp 0,0,0 15 | D | CH 255,0,123 ./img/earth_normalmap.xpm
 co -30,0,0 -30,20,3 5 NOT_INF | DI 0.8 | S 123,123,123 NO_BMP
 cy 30,0,0 0,1,0.3 10 20 | D | IMG ./img/earthmap.xpm ./img/earth_normalmap.xpm
 
+
+
+
+
+
+
+			

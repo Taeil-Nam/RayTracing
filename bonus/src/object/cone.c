@@ -67,8 +67,8 @@ bool	cone_side_hit(t_ray *r, t_hit_rec *rec, t_cone *cone)
 	normal = vec3_sub(rec->p, cone->top);
 	tmp = vec3_length(normal) / vec3_dot(vec3_unit(normal), cone->n_axis);
 	normal = vec3_unit(vec3_sub(normal, vec3_mul_scalar(cone->n_axis, tmp)));
-	get_cone_uv(normal, rec, height, cone);
 	set_face_normal(r, normal, rec);
+	get_cone_uv(normal, rec, height, cone);
 	if (cone->mat.t.bmp_img.img_ptr != NULL)
 		rec->normal = vec3_unit(vec3_add(rec->normal,
 					bmp_value(rec, &cone->mat.t.bmp_img)));
