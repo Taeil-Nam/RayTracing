@@ -44,6 +44,8 @@ int	camera_data(char **data, t_world *world)
 	if (check_nan_in_vec3(dir))
 		return (-1);
 	hfov = ft_atoi(data[3]);
+	if (hfov < 0 || hfov > 180)
+		return (-1);
 	set_camera_pos(look_from, dir, hfov, &world->cam);
 	return (1);
 }
