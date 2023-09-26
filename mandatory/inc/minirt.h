@@ -11,7 +11,7 @@
 # include "vec3.h"
 # include "ray.h"
 
-# define SAMPLE_PER_PIXEL 1
+# define SAMPLE_PER_PIXEL 3
 # define DEFAULT_IMAGE_WID 1600
 # define DEFAULT_IMAGE_HGT 1000
 # define PI 3.1415926535897932385
@@ -89,7 +89,7 @@ typedef struct s_world
 
 /* rendering 함수 */
 void	phong_trace(t_data *image, t_world *world);
-t_color	phong_color(t_ray r, t_world *world, t_sphere *l);
+t_color	phong_color(t_ray r, t_world *world);
 void	write_color(t_color color, t_data *image, int i, int j);
 
 /* utils */

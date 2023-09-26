@@ -22,7 +22,7 @@ t_color	aa_path(int i, int j, t_minirt *minirt, t_hittable *bvh)
 	return (color);
 }
 
-t_color	aa_phong(int i, int j, t_common *common, t_sphere *l)
+t_color	aa_phong(int i, int j, t_common *common)
 {
 	t_ray	r;
 	t_color	color;
@@ -35,8 +35,7 @@ t_color	aa_phong(int i, int j, t_common *common, t_sphere *l)
 		r = get_ray(&common->minirt->cam,
 				(i + random_double()) / (DEFAULT_IMAGE_WID - 1),
 				(j + random_double()) / (DEFAULT_IMAGE_HGT - 1));
-		color = vec3_add(color, phong_color(r,
-					&common->minirt->cam, common->bvh, l));
+		color = vec3_add(color, phong_color(r, common));
 	}
 	return (color);
 }

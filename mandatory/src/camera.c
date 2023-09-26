@@ -21,9 +21,9 @@ t_vec3	get_lower_left_corner(t_camera *cam)
 
 void	set_camera_image(t_color background, double ratio, t_camera *cam)
 {
-	cam->a_background.x = background.x;
-	cam->a_background.y = background.y;
-	cam->a_background.z = background.z;
+	cam->a_background.x = background.x * ratio;
+	cam->a_background.y = background.y * ratio;
+	cam->a_background.z = background.z * ratio;
 	cam->a_ratio = ratio;
 }
 

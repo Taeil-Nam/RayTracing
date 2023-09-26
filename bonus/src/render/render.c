@@ -44,26 +44,6 @@ void	*path_trace(void *arg)
 	return (NULL);
 }
 
-void	multi_light(t_thread *thread, int i, int j)
-{
-	t_color	color;
-	int		s;
-
-	s = 0;
-	vec3_init(&color, 0, 0, 0);
-	if (thread->common->light_lst[0] == NULL)
-		color = aa_phong(i, j, thread->common,
-				thread->common->light_lst[0]);
-	else
-	{
-		while (thread->common->light_lst[s] != NULL)
-			color = vec3_add(color, aa_phong(i, j, thread->common,
-						thread->common->light_lst[s++]));
-		color = vec3_mul_scalar(color, 1 / (double)s);
-	}
-	write_color(color, &thread->common->minirt->data, i, j);
-}
-
 void	*phong_trace(void *arg)
 {
 	t_color		color;
@@ -82,7 +62,9 @@ void	*phong_trace(void *arg)
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
 		{
-			multi_light(thread, i, j);
+			vec3_init(&color, 0, 0, 0);
+			color = aa_phong(i, j, thread->common);
+			write_color(color, &thread->common->minirt->data, i, j);
 			i++;
 		}
 		j++;

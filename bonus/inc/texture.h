@@ -3,7 +3,6 @@
 
 # include "minirt.h"
 
-
 enum e_texture_type
 {
 	solid,

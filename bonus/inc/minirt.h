@@ -98,13 +98,14 @@ typedef struct s_thread
 }	t_thread;
 
 /* rendering 함수 */
-t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
+// t_color	phong_color(t_ray r, t_camera *cam, t_hittable *bvh, t_sphere *l);
+t_color	phong_color(t_ray r, t_common *common);
 t_color	ray_color(t_ray r, t_camera *cam, t_hittable *bvh, int depth);
 void	*path_trace(void *thread);
 void	*phong_trace(void *thread);
 t_ray	get_ray(t_camera *cam, double s, double t);
 t_color	aa_path(int i, int j, t_minirt *minirt, t_hittable *bvh);
-t_color	aa_phong(int i, int j, t_common *common, t_sphere *l);
+t_color	aa_phong(int i, int j, t_common *common);
 
 /* miniRT utils */
 void	set_face_normal(t_ray *r, t_vec3 o_n, t_hit_rec *rec);
