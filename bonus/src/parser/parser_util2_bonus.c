@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "parser_bonus.h"
 
 bool	check_nan_in_vec3(t_vec3 v)
 {

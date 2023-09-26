@@ -1,5 +1,5 @@
-#ifndef VEC3_H
-# define VEC3_H
+#ifndef VEC3_BONUS_H
+# define VEC3_BONUS_H
 
 # include <math.h>
 # include <stdbool.h>
@@ -37,7 +37,10 @@ t_vec3	vec3_random_unit(void);
 bool	vec3_near_zero(t_vec3 v);
 void	vec3_print(t_vec3 v);
 t_vec3	vec3_reflect(t_vec3 v, t_vec3 n);
-t_vec3	vec3_instant(double x, double y, double z);
+t_vec3	vec3_refract(t_vec3 uv, t_vec3 n, double etai_over_etat);
+
+/* vec3_5.c */
 void	vec3_init(t_vec3 *v, double x, double y, double z);
+t_vec3	vec3_instant(double x, double y, double z);
 
 #endif

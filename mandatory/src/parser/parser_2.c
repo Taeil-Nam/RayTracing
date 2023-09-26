@@ -16,7 +16,7 @@ int	ambient_data(char **data, t_world *world)
 	if (count_element_2pt_arr(data) != 3)
 		return (-1);
 	ratio = ft_atod(data[1], &atod_errno);
-	if (atod_errno == ATOD_FORMAT_ERR)
+	if (atod_errno == ATOD_FORMAT_ERR || (ratio < 0 || ratio > 1))
 		return (-1);
 	if (data_to_rgb(data[2], &rgb) == -1)
 		return (-1);
@@ -38,7 +38,7 @@ int	camera_data(char **data, t_world *world)
 		return (-1);
 	if (data_to_point(data[1], &look_from) == -1)
 		return (-1);
-	if (data_to_point(data[2], &dir) == -1)
+	if (data_to_point(data[2], &dir) == -1 || !is_value_btw_one(dir))
 		return (-1);
 	dir = vec3_unit(dir);
 	if (check_nan_in_vec3(dir))
@@ -67,7 +67,7 @@ int	light_data(char **data, t_list **list, t_world *world)
 		|| data_to_point(data[1], &center) == -1)
 		return (-1);
 	ratio = ft_atod(data[2], &atod_errno);
-	if (atod_errno == ATOD_FORMAT_ERR
+	if (atod_errno == ATOD_FORMAT_ERR || (ratio < 0 || ratio > 1)
 		|| data_to_rgb(data[3], &rgb) == -1)
 		return (-1);
 	new_object = (t_hittable *)xmalloc(sizeof(t_hittable));

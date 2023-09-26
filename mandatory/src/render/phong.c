@@ -69,7 +69,6 @@ t_color	phong_color(t_ray r, t_world *world)
 	t_hit_rec	rec;
 	t_color		phong;
 	t_color		ambient;
-	t_ray		p_to_light;
 	t_color		p_color;
 
 	ambient = world->cam.a_background;

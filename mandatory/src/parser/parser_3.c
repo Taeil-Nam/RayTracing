@@ -42,7 +42,7 @@ int	plane_data(char **data, t_list **list)
 		return (-1);
 	if (data_to_point(data[1], &p) == -1)
 		return (-1);
-	if (data_to_point(data[2], &normal) == -1)
+	if (data_to_point(data[2], &normal) == -1 || !is_value_btw_one(normal))
 		return (-1);
 	if (check_nan_in_vec3(vec3_unit(normal)))
 		return (-1);
@@ -68,7 +68,8 @@ int	cylinder_data(char **data, t_list **list)
 		return (-1);
 	if (data_to_point(data[1], &cy_vars.center) == -1
 		|| data_to_point(data[2], &cy_vars.axis) == -1
-		|| check_nan_in_vec3(vec3_unit(cy_vars.axis)))
+		|| check_nan_in_vec3(vec3_unit(cy_vars.axis))
+		|| !is_value_btw_one(cy_vars.axis))
 		return (-1);
 	cy_vars.diameter = ft_atod(data[3], &atod_errno);
 	cy_vars.height = ft_atod(data[4], &atod_errno);

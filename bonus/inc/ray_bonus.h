@@ -1,7 +1,7 @@
-#ifndef RAY_H
-# define RAY_H
+#ifndef RAY_BONUS_H
+# define RAY_BONUS_H
 
-# include "vec3.h"
+# include "vec3_bonus.h"
 
 typedef struct s_ray
 {

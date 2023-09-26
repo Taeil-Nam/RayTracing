@@ -1,4 +1,4 @@
-#include "object.h"
+#include "object_bonus.h"
 
 t_aabb	cylinder_b_box(void *object)
 {
@@ -55,6 +55,10 @@ bool	cylinder_side_hit(t_ray *r, t_hit_rec *rec, t_cylinder *cy)
 	outward_normal = vec3_unit(vec3_sub(vec3_sub(rec->p, cy->center),
 				vec3_mul_scalar(cy->axis, p_height)));
 	set_face_normal(r, outward_normal, rec);
+	get_cylinder_uv(outward_normal, rec, p_height, cy);
+	if (cy->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal,
+					bmp_value(rec, &cy->mat.t.bmp_img)));
 	rec->mat = &cy->mat;
 	return (true);
 }
@@ -80,6 +84,11 @@ bool	cylinder_cap_hit(t_ray *r, t_hit_rec *rec,
 	rec->max_t = rec->t;
 	rec->p = ray_at(*r, rec->t);
 	set_face_normal(r, cy->axis, rec);
+	get_cylinder_uv(cy->axis, rec,
+		vec3_length(vec3_sub(cy->center, center)), cy);
+	if (cy->mat.t.bmp_img.img_ptr != NULL)
+		rec->normal = vec3_unit(vec3_add(rec->normal,
+					bmp_value(rec, &cy->mat.t.bmp_img)));
 	rec->mat = &cy->mat;
 	return (true);
 }

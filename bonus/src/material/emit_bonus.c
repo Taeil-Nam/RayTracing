@@ -1,4 +1,4 @@
-#include "material.h"
+#include "material_bonus.h"
 
 t_color	emit_general(t_hit_rec *rec, t_point3 *p, t_texture *t)
 {
@@ -16,5 +16,5 @@ t_color	emit_general(t_hit_rec *rec, t_point3 *p, t_texture *t)
 t_color	emit_light(t_hit_rec *rec, t_point3 *p, t_texture *t)
 {
 	p = NULL;
-	return (t->value(rec, t->rgb));
+	return (t->value(rec, &t->img, t->rgb));
 }

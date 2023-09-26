@@ -41,7 +41,6 @@ void	phong_trace(t_data *image, t_world *world)
 	t_color	color;
 	int		i;
 	int		j;
-	int		s;
 
 	j = DEFAULT_IMAGE_HGT - 1;
 	while (j >= 0)

@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "parser_bonus.h"
 
 int	count_element_2pt_arr(char **data)
 {
@@ -27,7 +27,6 @@ int	is_value_btw_255(int value, int *rgb_errno)
 	return (value);
 }
 
-// ft_atoi로 넘길 str 검사를 해봐야함
 int	data_to_rgb(char *str, t_color *rgb)
 {
 	char	**rgb_data;

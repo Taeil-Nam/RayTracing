@@ -87,7 +87,7 @@ typedef struct s_world
 	int			is_ambient_in_map;
 }	t_world;
 
-/* rendering 함수 */
+/* rendering */
 void	phong_trace(t_data *image, t_world *world);
 t_color	phong_color(t_ray r, t_world *world);
 void	write_color(t_color color, t_data *image, int i, int j);
@@ -109,7 +109,7 @@ int		key_hook(int keycode, t_vars *vars);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	minirt_init(t_data *image, t_vars *vars);
 
-/* parser 관련함수 */
+/* parser */
 int		minirt_parser(const char *filename, t_list **list, t_world *world);
 int		data_to_rgb(char *str, t_color *rgb);
 int		data_to_point(char *str, t_point3 *point);
@@ -121,8 +121,9 @@ int		sphere_data(char **data, t_list **list);
 int		plane_data(char **data, t_list **list);
 int		cylinder_data(char **data, t_list **list);
 bool	check_nan_in_vec3(t_vec3 v);
+bool	is_value_btw_one(t_vec3 vec);
 
-/* camera.c 관련 함수 */
+/* camera */
 double	degrees_to_radians(double degrees);
 void	set_camera_pos(t_point3 look_from, t_vec3 dir,
 			double hfov, t_camera *cam);

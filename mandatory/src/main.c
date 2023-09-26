@@ -1,6 +1,3 @@
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "minirt.h"
 #include "bvh.h"
 #include "object.h"
@@ -9,8 +6,6 @@
 
 int	print_image(t_world *world)
 {
-	int			pixel;
-	double		sample_per_pixel;
 	t_vars		vars;
 	t_data		image;
 
