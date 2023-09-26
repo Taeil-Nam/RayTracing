@@ -18,7 +18,7 @@ t_thread	*threads_init(t_hittable *bvh, t_minirt *minirt,
 	common->bvh = bvh;
 	common->minirt = minirt;
 	common->light_lst = light_lst;
-	common->cnt = 1;
+	common->cnt = DEFAULT_IMAGE_HGT - 1;
 	threads = (t_thread *)xmalloc(sizeof(t_thread) * THREAD_NUM);
 	while (i < THREAD_NUM)
 	{
@@ -41,6 +41,7 @@ int	print_image(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 
 	threads = threads_init(bvh, minirt, light_lst, &common);
 	multi_threading(threads, minirt);
+	free(threads);
 	mlx_put_image_to_window(minirt->vars.mlx,
 		minirt->vars.win, minirt->data.img, 0, 0);
 	mlx_key_hook(minirt->vars.win, key_hook, &minirt->vars);
@@ -67,6 +68,11 @@ void	minirt_init(t_minirt *minirt)
 	minirt->is_camera_in_map = false;
 }
 
+void	leaks(void)
+{
+	system("leaks -q $PPID");
+}
+
 int	main(int argc, char *argv[])
 {
 	t_list		*list;
@@ -75,6 +81,7 @@ int	main(int argc, char *argv[])
 	t_sphere	**light_lst;
 	t_minirt	minirt;
 
+	atexit(leaks);
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);

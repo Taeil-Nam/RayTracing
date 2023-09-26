@@ -11,7 +11,7 @@ pl 40,0,0 -1,0,0 | M 0 | S 12,234,123 NO_BMP
 pl 0,40,0 0,1,0 | D | CH 12,234,123 NO_BMP
 pl 0,-40,0 0,1,0 | D | S 12,234,123 NO_BMP
 
-sp 0,0,0 15 | D | CH 255,0,123 ./img/earth_normalmap.xpm
+sp 0,0,0 15 | D | CH 255,0,123 NO_BMP
 co -30,0,0 -30,20,3 5 NOT_INF | DI 0.8 | S 123,123,123 NO_BMP
 cy 30,0,0 0,1,0.3 10 20 | D | IMG ./img/earthmap.xpm NO_BMP
 

@@ -35,9 +35,7 @@ int	plane_data(char **data, t_list **list)
 	t_point3	p;
 	t_point3	normal;
 	t_color		rgb;
-	int			atod_errno;
 
-	atod_errno = 0;
 	if (count_element_2pt_arr(data) != 4)
 		return (-1);
 	if (data_to_point(data[1], &p) == -1)

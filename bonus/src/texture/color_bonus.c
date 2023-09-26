@@ -2,8 +2,8 @@
 
 t_color	solid_value(t_hit_rec *rec, t_img *img, t_color rgb)
 {
-	rec = NULL;
-	img = NULL;
+	(void)rec;
+	(void)img;
 	return (rgb);
 }
 
@@ -15,7 +15,7 @@ t_color	checker_value(t_hit_rec *rec, t_img *img, t_color rgb)
 	int		u;
 	int		v;
 
-	img = NULL;
+	(void)img;
 	width = 10;
 	height = 10;
 	checker.x = 0.9;

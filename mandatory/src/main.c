@@ -25,15 +25,22 @@ void	world_init(t_world *world)
 	world->is_light_in_map = false;
 }
 
+void	leaks(void)
+{
+	system("leaks -q $PPID");
+}
+
 int	main(int argc, char *argv[])
 {
 	t_list		*list;
 	t_hittable	**hittables;
 	t_world		world;
 
+	atexit(leaks);
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
+	world_init(&world);
 	if (minirt_parser(argv[1], &list, &world) == -1)
 		minirt_str_error_exit(ERR_MAP);
 	hittables = list_to_hittable_arr(list);

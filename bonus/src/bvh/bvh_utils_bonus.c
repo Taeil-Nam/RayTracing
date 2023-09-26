@@ -2,7 +2,7 @@
 
 void	dummy(void *object)
 {
-	object = NULL;
+	(void)object;
 	return ;
 }
 

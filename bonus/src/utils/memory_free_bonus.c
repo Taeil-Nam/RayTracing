@@ -11,6 +11,7 @@
 		: tree의 root node이기 때문에, bvh->left, bvh->right 타고 들어가서 자식 node들 전부 free 필요.
 	4. t_aabb*				bvh->object
 		: bvh tree의 맨 밑 노드들은 1-1과 겹치므로, double free 주의.
+	5. 
 	---
 */
 

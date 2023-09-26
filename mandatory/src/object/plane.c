@@ -2,10 +2,9 @@
 
 t_aabb	plane_b_box(void *object)
 {
-	t_plane	*pl;
 	t_aabb	pl_box;
 
-	pl = (t_plane *)object;
+	(void)object;
 	pl_box.p_min.x = -INFINITY;
 	pl_box.p_min.y = -INFINITY;
 	pl_box.p_min.z = -INFINITY;

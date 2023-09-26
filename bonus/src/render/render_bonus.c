@@ -30,7 +30,7 @@ void	*path_trace(void *arg)
 	while (j <= thread->h_end)
 	{
 		pthread_mutex_lock(&thread->common->print_mutex);
-		printf("\rScanlines remaining : %d\n", thread->common->cnt++);
+		printf("\rScanlines remaining : %d\n", thread->common->cnt--);
 		pthread_mutex_unlock(&thread->common->print_mutex);
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)
@@ -56,7 +56,7 @@ void	*phong_trace(void *arg)
 	while (j <= thread->h_end)
 	{
 		pthread_mutex_lock(&thread->common->print_mutex);
-		printf("\rScanlines remaining : %d\n", thread->common->cnt++);
+		printf("\rScanlines remaining : %d\n", thread->common->cnt--);
 		pthread_mutex_unlock(&thread->common->print_mutex);
 		i = 0;
 		while (i < DEFAULT_IMAGE_WID)

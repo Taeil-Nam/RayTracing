@@ -120,7 +120,7 @@ make_bonus: $(BONUS_OBJS)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR) -I$(INC_LIBFT) -I$(INC_MLX)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR) -I$(INC_LIBFT) -I$(INC_MLX) -g
 
 $(OBJ_DIR)%.o : $(SRC_BONUS_DIR)%.c
 	@mkdir -p $(@D)
