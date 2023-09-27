@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:31:39 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/09/27 12:31:42 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/09/27 12:34:22 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,12 @@ void	world_init(t_world *world)
 	world->is_light_in_map = false;
 }
 
-void	leaks(void)
-{
-	system("leaks -q $PPID");
-}
-
 int	main(int argc, char *argv[])
 {
 	t_list		*list;
 	t_hittable	**hittables;
 	t_world		world;
 
-	atexit(leaks);
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
