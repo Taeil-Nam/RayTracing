@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/09/27 12:39:34 by gunjkim           #+#    #+#              #
+#    Updated: 2023/09/27 12:39:39 by gunjkim          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = miniRT
 
 CC = cc
@@ -120,7 +132,7 @@ make_bonus: $(BONUS_OBJS)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR) -I$(INC_LIBFT) -I$(INC_MLX) -g
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INC_DIR) -I$(INC_LIBFT) -I$(INC_MLX)
 
 $(OBJ_DIR)%.o : $(SRC_BONUS_DIR)%.c
 	@mkdir -p $(@D)
