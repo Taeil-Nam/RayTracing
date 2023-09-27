@@ -12,7 +12,7 @@
 # include "vec3_bonus.h"
 # include "ray_bonus.h"
 
-# define LUMEN 7
+# define LUMEN 3
 # define THREAD_NUM 20
 # define SAMPLE_PER_PIXEL 10
 # define DEPTH 50
@@ -25,8 +25,6 @@
 
 # define PHONG 0
 # define PATH 1
-# define RENDERING 0
-# define EDITING 1
 
 # define ERR_ARGV_MSG "Error\nminiRT : Argument Error : filename with .rt"
 # define ERR_INV_FILE "Error\nminiRT : invalid file format: .rt"
@@ -74,7 +72,6 @@ typedef struct s_minirt
 	int			sample_per_pixel;
 	int			depth;
 	int			illumination;
-	int			mode;
 	int			is_camera_in_map;
 	int			is_ambient_in_map;
 	t_sphere	*light;

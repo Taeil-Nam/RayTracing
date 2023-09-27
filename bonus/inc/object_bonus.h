@@ -4,7 +4,7 @@
 # include "minirt_bonus.h"
 # include "material_bonus.h"
 
-# define DEFAULT_SIZE 10
+# define DEFAULT_SIZE 5
 
 typedef struct s_aabb
 {

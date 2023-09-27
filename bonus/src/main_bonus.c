@@ -14,7 +14,7 @@ t_thread	*threads_init(t_hittable *bvh, t_minirt *minirt,
 	i = 0;
 	start = 0;
 	if (pthread_mutex_init(&common->print_mutex, NULL) != 0)
-		minirt_error_exit();
+		minirt_str_error_exit("Error\nminiRT: mutex init");
 	common->bvh = bvh;
 	common->minirt = minirt;
 	common->light_lst = light_lst;
@@ -34,6 +34,24 @@ t_thread	*threads_init(t_hittable *bvh, t_minirt *minirt,
 	return (threads);
 }
 
+
+void	minirt_init(t_minirt *minirt)
+{
+	minirt->vars.mlx = mlx_init();
+	minirt->vars.win = mlx_new_window(minirt->vars.mlx,
+			DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT, "miniRT");
+	minirt->data.img = mlx_new_image(minirt->vars.mlx,
+			DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT);
+	minirt->data.addr = mlx_get_data_addr(minirt->data.img,
+			&minirt->data.bits_per_pixel,
+			&minirt->data.line_length, &minirt->data.endian);
+	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
+	minirt->depth = DEPTH;
+	minirt->illumination = PATH;
+	minirt->is_ambient_in_map = false;
+	minirt->is_camera_in_map = false;
+}
+
 int	print_image(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 {
 	t_thread	*threads;
@@ -48,24 +66,6 @@ int	print_image(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 	mlx_hook(minirt->vars.win, 17, 0, exit_hook, 0);
 	mlx_loop(minirt->vars.mlx);
 	return (0);
-}
-
-void	minirt_init(t_minirt *minirt)
-{
-	minirt->vars.mlx = mlx_init();
-	minirt->vars.win = mlx_new_window(minirt->vars.mlx,
-			DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT, "miniRT");
-	minirt->data.img = mlx_new_image(minirt->vars.mlx,
-			DEFAULT_IMAGE_WID, DEFAULT_IMAGE_HGT);
-	minirt->data.addr = mlx_get_data_addr(minirt->data.img,
-			&minirt->data.bits_per_pixel,
-			&minirt->data.line_length, &minirt->data.endian);
-	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
-	minirt->depth = DEPTH;
-	minirt->illumination = PHONG;
-	minirt->mode = RENDERING;
-	minirt->is_ambient_in_map = false;
-	minirt->is_camera_in_map = false;
 }
 
 void	leaks(void)
