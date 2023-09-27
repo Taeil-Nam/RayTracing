@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/27 12:32:38 by tnam              #+#    #+#             */
+/*   Updated: 2023/09/27 12:33:37 by tnam             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt_bonus.h"
 #include "bvh_bonus.h"
 #include "object_bonus.h"
@@ -34,7 +46,6 @@ t_thread	*threads_init(t_hittable *bvh, t_minirt *minirt,
 	return (threads);
 }
 
-
 void	minirt_init(t_minirt *minirt)
 {
 	minirt->vars.mlx = mlx_init();
@@ -68,11 +79,6 @@ int	print_image(t_hittable *bvh, t_minirt *minirt, t_sphere **light_lst)
 	return (0);
 }
 
-void	leaks(void)
-{
-	system("leaks -q $PPID");
-}
-
 int	main(int argc, char *argv[])
 {
 	t_list		*list;
@@ -81,7 +87,6 @@ int	main(int argc, char *argv[])
 	t_sphere	**light_lst;
 	t_minirt	minirt;
 
-	atexit(leaks);
 	list = NULL;
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
