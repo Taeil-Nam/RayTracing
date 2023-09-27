@@ -86,7 +86,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		minirt_str_error_exit(ERR_ARGV_MSG);
 	if (THREAD_NUM > DEFAULT_IMAGE_HGT)
-		minirt_str_error_exit("Too small image.");
+		minirt_str_error_exit("miniRT\nToo small image");
 	minirt_init(&minirt);
 	if (minirt_parser(argv[1], &list, &minirt) == -1)
 		minirt_str_error_exit(ERR_MAP);
