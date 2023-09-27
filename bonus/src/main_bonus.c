@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnam <tnam@student.42seoul.kr>             +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 12:32:38 by tnam              #+#    #+#             */
-/*   Updated: 2023/09/27 12:33:37 by tnam             ###   ########.fr       */
+/*   Updated: 2023/09/27 12:42:30 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	minirt_init(t_minirt *minirt)
 			&minirt->data.line_length, &minirt->data.endian);
 	minirt->sample_per_pixel = SAMPLE_PER_PIXEL;
 	minirt->depth = DEPTH;
-	minirt->illumination = PATH;
+	minirt->illumination = PHONG;
 	minirt->is_ambient_in_map = false;
 	minirt->is_camera_in_map = false;
 }
