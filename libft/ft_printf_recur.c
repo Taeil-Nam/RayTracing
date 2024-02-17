@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_unsigned.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 16:11:40 by gunjkim           #+#    #+#             */
-/*   Updated: 2022/12/13 10:08:17 by gunjkim          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_printf.h"
 
 void	base_rec(unsigned int nbr, int *bytes, unsigned int b_len, char *base)
