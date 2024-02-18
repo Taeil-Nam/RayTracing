@@ -1,36 +1,79 @@
-# Ray Tracing project
-## Development Environment
-- MAC OS 10.15.7
-- Intel CPU
-- Apple clang version 12.0.0 (clang-1200.0.32.28)
+# RayTracing
+This project is made by [Taeil-Nam](https://github.com/Taeil-Nam), [GunJoong-Kim](https://github.com/gunjoong-kim)
 
-## Make program
-- make : basic ray tracing program. (Phong Reflection Model)
-- make bonus : advanced ray tracing program. (Phong Reflection Model and Path Tracing)
-
-## Execute program
-- If you create program using "make" command
-  - "./miniRT [map file name].rt"
-  - Ex) ./miniRT maps/box.rt
-- If you create program using "make bonus" command
-  - "./miniRT [map file name]_bonus.rt"
-  - Ex) ./miniRT maps/box_bonus.rt
-
-## Advanced feature
-- If you create program using "make bonus", you can use advanced feature as following:
-  - Multi-Threading : Program created including Multi-Threading feature. Therefore program optimize the loading process.
-  - Change Rendering Mode : If you want to change rendering mode to Path Tracing, you can modify code "minirt->illumination = PHONG;" to "minirt->illumination = PATH;" in "bonus/src/main_bonus.c".
-
-## Feature
-- miniLibX(graphics library).
-- Ray Tracing.
-- Phong Reflection.
-- Path Tracing.
-- Rendering object(sphere, plane, cylinder, cone).
-- Camera.
-- Multi-spot light.
-- Checkerborad texture.
-- Bump map(Normal map) texture.
-
+<!-- LIMITATION -->
 ## Limitation
+- Program doesn't use GPU, only use CPU.
+- Not supported Real-Time Rendering.
 - In "PATH" rendering mode, program uses Path Tracing and it takes a more time to rendering.
+- In "PATH" rendering mode, if you want to see clean image, increase SAMPLE_PER_PIXEL in bonus/inc/minirt_bonus.h:17
+  - Recommended increase the value at least 500 but it will be **TOO SLOW** to rendering..
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+### Prerequisites
+- Intel CPU Mac
+- MacOS Version = 12.6.2
+- Clang Version = 12.0.0
+- MiniLibX (graphics library)
+- swiftc 5.7.2 (to compile MiniLibX)
+
+### Installation
+1. Git clone
+   ```sh
+   $> git clone https://github.com/Taeil-Nam/RayTracing.git
+   ```
+2. Use "make" command to create program
+   ```sh
+   $> make
+   ```
+
+<!-- USAGE -->
+## Usage
+Exec the program with valid map file as argument.
+
+Valid map file name format = map/[file name].rt
+
+Ex) rendering map "box.rt"
+   ```sh
+   $> ./RayTracing map/box.rt
+   ```
+
+_please refer to the [Demo video](https://www.youtube.com/watch?v=Fi8H6HPMALA)_
+
+📌All file names with "_bonus" shown in the video have been changed to file names with "_bonus" removed.
+
+### Rendering mode
+You can select the rendering mode by editing the code.
+1. PHONG(default mode)
+   - Uses Phong Reflection model. 
+2. PATH
+   - Uses Path Tracing model.
+
+Ex)
+    in src/main.c:49 ```minirt->illumination = PHONG;``` or ```minirt->illumination = PATH;```
+
+<!-- FEATURES -->
+## Features
+- Ray Tracing
+- Phong Reflection
+- Path Tracing
+- Rendering object (sphere, plane, cylinder, cone)
+- Camera
+- Multi-spot light
+- Checkerboard texture
+- Image texture
+- Bump map (Normal map) texture
+- multi-threading
+- BVH (Boundary Volume Hierarchy)
+
+<!-- LICENSE -->
+## License
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<!-- CONTACT -->
+## Contact
+Taeil-Nam - nam0314@gmail.com
+
+Project Link: [https://github.com/Taeil-Nam/RayTracing](https://github.com/Taeil-Nam/RayTracing)
