@@ -7,7 +7,7 @@ This project is made by [Taeil-Nam](https://github.com/Taeil-Nam), [GunJoong-Kim
 - Not supported Real-Time Rendering.
 - In "PATH" rendering mode, program uses Path Tracing and it takes a more time to rendering.
 - In "PATH" rendering mode, if you want to see clean image, increase SAMPLE_PER_PIXEL in inc/minirt.h:17
-  - Recommended increase the value at least 500 but it will be **TOO SLOW** to rendering..
+  - Recommend increasing the value at least 500 but rendering would be **TOO SLOW**..
 
 <!-- GETTING STARTED -->
 ## Getting Started
