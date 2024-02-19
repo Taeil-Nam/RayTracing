@@ -24,7 +24,11 @@ This project is made by [Taeil-Nam](https://github.com/Taeil-Nam), [GunJoong-Kim
    ```sh
    $> git clone https://github.com/Taeil-Nam/RayTracing.git
    ```
-2. Use "make" command to create program
+2. Move to project directory
+   ```sh
+   $> cd RayTracing/
+   ```
+3. Use "make" command to create program
    ```sh
    $> make
    ```
