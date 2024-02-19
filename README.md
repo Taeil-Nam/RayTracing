@@ -72,6 +72,12 @@ Ex)
 - multi-threading
 - BVH (Boundary Volume Hierarchy)
 
+<!-- RESULTS -->
+## Results
+- In "PATH" rendering mode, SAMPLE_PER_PIXEL = 2000
+![남태일-RT](https://github.com/Taeil-Nam/RayTracing/assets/67255013/e5f7d292-12a3-452b-917e-4f0f2d880f6b)
+
+
 <!-- LICENSE -->
 ## License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
