@@ -35,7 +35,7 @@ This project is made by [Taeil-Nam](https://github.com/Taeil-Nam), [GunJoong-Kim
 
 <!-- USAGE -->
 ## Usage
-Exec the program with valid map file as argument.
+Execute the program with valid map file as argument.
 
 Valid map file name format = map/[file name].rt
 
